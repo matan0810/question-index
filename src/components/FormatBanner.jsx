@@ -1,7 +1,7 @@
-import { card, COLORS_UI, FONTS } from "../styles";
+import { card, COLORS_UI, FONTS, primaryColor } from "../styles";
 
 export default function FormatBanner({ chapters, examFormat, colorsUI }) {
-  const accent = colorsUI?.primary ?? COLORS_UI.primary;
+  const accent = primaryColor(colorsUI);
   const chapterByKey = Object.fromEntries(chapters.map((ch) => [ch.key, ch]));
 
   const badgeStyles = {

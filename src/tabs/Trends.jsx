@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { COLORS_UI } from "../styles";
+import { COLORS_UI, primaryColor } from "../styles";
 import { CardTitle } from "../components";
 
 function computeYearTopics(exams, fromYear, isExcluded) {
@@ -31,7 +31,7 @@ function getTopTopics(exams, fromYear, isExcluded, limit = 15) {
 }
 
 export default function Trends({ exams, topicHe, isExcluded, trendFromYear, colorsUI, colors }) {
-  const pri = colorsUI?.primary ?? COLORS_UI.primary;
+  const pri = primaryColor(colorsUI);
 
   const topTopics = useMemo(
     () => getTopTopics(exams, trendFromYear, isExcluded),

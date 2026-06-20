@@ -7169,6 +7169,9 @@ export const EXAMS = [
   {
     code: "2026_sample_I",
     year: 2026,
+    // TODO: "sample" is not a real session — replace with this exam's correct
+    // moed (א/ב/ג). Until then it's an exceptional session, sorted last within
+    // its year (see isExceptionalMoed in utils/exam.js).
     moed: "sample",
     semester: "winter",
     date: "2026",

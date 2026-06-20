@@ -1,12 +1,8 @@
-import { useTypeHelpers } from "../components";
+import { useTypeHelpers, SortControls } from "../components";
 import { useSearchData } from "../hooks";
 import { inp, clearBtn, countBadge } from "../styles";
+import { MOED_OPTIONS } from "../utils/exam";
 import SearchResultCard from "./SearchResultCard";
-
-const MOED_OPTIONS = [
-  { value: "א", label: "מועד א" },
-  { value: "ב", label: "מועד ב" },
-];
 
 const PROGRESS_OPTIONS = [
   { value: "done",   label: "✓ בוצע" },
@@ -32,6 +28,12 @@ export default function SearchTab({
   setLecturer,
   progressFilter,
   setProgressFilter,
+  sortBy,
+  setSortBy,
+  sortDir,
+  setSortDir,
+  hideLatest,
+  setHideLatest,
   clearAll,
   exams,
   topicHe,
@@ -47,28 +49,19 @@ export default function SearchTab({
   labelsVersion,
 }) {
   const { typeToLabel } = useTypeHelpers();
+  const effectiveSortBy = sortBy || "date";
+  const effectiveSortDir = sortDir || "asc";
   const filters = { query, topic, chapter, type, year, moed, lecturer, progressFilter };
   const { topicsByFrequency, years, lecturers, types, results } = useSearchData(
     exams,
-    filters,
+    { ...filters, sortBy: effectiveSortBy, sortDir: effectiveSortDir, hideLatest },
     topicHe,
     isDone,
     doneVersion,
     hasLabel,
     labelsVersion,
   );
-  const hasActiveFilters = Object.values(filters).some(Boolean);
-
-  const clearFilters = clearAll ?? (() => {
-    setQuery("");
-    setTopic("");
-    setChapter("");
-    setType("");
-    setYear("");
-    setMoed("");
-    setLecturer("");
-    setProgressFilter?.("");
-  });
+  const hasActiveFilters = Object.values(filters).some(Boolean) || hideLatest;
 
   return (
     <div>
@@ -145,9 +138,18 @@ export default function SearchTab({
             ))}
           </select>
         )}
+        <SortControls
+          sortBy={effectiveSortBy}
+          setSortBy={setSortBy}
+          sortDir={effectiveSortDir}
+          setSortDir={setSortDir}
+          hideLatest={hideLatest}
+          setHideLatest={setHideLatest}
+          colorsUI={colorsUI}
+        />
         <span style={countBadge}>{results.length} תוצאות</span>
         {hasActiveFilters && (
-          <button onClick={clearFilters} style={clearBtn}>
+          <button onClick={clearAll} style={clearBtn}>
             נקה סינון
           </button>
         )}
@@ -158,9 +160,9 @@ export default function SearchTab({
       )}
 
       <div className="results-grid">
-        {results.map(({ exam, question }, i) => (
+        {results.map(({ exam, question }) => (
           <SearchResultCard
-            key={i}
+            key={`${exam.code}__${question.id}`}
             exam={exam}
             question={question}
             topicHe={topicHe}

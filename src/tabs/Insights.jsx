@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { COLORS_UI } from "../styles";
+import { COLORS_UI, primaryColor } from "../styles";
 import { CardTitle, Badge, MathText } from "../components";
 
 function InsightRow({ children, onClick, hoverBg }) {
@@ -34,7 +34,7 @@ export default function Insights({
   trendFromYear,
   colorsUI,
 }) {
-  const pri = colorsUI?.primary ?? COLORS_UI.primary;
+  const pri = primaryColor(colorsUI);
   const maxYear = useMemo(() => Math.max(...exams.map((e) => e.year)), [exams]);
 
   const nav = (key) => setSearchTopic(key);

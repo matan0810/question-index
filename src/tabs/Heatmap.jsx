@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { COLORS_UI, blendHex, darkenHex } from "../styles";
+import { COLORS_UI, blendHex, darkenHex, primaryColor } from "../styles";
 import { CardTitle, ExcludedTag, excludedRowStyle } from "../components";
 import { useTheme } from "../context/ThemeContext";
 import Trends from "./Trends";
 
 export default function Heatmap({ stats, setSearchTopic, exams, topicHe, isExcluded, colorsUI, trendFromYear, colors }) {
-  const pri = colorsUI?.primary ?? COLORS_UI.primary;
+  const pri = primaryColor(colorsUI);
   const { isDark } = useTheme();
   const heatBase = isDark ? "#1a1816" : "#ffffff";
 

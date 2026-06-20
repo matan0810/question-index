@@ -6,7 +6,7 @@ const EXCLUDED_LABEL = COLORS_UI.muted;
 const TOPICS_INITIAL = 14;
 const TOPICS_INCREMENT = 7;
 
-function ShowMoreControls({ active, visibleCount, setVisibleCount, pri }) {
+function ShowMoreControls({ active, visibleCount, setVisibleCount }) {
   const remaining = active.length - visibleCount;
   const showingAll = visibleCount >= active.length;
 
@@ -154,9 +154,7 @@ export default function Overview({
   colors,
   isExcluded,
   chapters,
-  colorsUI,
 }) {
-  const pri = colorsUI?.primary ?? COLORS_UI.primary;
   const { typeToLabel } = useTypeHelpers();
   const [visibleCount, setVisibleCount] = useState(TOPICS_INITIAL);
   const [showExcluded, setShowExcluded] = useState(false);
@@ -215,7 +213,6 @@ export default function Overview({
             active={active}
             visibleCount={visibleCount}
             setVisibleCount={setVisibleCount}
-            pri={pri}
           />
         )}
         {excluded.length > 0 && (

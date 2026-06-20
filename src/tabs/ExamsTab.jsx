@@ -1,26 +1,13 @@
 import { useMemo } from "react";
+import { SortControls } from "../components";
+import { inp, COLORS_UI, clearBtn, countBadge, primaryColor } from "../styles";
 import {
-  Chip,
-  QuestionChips,
-  ExamPartLabel,
-  ActiveLabelChips,
-  ExcludedTag,
-  MathText,
-  StudyControls,
-} from "../components";
-import { card, inp, COLORS_UI, FONTS, clearBtn, countBadge } from "../styles";
-import {
+  MOED_OPTIONS,
   examMatchesLecturer,
-  examLecturerLabel,
   buildLecturersList,
-  questionExamPartName,
-  questionDisplayNumber,
+  sortExams,
 } from "../utils/exam";
-
-const MOED_OPTIONS = [
-  { value: "א", label: "מועד א" },
-  { value: "ב", label: "מועד ב" },
-];
+import ExamCard from "./ExamCard";
 
 export default function ExamsTab({
   yearFilter,
@@ -29,6 +16,12 @@ export default function ExamsTab({
   setMoedFilter,
   lecturerFilter,
   setLecturerFilter,
+  sortBy,
+  setSortBy,
+  sortDir,
+  setSortDir,
+  hideLatest,
+  setHideLatest,
   setSearchTopic,
   exams,
   topicHe,
@@ -39,8 +32,10 @@ export default function ExamsTab({
   toggleDone,
   hasLabel,
   toggleLabel,
+  doneVersion,
+  labelsVersion,
 }) {
-  const pri = colorsUI?.primary ?? COLORS_UI.primary;
+  const pri = primaryColor(colorsUI);
   const sec = colorsUI?.secondary ?? COLORS_UI.secondary;
 
   const years = useMemo(
@@ -52,18 +47,30 @@ export default function ExamsTab({
 
   const latestYear = useMemo(() => Math.max(...exams.map((e) => e.year)), [exams]);
 
-  const filteredExams = useMemo(
-    () =>
-      exams.filter(
-        (exam) =>
-          (!yearFilter || String(exam.year) === yearFilter) &&
-          (!moedFilter || exam.moed === moedFilter) &&
-          (!lecturerFilter || examMatchesLecturer(exam, lecturerFilter)),
-      ),
-    [exams, yearFilter, moedFilter, lecturerFilter],
-  );
+  const effectiveSortBy = sortBy || "date";
+  const effectiveSortDir = sortDir || "asc";
 
-  const hasActiveFilters = yearFilter || moedFilter || lecturerFilter;
+  const filteredExams = useMemo(() => {
+    const pool = exams.filter(
+      (exam) =>
+        (!yearFilter || String(exam.year) === yearFilter) &&
+        (!moedFilter || exam.moed === moedFilter) &&
+        (!lecturerFilter || examMatchesLecturer(exam, lecturerFilter)) &&
+        (!hideLatest || exam.year !== latestYear),
+    );
+    return sortExams(pool, effectiveSortBy, effectiveSortDir);
+  }, [
+    exams,
+    yearFilter,
+    moedFilter,
+    lecturerFilter,
+    hideLatest,
+    latestYear,
+    effectiveSortBy,
+    effectiveSortDir,
+  ]);
+
+  const hasActiveFilters = yearFilter || moedFilter || lecturerFilter || hideLatest;
 
   return (
     <div>
@@ -107,6 +114,15 @@ export default function ExamsTab({
             ))}
           </select>
         )}
+        <SortControls
+          sortBy={effectiveSortBy}
+          setSortBy={setSortBy}
+          sortDir={effectiveSortDir}
+          setSortDir={setSortDir}
+          hideLatest={hideLatest}
+          setHideLatest={setHideLatest}
+          colorsUI={colorsUI}
+        />
         <span style={countBadge}>
           {filteredExams.length} מבחנים ·{" "}
           {filteredExams.reduce((s, e) => s + e.questions.length, 0)} שאלות
@@ -117,6 +133,7 @@ export default function ExamsTab({
               setYearFilter("");
               setMoedFilter("");
               setLecturerFilter("");
+              setHideLatest(false);
             }}
             style={clearBtn}
           >
@@ -127,149 +144,25 @@ export default function ExamsTab({
 
       {/* Exam cards */}
       <div className="auto-grid">
-        {filteredExams.map((exam) => {
-          const isLatest = exam.year === latestYear;
-          return (
-            <div
-              key={exam.code}
-              style={{
-                ...card,
-                border: isLatest
-                  ? `2px solid ${pri}`
-                  : `1px solid ${COLORS_UI.dark}`,
-                background: isLatest ? `${pri}10` : COLORS_UI.cardBg,
-                boxShadow: `3px 3px 0 ${COLORS_UI.dark}`,
-              }}
-            >
-              <div
-                style={{
-                  marginBottom: 10,
-                  paddingBottom: 8,
-                  borderBottom: `1px solid ${COLORS_UI.border}`,
-                }}
-              >
-                <div
-                  style={{ display: "flex", alignItems: "baseline", gap: 10 }}
-                >
-                  <div
-                    style={{
-                      fontFamily: FONTS.serif,
-                      fontWeight: 900,
-                      fontSize: 26,
-                      lineHeight: 1,
-                    }}
-                  >
-                    {exam.year}
-                  </div>
-                  <div style={{ fontWeight: 700, fontSize: 15 }}>
-                    מועד {exam.moed}
-                  </div>
-                  {isLatest && <Chip kind="hot">המבחן שלך!</Chip>}
-                </div>
-                <div
-                  style={{ fontSize: 11, color: COLORS_UI.muted, marginTop: 3 }}
-                >
-                  מבנה {exam.chapter_structure} · {exam.questions.length} שאלות
-                  {` · ${examLecturerLabel(exam)}`}
-                </div>
-              </div>
-
-              {(exam.questions[0]?.number != null
-                  ? [...exam.questions].sort((a, b) => (a.number ?? 0) - (b.number ?? 0))
-                  : exam.questions
-                ).map((q) => {
-                const excluded = isExcluded(q.topic);
-                const examPart = questionExamPartName(exam, q.id);
-                const questionKey = `${exam.code}__${q.id}`;
-                const done = isDone?.(questionKey) ?? false;
-
-                return (
-                  <div
-                    key={q.id}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: studyMode ? "28px 1fr auto" : "28px 1fr",
-                      gap: 8,
-                      padding: "6px 0",
-                      borderBottom: `1px solid ${COLORS_UI.rowDivider}`,
-                      alignItems: "start",
-                      opacity: excluded ? 0.45 : 1,
-                      background: done ? COLORS_UI.doneBg : "transparent",
-                    }}
-                  >
-                    {/* Question number */}
-                    <div
-                      style={{
-                        fontFamily: FONTS.serif,
-                        fontWeight: 900,
-                        fontSize: 16,
-                        color: done ? COLORS_UI.doneText : pri,
-                        textAlign: "center",
-                        paddingTop: 2,
-                      }}
-                    >
-                      {questionDisplayNumber(q)}
-                      <ExamPartLabel part={examPart} style={{ marginTop: 2 }} />
-                    </div>
-
-                    {/* Content */}
-                    <div>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: 3,
-                          flexWrap: "wrap",
-                          alignItems: "center",
-                          marginBottom: 2,
-                        }}
-                      >
-                        <QuestionChips question={q} />
-                        <span
-                          onClick={() => setSearchTopic(q.topic)}
-                          style={{
-                            fontSize: 11,
-                            fontWeight: 600,
-                            color: excluded ? COLORS_UI.muted : sec,
-                            border: `1px dashed ${excluded ? COLORS_UI.border : sec}`,
-                            padding: "1px 6px",
-                            cursor: "pointer",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 3,
-                          }}
-                        >
-                          {excluded && <ExcludedTag />}
-                          {topicHe[q.topic] || q.topic}
-                        </span>
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 12,
-                          lineHeight: 1.4,
-                          color: COLORS_UI.text,
-                        }}
-                      >
-                        <MathText>{q.summary}</MathText>
-                      </div>
-                      <ActiveLabelChips questionKey={questionKey} hasLabel={hasLabel} />
-                    </div>
-
-                    {/* Study controls */}
-                    {studyMode && (
-                      <StudyControls
-                        done={done}
-                        questionKey={questionKey}
-                        toggleDone={toggleDone}
-                        hasLabel={hasLabel}
-                        toggleLabel={toggleLabel}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+        {filteredExams.map((exam) => (
+          <ExamCard
+            key={exam.code}
+            exam={exam}
+            isLatest={exam.year === latestYear}
+            topicHe={topicHe}
+            isExcluded={isExcluded}
+            pri={pri}
+            sec={sec}
+            studyMode={studyMode}
+            setSearchTopic={setSearchTopic}
+            isDone={isDone}
+            toggleDone={toggleDone}
+            hasLabel={hasLabel}
+            toggleLabel={toggleLabel}
+            doneVersion={doneVersion}
+            labelsVersion={labelsVersion}
+          />
+        ))}
       </div>
     </div>
   );

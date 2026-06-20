@@ -18,13 +18,15 @@ export const COLORS_UI = {
   barBg:      "var(--bar-bg)",
   rowDivider: "var(--row-divider)",
   hoverBg:    "var(--hover-bg)",
-  latestBg:   "var(--latest-bg)",
   cardBg:     "var(--card-bg)",
   doneBg:     "var(--done-bg)",
   doneBorder: "var(--done-border)",
   doneText:   "var(--done-text)",
-  chapter:    { "א": "#c1440e", "ב": "#2b4162", "ג": "#3a5a40" },
 };
+
+// Resolve a course's primary accent color, falling back to the static default
+// when no per-course colorsUI is available. Used across tabs/components.
+export const primaryColor = (colorsUI) => colorsUI?.primary ?? COLORS_UI.primary;
 
 // Card — for places that spread + override (e.g. ExamsTab, FormatBanner).
 // Use className="ui-card" when no overrides are needed.

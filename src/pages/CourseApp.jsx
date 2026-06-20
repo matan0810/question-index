@@ -69,9 +69,19 @@ export default function CourseApp() {
 
   const lecturers = useMemo(() => buildLecturersList(EXAMS), [EXAMS]);
 
-  const totalQuestions = displayExams.reduce((s, e) => s + e.questions.length, 0);
-  const minYear = displayExams.length ? Math.min(...displayExams.map((e) => e.year)) : 0;
-  const maxYear = displayExams.length ? Math.max(...displayExams.map((e) => e.year)) : 0;
+  // Totals for the header/footer — single pass over the (memoized) exam list.
+  const { totalQuestions, minYear, maxYear } = useMemo(() => {
+    if (!displayExams.length) return { totalQuestions: 0, minYear: 0, maxYear: 0 };
+    let total = 0;
+    let min = Infinity;
+    let max = -Infinity;
+    for (const exam of displayExams) {
+      total += exam.questions.length;
+      if (exam.year < min) min = exam.year;
+      if (exam.year > max) max = exam.year;
+    }
+    return { totalQuestions: total, minYear: min, maxYear: max };
+  }, [displayExams]);
 
   useEffect(() => {
     document.title = `מדד שאלות - ${COURSE.name} · ${COURSE.number}`;
@@ -132,7 +142,6 @@ export default function CourseApp() {
           colors={COLORS}
           isExcluded={isExcluded}
           chapters={CHAPTERS}
-          colorsUI={colorsUI}
         />
       )}
       {activeTab === "heatmap" && (
@@ -156,6 +165,8 @@ export default function CourseApp() {
           isExcluded={isExcluded}
           colorsUI={colorsUI}
           studyMode={studyMode}
+          doneVersion={doneVersion}
+          labelsVersion={labelsVersion}
           {...studyProps}
         />
       )}

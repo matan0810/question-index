@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { COLORS_UI, FONTS } from "../styles";
+import { COLORS_UI, FONTS, primaryColor } from "../styles";
 import DarkToggle from "./DarkToggle";
 
 export default function Header({
@@ -15,7 +15,7 @@ export default function Header({
   setActiveLecturer,
   lecturers,
 }) {
-  const pri = colorsUI?.primary ?? COLORS_UI.primary;
+  const pri = primaryColor(colorsUI);
   const navigate = useNavigate();
   const progressPct =
     totalQuestions > 0 ? Math.round((doneCount / totalQuestions) * 100) : 0;

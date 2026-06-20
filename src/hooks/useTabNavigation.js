@@ -1,10 +1,14 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useUrlParam } from "./useUrlParam";
 
 // Active-tab state plus the cross-tab "jump to search with a filter applied"
 // helpers. goToSearch sets tab=search and one filter in a single history
 // replace — splitting it into two setParams calls would drop the first update,
 // since React Router batches both against the original prev.
+//
+// All returned callbacks have stable identities (setParams is read via a ref),
+// so the memoized cards that receive setSearchTopic don't re-render when the
+// URL changes for unrelated reasons (sorting, switching tabs, …).
 export function useTabNavigation(params, setParams) {
   const [tab, setTab] = useUrlParam(params, setParams, "tab");
   const activeTab = tab || "overview";
@@ -13,21 +17,21 @@ export function useTabNavigation(params, setParams) {
     [setTab],
   );
 
-  const goToSearch = useCallback(
-    (filterKey, filterValue) => {
-      setParams(
-        (prev) => {
-          const next = new URLSearchParams(prev);
-          next.set("tab", "search");
-          if (filterValue) next.set(filterKey, filterValue);
-          else next.delete(filterKey);
-          return next;
-        },
-        { replace: true },
-      );
-    },
-    [setParams],
-  );
+  const setParamsRef = useRef(setParams);
+  setParamsRef.current = setParams;
+
+  const goToSearch = useCallback((filterKey, filterValue) => {
+    setParamsRef.current(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.set("tab", "search");
+        if (filterValue) next.set(filterKey, filterValue);
+        else next.delete(filterKey);
+        return next;
+      },
+      { replace: true },
+    );
+  }, []);
 
   const goToTopic = useCallback((v) => goToSearch("topic", v), [goToSearch]);
   const goToChapter = useCallback((v) => goToSearch("chapter", v), [goToSearch]);

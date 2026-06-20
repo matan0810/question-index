@@ -12,7 +12,6 @@
   --bar-bg:       #ece7dc;
   --row-divider:  #ede9e0;
   --hover-bg:     #fef4ee;
-  --latest-bg:    #fef8f3;
   --done-bg:      #f6fdf4;
   --done-border:  #b2d8b2;
   --done-text:    #3a7a3a;
@@ -29,7 +28,6 @@
   --bar-bg:       #26231e;
   --row-divider:  #2d2a24;
   --hover-bg:     #2b2218;
-  --latest-bg:    #211e18;
   --done-bg:      #1b2b1b;
   --done-border:  #3a6a3a;
   --done-text:    #5ab05a;
@@ -52,17 +50,13 @@ button, select, input, textarea { font-family: inherit; }
 /* ============================================================
    LAYOUT UTILITIES
    ============================================================ */
-.flex-center  { display: flex; align-items: center; }
-.flex-between { display: flex; justify-content: space-between; align-items: center; }
 .flex-end     { display: flex; justify-content: flex-end; }
-.flex-col     { display: flex; flex-direction: column; }
 
 /* ============================================================
    TYPOGRAPHY UTILITIES
    ============================================================ */
 .text-sm      { font-size: 11px; }
 .text-muted   { color: var(--muted); }
-.text-subdued { color: var(--subdued); }
 
 /* ============================================================
    PAGE STRUCTURE

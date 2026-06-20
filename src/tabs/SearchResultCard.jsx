@@ -7,7 +7,7 @@ import {
   MathText,
   StudyControls,
 } from "../components";
-import { COLORS_UI, FONTS } from "../styles";
+import { COLORS_UI, FONTS, primaryColor } from "../styles";
 import {
   examLecturerLabel,
   questionExamPartName,
@@ -26,10 +26,12 @@ function SearchResultCard({
   studyMode,
   hasLabel,
   toggleLabel,
+  // Not read directly — these counters change when progress/labels change, so
+  // accepting them as props lets React.memo re-render this card on those updates.
   doneVersion: _dv,
   labelsVersion: _lv,
 }) {
-  const pri = colorsUI?.primary ?? COLORS_UI.primary;
+  const pri = primaryColor(colorsUI);
   const sec = colorsUI?.secondary ?? COLORS_UI.secondary;
   const excluded = isExcluded(question.topic);
   const examPart = questionExamPartName(exam, question.id);

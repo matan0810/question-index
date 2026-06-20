@@ -39,3 +39,5 @@ export default function App() {
 // TODO:
 // - add the rest of infi tests
 // - add descrete math course
+// - improve the wording of algebra and infi questions so that they are accurate to the original
+// - fix the algebra "2026_sample_I" exam: replace moed "sample" with its real moed (it's a mislabeled session; currently sorted last as an exception)

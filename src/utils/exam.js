@@ -1,11 +1,48 @@
 export const UNKNOWN_LECTURER = "לא ידוע";
 
+// Exam session (מועד) options for the filter dropdowns.
+export const MOED_OPTIONS = [
+  { value: "א", label: "מועד א" },
+  { value: "ב", label: "מועד ב" },
+];
+
+// Chronological order of the real exam sessions within a year. Any session not
+// listed here (e.g. a mislabeled "sample") is treated as exceptional.
+export const MOED_ORDER = { א: 0, ב: 1, ג: 2 };
+
+// A session not in MOED_ORDER (e.g. "sample") — sorted to the end of the list.
+export const isExceptionalMoed = (moed) => !(moed in MOED_ORDER);
+
 export const examMatchesLecturer = (exam, lecturer) =>
   exam.lecturers?.includes(lecturer) ||
   (!exam.lecturers?.length && lecturer === UNKNOWN_LECTURER);
 
 export const examLecturerLabel = (exam) =>
   exam.lecturers?.join(", ") ?? UNKNOWN_LECTURER;
+
+// Chronological comparison of two exams: by year, then session order.
+// Exceptional sessions (e.g. a mislabeled "sample") rank last within their year.
+export const examDateCompare = (a, b) =>
+  a.year !== b.year
+    ? a.year - b.year
+    : (MOED_ORDER[a.moed] ?? 9) - (MOED_ORDER[b.moed] ?? 9);
+
+// Return a sorted copy of `exams`. sortBy: "date" | "lecturer". sortDir:
+// "asc" | "desc". Lecturer sort falls back to date for a stable tiebreak.
+export const sortExams = (exams, sortBy = "date", sortDir = "desc") => {
+  const dir = sortDir === "asc" ? 1 : -1;
+  const compare =
+    sortBy === "lecturer"
+      ? (a, b) =>
+          examLecturerLabel(a).localeCompare(examLecturerLabel(b), "he") ||
+          examDateCompare(a, b)
+      : examDateCompare;
+  return [...exams].sort((a, b) => dir * compare(a, b));
+};
+
+// The most recent year present in the exam list, or null when empty.
+export const latestExamYear = (exams) =>
+  exams.length ? Math.max(...exams.map((e) => e.year)) : null;
 
 // The source data spells exam parts many inconsistent ways — "חלק א'", "חלק (א)",
 // "פרק ג'", "חלק III", "חלק 1" — so we normalize them all to one uniform form:

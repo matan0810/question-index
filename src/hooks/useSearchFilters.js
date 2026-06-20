@@ -11,6 +11,7 @@ const SEARCH_KEYS = [
   "moed",
   "lecturer",
   "progress",
+  "hideLatest",
 ];
 
 // SearchTab's full filter set, keyed to the tab's prop names for spreading onto
@@ -29,6 +30,9 @@ export function useSearchFilters(params, setParams) {
     setParams,
     "progress",
   );
+  const [sortBy, setSortBy] = useUrlParam(params, setParams, "sort");
+  const [sortDir, setSortDir] = useUrlParam(params, setParams, "dir");
+  const [hideLatest, setHideLatest] = useUrlParam(params, setParams, "hideLatest");
 
   const clearAll = useCallback(() => {
     setParams(
@@ -58,6 +62,12 @@ export function useSearchFilters(params, setParams) {
     setLecturer,
     progressFilter,
     setProgressFilter,
+    sortBy,
+    setSortBy,
+    sortDir,
+    setSortDir,
+    hideLatest: hideLatest === "1",
+    setHideLatest: (on) => setHideLatest(on ? "1" : ""),
     clearAll,
   };
 }

@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import {
-  UNKNOWN_LECTURER,
   examMatchesLecturer,
   buildLecturersList,
+  sortExams,
+  latestExamYear,
 } from "../utils/exam";
 
 // isDone and hasLabel are stable refs (see useProgress/useLabels).
@@ -17,8 +18,19 @@ export function useSearchData(
   hasLabel,
   labelsVersion,
 ) {
-  const { query, topic, chapter, type, year, moed, lecturer, progressFilter } =
-    filters;
+  const {
+    query,
+    topic,
+    chapter,
+    type,
+    year,
+    moed,
+    lecturer,
+    progressFilter,
+    sortBy,
+    sortDir,
+    hideLatest,
+  } = filters;
 
   const topicsByFrequency = useMemo(
     () =>
@@ -48,11 +60,13 @@ export function useSearchData(
 
   const results = useMemo(() => {
     const queryLower = query.toLowerCase();
+    const latestYear = hideLatest ? latestExamYear(exams) : null;
 
     const examMatches = (exam) =>
       (!year || String(exam.year) === year) &&
       (!moed || exam.moed === moed) &&
-      (!lecturer || examMatchesLecturer(exam, lecturer));
+      (!lecturer || examMatchesLecturer(exam, lecturer)) &&
+      (latestYear === null || exam.year !== latestYear);
 
     const questionMatches = (q, exam) => {
       if (topic && q.topic !== topic) return false;
@@ -73,15 +87,7 @@ export function useSearchData(
       return true;
     };
 
-    const MOED_ORDER = { א: 0, ב: 1, ג: 2, sample: 3 };
-
-    return exams
-      .filter(examMatches)
-      .sort((a, b) =>
-        b.year !== a.year
-          ? b.year - a.year
-          : (MOED_ORDER[a.moed] ?? 9) - (MOED_ORDER[b.moed] ?? 9),
-      )
+    return sortExams(exams.filter(examMatches), sortBy || "date", sortDir || "desc")
       .flatMap((exam) =>
         exam.questions
           .filter((q) => questionMatches(q, exam))
@@ -99,6 +105,9 @@ export function useSearchData(
     lecturer,
     topicHe,
     progressFilter,
+    sortBy,
+    sortDir,
+    hideLatest,
     doneVersion,
     labelsVersion,
   ]);
