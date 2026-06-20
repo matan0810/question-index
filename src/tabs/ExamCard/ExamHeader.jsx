@@ -1,0 +1,27 @@
+import { Chip } from "../../components";
+import { COLORS_UI, FONTS } from "../../styles";
+import { examLecturerLabel } from "../../utils/exam";
+
+export default function ExamHeader({ exam, isLatest, pri }) {
+  return (
+    <div
+      style={{
+        marginBottom: 10,
+        paddingBottom: 8,
+        borderBottom: `1px solid ${COLORS_UI.border}`,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+        <div style={{ fontFamily: FONTS.serif, fontWeight: 900, fontSize: 26, lineHeight: 1 }}>
+          {exam.year}
+        </div>
+        <div style={{ fontWeight: 700, fontSize: 15 }}>מועד {exam.moed}</div>
+        {isLatest && <Chip kind="hot">המבחן שלך!</Chip>}
+      </div>
+      <div style={{ fontSize: 11, color: COLORS_UI.muted, marginTop: 3 }}>
+        מבנה {exam.chapter_structure} · {exam.questions.length} שאלות
+        {` · ${examLecturerLabel(exam)}`}
+      </div>
+    </div>
+  );
+}

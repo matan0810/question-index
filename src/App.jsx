@@ -54,3 +54,5 @@ export default function App() {
 //   Resolution options:
 //   (a) Split into two separate questions
 //   (b) Add a topic-specific tag or annotation so the question can be filtered correctly
+
+// טיפול במקרים בהם יש ששני סמסטרים! דורש טיפול מעמיק הן במאגר והן בקוד

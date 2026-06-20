@@ -1,0 +1,114 @@
+import { useSearchData, usePagination } from "../../hooks";
+import { ShowMore } from "../../components";
+import SearchResultCard from "../SearchResultCard";
+import SearchFilterBar from "./SearchFilterBar";
+
+const PAGE_SIZE = 50;
+
+export default function SearchTab({
+  query, setQuery,
+  topic, setTopic,
+  chapter, setChapter,
+  type, setType,
+  year, setYear,
+  moed, setMoed,
+  lecturer, setLecturer,
+  progressFilter, setProgressFilter,
+  sortBy, setSortBy,
+  sortDir, setSortDir,
+  hideLatest, setHideLatest,
+  clearAll,
+  exams,
+  topicHe,
+  isExcluded,
+  chapters,
+  colorsUI,
+  studyMode,
+  isDone,
+  toggleDone,
+  hasLabel,
+  toggleLabel,
+  doneVersion,
+  labelsVersion,
+}) {
+  const effectiveSortBy = sortBy || "date";
+  const effectiveSortDir = sortDir || "asc";
+  const filters = { query, topic, chapter, type, year, moed, lecturer, progressFilter };
+  const { topicsByFrequency, years, lecturers, types, results } = useSearchData(
+    exams,
+    { ...filters, sortBy: effectiveSortBy, sortDir: effectiveSortDir, hideLatest },
+    topicHe,
+    isDone,
+    doneVersion,
+    hasLabel,
+    labelsVersion,
+  );
+  const hasActiveFilters = Object.values(filters).some(Boolean) || hideLatest;
+
+  const resetKey = `${query}|${topic}|${chapter}|${type}|${year}|${moed}|${lecturer}|${progressFilter}|${effectiveSortBy}|${effectiveSortDir}|${hideLatest}`;
+  const page = usePagination(results.length, { pageSize: PAGE_SIZE, resetKey });
+
+  return (
+    <div>
+      <SearchFilterBar
+        query={query} setQuery={setQuery}
+        topic={topic} setTopic={setTopic}
+        chapter={chapter} setChapter={setChapter}
+        type={type} setType={setType}
+        year={year} setYear={setYear}
+        moed={moed} setMoed={setMoed}
+        lecturer={lecturer} setLecturer={setLecturer}
+        progressFilter={progressFilter} setProgressFilter={setProgressFilter}
+        sortBy={effectiveSortBy} setSortBy={setSortBy}
+        sortDir={effectiveSortDir} setSortDir={setSortDir}
+        hideLatest={hideLatest} setHideLatest={setHideLatest}
+        clearAll={clearAll}
+        topicsByFrequency={topicsByFrequency}
+        topicHe={topicHe}
+        chapters={chapters}
+        years={years}
+        lecturers={lecturers}
+        types={types}
+        resultCount={results.length}
+        hasActiveFilters={hasActiveFilters}
+        colorsUI={colorsUI}
+        studyMode={studyMode}
+      />
+
+      {results.length === 0 && (
+        <div className="empty-state">לא נמצאו שאלות</div>
+      )}
+
+      <div className="results-grid">
+        {results.slice(0, page.visible).map(({ exam, question }) => (
+          <SearchResultCard
+            key={`${exam.code}__${question.id}`}
+            exam={exam}
+            question={question}
+            topicHe={topicHe}
+            isExcluded={isExcluded}
+            setTopic={setTopic}
+            colorsUI={colorsUI}
+            studyMode={studyMode}
+            isDone={isDone}
+            toggleDone={toggleDone}
+            hasLabel={hasLabel}
+            toggleLabel={toggleLabel}
+            doneVersion={doneVersion}
+            labelsVersion={labelsVersion}
+          />
+        ))}
+      </div>
+
+      <ShowMore
+        visible={page.visible}
+        total={results.length}
+        remaining={page.remaining}
+        step={PAGE_SIZE}
+        unit="תוצאות"
+        onMore={page.showMore}
+        onAll={page.showAll}
+      />
+    </div>
+  );
+}

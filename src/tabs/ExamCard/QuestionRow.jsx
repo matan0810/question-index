@@ -1,0 +1,104 @@
+import {
+  QuestionChips,
+  ExamPartLabel,
+  ActiveLabelChips,
+  ExcludedTag,
+  MathText,
+  StudyControls,
+} from "../../components";
+import { COLORS_UI, FONTS } from "../../styles";
+import { questionExamPartName, questionDisplayNumber } from "../../utils/exam";
+
+export default function QuestionRow({
+  q,
+  exam,
+  topicHe,
+  pri,
+  sec,
+  studyMode,
+  setSearchTopic,
+  isExcluded,
+  isDone,
+  toggleDone,
+  hasLabel,
+  toggleLabel,
+}) {
+  const excluded = isExcluded(q.topic);
+  const examPart = questionExamPartName(exam, q.id);
+  const questionKey = `${exam.code}__${q.id}`;
+  const done = isDone?.(questionKey) ?? false;
+
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: studyMode ? "28px 1fr auto" : "28px 1fr",
+        gap: 8,
+        padding: "6px 0",
+        borderBottom: `1px solid ${COLORS_UI.rowDivider}`,
+        alignItems: "start",
+        opacity: excluded ? 0.45 : 1,
+        background: done ? COLORS_UI.doneBg : "transparent",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: FONTS.serif,
+          fontWeight: 900,
+          fontSize: 16,
+          color: done ? COLORS_UI.doneText : pri,
+          textAlign: "center",
+          paddingTop: 2,
+        }}
+      >
+        {questionDisplayNumber(q)}
+        <ExamPartLabel part={examPart} style={{ marginTop: 2 }} />
+      </div>
+
+      <div>
+        <div
+          style={{
+            display: "flex",
+            gap: 3,
+            flexWrap: "wrap",
+            alignItems: "center",
+            marginBottom: 2,
+          }}
+        >
+          <QuestionChips question={q} />
+          <span
+            onClick={() => setSearchTopic(q.topic)}
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: excluded ? COLORS_UI.muted : sec,
+              border: `1px dashed ${excluded ? COLORS_UI.border : sec}`,
+              padding: "1px 6px",
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 3,
+            }}
+          >
+            {excluded && <ExcludedTag />}
+            {topicHe[q.topic] || q.topic}
+          </span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.4, color: COLORS_UI.text }}>
+          <MathText>{q.summary}</MathText>
+        </div>
+        <ActiveLabelChips questionKey={questionKey} hasLabel={hasLabel} />
+      </div>
+
+      {studyMode && (
+        <StudyControls
+          done={done}
+          questionKey={questionKey}
+          toggleDone={toggleDone}
+          hasLabel={hasLabel}
+          toggleLabel={toggleLabel}
+        />
+      )}
+    </div>
+  );
+}

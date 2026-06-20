@@ -6,13 +6,13 @@ import {
   ExcludedTag,
   MathText,
   StudyControls,
-} from "../components";
-import { COLORS_UI, FONTS, primaryColor } from "../styles";
+} from "../../components";
+import { COLORS_UI, FONTS, primaryColor } from "../../styles";
 import {
   examLecturerLabel,
   questionExamPartName,
   questionDisplayNumber,
-} from "../utils/exam";
+} from "../../utils/exam";
 
 function SearchResultCard({
   exam,
@@ -26,8 +26,6 @@ function SearchResultCard({
   studyMode,
   hasLabel,
   toggleLabel,
-  // Not read directly — these counters change when progress/labels change, so
-  // accepting them as props lets React.memo re-render this card on those updates.
   doneVersion: _dv,
   labelsVersion: _lv,
 }) {
@@ -54,7 +52,6 @@ function SearchResultCard({
         transition: "background 0.15s, border-color 0.15s",
       }}
     >
-      {/* col 1: exam info */}
       <div className="result-card-meta" style={{ lineHeight: 1.5 }}>
         <div style={{ fontWeight: 700, fontSize: 14 }}>{exam.year}</div>
         <div style={{ fontSize: 12, color: COLORS_UI.text }}>מועד {exam.moed}</div>
@@ -78,12 +75,10 @@ function SearchResultCard({
         </div>
       </div>
 
-      {/* col 2: chips */}
       <div className="result-card-chips">
         <QuestionChips question={question} />
       </div>
 
-      {/* col 3: topic + summary + active label chips */}
       <div className="result-card-topic">
         <div
           onClick={() => setTopic(question.topic)}
@@ -109,7 +104,6 @@ function SearchResultCard({
         <ActiveLabelChips questionKey={questionKey} hasLabel={hasLabel} />
       </div>
 
-      {/* col 4: study controls (study mode only) */}
       {studyMode && (
         <div className="result-card-done">
           <StudyControls

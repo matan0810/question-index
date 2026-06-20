@@ -1,28 +1,7 @@
 import { useMemo, useState } from "react";
-import { COLORS_UI, primaryColor } from "../styles";
-import { CardTitle, Badge, MathText } from "../components";
-
-function InsightRow({ children, onClick, hoverBg }) {
-  return (
-    <div
-      onClick={onClick}
-      style={{
-        padding: "11px 0",
-        borderBottom: `1px solid ${COLORS_UI.rowDivider}`,
-        lineHeight: 1.5,
-        cursor: onClick ? "pointer" : "default",
-      }}
-      onMouseEnter={(e) => {
-        if (onClick) e.currentTarget.style.background = hoverBg ?? COLORS_UI.hoverBg;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = "transparent";
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+import { COLORS_UI, primaryColor } from "../../styles";
+import { CardTitle, Badge, MathText } from "../../components";
+import InsightRow from "./InsightRow";
 
 export default function Insights({
   stats,
@@ -91,11 +70,7 @@ export default function Insights({
   return (
     <div className="auto-grid">
       <div className="ui-card">
-        <CardTitle
-          emoji="🔥"
-          title="חובה ללמוד"
-          sub="לחץ על נושא לחיפוש שאלות"
-        />
+        <CardTitle emoji="🔥" title="חובה ללמוד" sub="לחץ על נושא לחיפוש שאלות" />
         {sortedTopics.slice(0, 5).map(([key, count]) => {
           const examCount = exams.filter(
             (exam) => stats.examTopics[exam.code][key],
@@ -126,7 +101,11 @@ export default function Insights({
           sub="שאלות כמעט זהות שחזרו מספר פעמים"
         />
         {traps.map((trap, i) => (
-          <InsightRow key={i} onClick={() => setOpenTrap(openTrap === i ? null : i)} hoverBg={`${pri}0d`}>
+          <InsightRow
+            key={i}
+            onClick={() => setOpenTrap(openTrap === i ? null : i)}
+            hoverBg={`${pri}0d`}
+          >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
               <div className="topic-title" style={{ color: pri, flex: 1 }}>
                 <MathText>{trap.t}</MathText>
@@ -138,11 +117,7 @@ export default function Insights({
             {openTrap === i && (
               <div
                 className="topic-sub"
-                style={{
-                  marginTop: 8,
-                  paddingTop: 8,
-                  borderTop: `1px solid ${COLORS_UI.rowDivider}`,
-                }}
+                style={{ marginTop: 8, paddingTop: 8, borderTop: `1px solid ${COLORS_UI.rowDivider}` }}
               >
                 <MathText>{trap.n}</MathText>
               </div>
@@ -173,24 +148,16 @@ export default function Insights({
       </div>
 
       <div className="ui-card">
-        <CardTitle
-          emoji="🎯"
-          title="צפוי לבוא"
-          sub="לחץ על נושא לחיפוש שאלות"
-        />
+        <CardTitle emoji="🎯" title="צפוי לבוא" sub="לחץ על נושא לחיפוש שאלות" />
         {overdueTopics.length === 0 ? (
-          <div className="topic-sub" style={{ fontStyle: "italic" }}>
-            אין נושאים כאלה
-          </div>
+          <div className="topic-sub" style={{ fontStyle: "italic" }}>אין נושאים כאלה</div>
         ) : (
           overdueTopics.map(({ topic, count, last }) => (
             <InsightRow key={topic} onClick={() => nav(topic)} hoverBg={`${pri}12`}>
               <div className="insight-item">
                 <Badge bg={pri}>{count}×</Badge>
                 <div>
-                  <div className="topic-title">
-                    {topicHe[topic] || topic}
-                  </div>
+                  <div className="topic-title">{topicHe[topic] || topic}</div>
                   <div className="topic-sub">
                     נראה לאחרונה {last} · {maxYear - last} שנים ללא הופעה
                   </div>
@@ -202,11 +169,7 @@ export default function Insights({
       </div>
 
       <div className="ui-card">
-        <CardTitle
-          emoji="❄️"
-          title="פחות שכיח"
-          sub="לחץ על נושא לחיפוש שאלות"
-        />
+        <CardTitle emoji="❄️" title="פחות שכיח" sub="לחץ על נושא לחיפוש שאלות" />
         {sortedTopics
           .filter(([, count]) => count <= 3)
           .map(([key, count]) => {
@@ -216,14 +179,10 @@ export default function Insights({
             return (
               <InsightRow key={key} onClick={() => nav(key)} hoverBg={`${pri}12`}>
                 <div className="insight-item">
-                  <Badge bg={COLORS_UI.barBg} color={COLORS_UI.text}>
-                    {count}
-                  </Badge>
+                  <Badge bg={COLORS_UI.barBg} color={COLORS_UI.text}>{count}</Badge>
                   <div>
                     <div className="topic-title">{topicHe[key]}</div>
-                    <div className="topic-sub">
-                      ב-{examCount} מבחנים בלבד
-                    </div>
+                    <div className="topic-sub">ב-{examCount} מבחנים בלבד</div>
                   </div>
                 </div>
               </InsightRow>
