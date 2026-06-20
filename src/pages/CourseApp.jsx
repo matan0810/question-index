@@ -1,6 +1,14 @@
-import { useEffect, useCallback, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useStats, useProgress, useLabels, useUrlParam } from "../hooks";
+import {
+  useStats,
+  useProgress,
+  useLabels,
+  useUrlParam,
+  useTabNavigation,
+  useExamFilters,
+  useSearchFilters,
+} from "../hooks";
 import { Header, FormatBanner, TabBar, Footer, ScrollProgress } from "../components";
 import { Overview, Heatmap, ExamsTab, SearchTab, Insights } from "../tabs";
 import { useCourse } from "../context/CourseContext";
@@ -37,12 +45,8 @@ export default function CourseApp() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [tab, setTab] = useUrlParam(searchParams, setSearchParams, "tab");
-  const activeTab = tab || "overview";
-  const setActiveTab = useCallback(
-    (v) => setTab(v === "overview" ? "" : v),
-    [setTab],
-  );
+  const { activeTab, setActiveTab, goToTopic, goToChapter, goToType } =
+    useTabNavigation(searchParams, setSearchParams);
 
   // Global lecturer mode
   const [activeLecturer, setActiveLecturer] = useUrlParam(
@@ -51,24 +55,8 @@ export default function CourseApp() {
     "activeLecturer",
   );
 
-  // ExamsTab filters
-  const [examYear, setExamYear] = useUrlParam(searchParams, setSearchParams, "examYear");
-  const [examMoed, setExamMoed] = useUrlParam(searchParams, setSearchParams, "examMoed");
-  const [examLecturer, setExamLecturer] = useUrlParam(searchParams, setSearchParams, "examLecturer");
-
-  // SearchTab filters
-  const [searchQuery, setSearchQuery] = useUrlParam(searchParams, setSearchParams, "q");
-  const [searchTopic, setSearchTopic] = useUrlParam(searchParams, setSearchParams, "topic");
-  const [searchChapter, setSearchChapter] = useUrlParam(searchParams, setSearchParams, "chapter");
-  const [searchType, setSearchType] = useUrlParam(searchParams, setSearchParams, "type");
-  const [searchYear, setSearchYear] = useUrlParam(searchParams, setSearchParams, "year");
-  const [searchMoed, setSearchMoed] = useUrlParam(searchParams, setSearchParams, "moed");
-  const [searchLecturer, setSearchLecturer] = useUrlParam(searchParams, setSearchParams, "lecturer");
-  const [searchProgressFilter, setSearchProgressFilter] = useUrlParam(
-    searchParams,
-    setSearchParams,
-    "progress",
-  );
+  const examFilters = useExamFilters(searchParams, setSearchParams);
+  const searchFilters = useSearchFilters(searchParams, setSearchParams);
 
   // When activeLecturer is set, all tabs see only that lecturer's exams
   const displayExams = useMemo(
@@ -90,40 +78,6 @@ export default function CourseApp() {
   }, [COURSE]);
 
   const stats = useStats(displayExams);
-
-  // Atomic navigation: sets tab=search + one filter in a single setSearchParams call.
-  // Calling setSearchParams twice in one event loses the first update (React Router batches
-  // with the original prev, not the updated one), so we must do both in one call.
-  const goToSearch = useCallback(
-    (filterKey, filterValue) => {
-      setSearchParams(
-        (prev) => {
-          const next = new URLSearchParams(prev);
-          next.set("tab", "search");
-          if (filterValue) next.set(filterKey, filterValue);
-          else next.delete(filterKey);
-          return next;
-        },
-        { replace: true },
-      );
-    },
-    [setSearchParams],
-  );
-
-  const goToTopic   = useCallback((v) => goToSearch("topic",   v), [goToSearch]);
-  const goToChapter = useCallback((v) => goToSearch("chapter", v), [goToSearch]);
-  const goToType    = useCallback((v) => goToSearch("type",    v), [goToSearch]);
-
-  // Atomic clear for all search filters — same reason as goToSearch
-  const clearSearchFilters = useCallback(() => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      ["q", "topic", "chapter", "type", "year", "moed", "lecturer", "progress"].forEach(
-        (k) => next.delete(k),
-      );
-      return next;
-    }, { replace: true });
-  }, [setSearchParams]);
 
   // Derive format banner info from the actual latest exam (not hardcoded config)
   const latestExam = useMemo(() => {
@@ -195,12 +149,7 @@ export default function CourseApp() {
       )}
       {activeTab === "exams" && (
         <ExamsTab
-          yearFilter={examYear}
-          setYearFilter={setExamYear}
-          moedFilter={examMoed}
-          setMoedFilter={setExamMoed}
-          lecturerFilter={examLecturer}
-          setLecturerFilter={setExamLecturer}
+          {...examFilters}
           setSearchTopic={goToTopic}
           exams={displayExams}
           topicHe={TOPIC_HE}
@@ -212,29 +161,13 @@ export default function CourseApp() {
       )}
       {activeTab === "search" && (
         <SearchTab
-          query={searchQuery}
-          setQuery={setSearchQuery}
-          topic={searchTopic}
-          setTopic={setSearchTopic}
-          chapter={searchChapter}
-          setChapter={setSearchChapter}
-          type={searchType}
-          setType={setSearchType}
-          year={searchYear}
-          setYear={setSearchYear}
-          moed={searchMoed}
-          setMoed={setSearchMoed}
-          lecturer={searchLecturer}
-          setLecturer={setSearchLecturer}
+          {...searchFilters}
           exams={displayExams}
           topicHe={TOPIC_HE}
           isExcluded={isExcluded}
           chapters={CHAPTERS}
           colorsUI={colorsUI}
           studyMode={studyMode}
-          progressFilter={searchProgressFilter}
-          setProgressFilter={setSearchProgressFilter}
-          clearAll={clearSearchFilters}
           doneVersion={doneVersion}
           labelsVersion={labelsVersion}
           {...studyProps}
