@@ -76,7 +76,26 @@ export default function ConfirmDialog({ title, body, confirmLabel = "אשר", on
           </div>
         )}
 
-        <div style={{ display: "flex", gap: 10, justifyContent: "flex-start" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <button
+            ref={cancelRef}
+            onClick={onCancel}
+            style={{
+              fontFamily: FONTS.sans,
+              fontSize: 13,
+              fontWeight: 600,
+              background: "transparent",
+              color: COLORS_UI.text,
+              border: `1px solid ${COLORS_UI.border}`,
+              padding: "7px 20px",
+              cursor: "pointer",
+              transition: "border-color 0.15s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = COLORS_UI.subdued)}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = COLORS_UI.border)}
+          >
+            ביטול
+          </button>
           <button
             onClick={onConfirm}
             style={{
@@ -101,25 +120,6 @@ export default function ConfirmDialog({ title, body, confirmLabel = "אשר", on
             }}
           >
             {confirmLabel}
-          </button>
-          <button
-            ref={cancelRef}
-            onClick={onCancel}
-            style={{
-              fontFamily: FONTS.sans,
-              fontSize: 13,
-              fontWeight: 600,
-              background: "transparent",
-              color: COLORS_UI.text,
-              border: `1px solid ${COLORS_UI.border}`,
-              padding: "7px 20px",
-              cursor: "pointer",
-              transition: "border-color 0.15s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = COLORS_UI.subdued)}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = COLORS_UI.border)}
-          >
-            ביטול
           </button>
         </div>
       </div>

@@ -85,8 +85,8 @@ export default function ProgressWidget({ doneCount, labelCount, totalQuestions, 
 
       {showConfirm && (
         <ConfirmDialog
-          title="איפוס התקדמות"
-          body="כל הסימונים (בוצע, קשה, להמשך) יימחקו. פעולה זו אינה הפיכה."
+          title="איפוס כל הסימונים"
+          body="כל הסימונים יוסרו — בוצע, קשה ולהמשך. השאלות עצמן לא יושפעו. פעולה זו אינה הפיכה."
           confirmLabel="איפוס הכל"
           onConfirm={handleConfirmReset}
           onCancel={() => setShowConfirm(false)}
