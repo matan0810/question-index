@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { SortControls } from "../components";
+import { SortControls, ShowMore } from "../components";
+import { usePagination } from "../hooks";
 import { inp, COLORS_UI, clearBtn, countBadge, primaryColor } from "../styles";
 import {
   MOED_OPTIONS,
@@ -8,6 +9,8 @@ import {
   sortExams,
 } from "../utils/exam";
 import ExamCard from "./ExamCard";
+
+const PAGE_SIZE = 6;
 
 export default function ExamsTab({
   yearFilter,
@@ -71,6 +74,10 @@ export default function ExamsTab({
   ]);
 
   const hasActiveFilters = yearFilter || moedFilter || lecturerFilter || hideLatest;
+
+  // Render exam cards a page at a time; reset when filters/sort change.
+  const resetKey = `${yearFilter}|${moedFilter}|${lecturerFilter}|${hideLatest}|${effectiveSortBy}|${effectiveSortDir}`;
+  const page = usePagination(filteredExams.length, { pageSize: PAGE_SIZE, resetKey });
 
   return (
     <div>
@@ -144,7 +151,7 @@ export default function ExamsTab({
 
       {/* Exam cards */}
       <div className="auto-grid">
-        {filteredExams.map((exam) => (
+        {filteredExams.slice(0, page.visible).map((exam) => (
           <ExamCard
             key={exam.code}
             exam={exam}
@@ -164,6 +171,16 @@ export default function ExamsTab({
           />
         ))}
       </div>
+
+      <ShowMore
+        visible={page.visible}
+        total={filteredExams.length}
+        remaining={page.remaining}
+        step={PAGE_SIZE}
+        unit="מבחנים"
+        onMore={page.showMore}
+        onAll={page.showAll}
+      />
     </div>
   );
 }

@@ -1,8 +1,10 @@
-import { useTypeHelpers, SortControls } from "../components";
-import { useSearchData } from "../hooks";
+import { useTypeHelpers, SortControls, ShowMore } from "../components";
+import { useSearchData, usePagination } from "../hooks";
 import { inp, clearBtn, countBadge } from "../styles";
 import { MOED_OPTIONS } from "../utils/exam";
 import SearchResultCard from "./SearchResultCard";
+
+const PAGE_SIZE = 50;
 
 const PROGRESS_OPTIONS = [
   { value: "done",   label: "✓ בוצע" },
@@ -62,6 +64,10 @@ export default function SearchTab({
     labelsVersion,
   );
   const hasActiveFilters = Object.values(filters).some(Boolean) || hideLatest;
+
+  // Render results a page at a time; reset to page 1 when filters/sort change.
+  const resetKey = `${query}|${topic}|${chapter}|${type}|${year}|${moed}|${lecturer}|${progressFilter}|${effectiveSortBy}|${effectiveSortDir}|${hideLatest}`;
+  const page = usePagination(results.length, { pageSize: PAGE_SIZE, resetKey });
 
   return (
     <div>
@@ -160,7 +166,7 @@ export default function SearchTab({
       )}
 
       <div className="results-grid">
-        {results.map(({ exam, question }) => (
+        {results.slice(0, page.visible).map(({ exam, question }) => (
           <SearchResultCard
             key={`${exam.code}__${question.id}`}
             exam={exam}
@@ -179,6 +185,16 @@ export default function SearchTab({
           />
         ))}
       </div>
+
+      <ShowMore
+        visible={page.visible}
+        total={results.length}
+        remaining={page.remaining}
+        step={PAGE_SIZE}
+        unit="תוצאות"
+        onMore={page.showMore}
+        onAll={page.showAll}
+      />
     </div>
   );
 }

@@ -12,6 +12,7 @@ export { default as Footer } from "./Footer";
 export { default as FormatBanner } from "./FormatBanner";
 export { default as Header } from "./Header";
 export { default as ScrollProgress } from "./ScrollProgress";
+export { default as ShowMore } from "./ShowMore";
 export { default as SortControls } from "./SortControls";
 export { default as MathText } from "./MathText";
 export { default as StudyControls } from "./StudyControls";
