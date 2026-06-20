@@ -12,7 +12,8 @@
       "Bash(node --input-type=module --experimental-vm-modules)",
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Matan\\\\Downloads\\\\פרוייקט אינדקס\\\\question-index\\\\src\" -Recurse -Filter \"*.jsx\" -File)",
       "Bash(Select-Object FullName)",
-      "PowerShell(npm test)"
+      "PowerShell(npm test)",
+      "PowerShell(npm run build 2>&1)"
     ]
   }
 }

@@ -69,7 +69,7 @@ export default function CoursePicker() {
             }}
           >
             <div className="text-sm text-muted" style={{ marginBottom: 4 }}>
-              {course.COURSE.number} · {course.COURSE.teacher}
+              קורס {course.COURSE.number}
             </div>
             <div
               style={{
@@ -104,6 +104,25 @@ export default function CoursePicker() {
             </div>
           </button>
         ))}
+      </div>
+
+      {/* Footer — pushed to the bottom of the viewport */}
+      <div
+        style={{
+          marginTop: "auto",
+          paddingTop: 28,
+          borderTop: `1px solid ${COLORS_UI.border}`,
+          fontSize: 11,
+          color: COLORS_UI.muted,
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ flex: 1 }}>סיווג ידני</span>
+        <span style={{ flex: 2, textAlign: "center" }}>
+          האפליקציה מיועדת לשימוש אישי בלבד לצורכי לימוד.
+        </span>
+        <span style={{ flex: 1, textAlign: "end" }}>v2.0</span>
       </div>
     </div>
   );
