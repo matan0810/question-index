@@ -37,7 +37,20 @@ export default function App() {
 }
 
 // TODO:
-// - add the rest of infi tests
-// - add descrete math course
-// - improve the wording of algebra and infi questions so that they are accurate to the original
-// - fix the algebra "2026_sample_I" exam: replace moed "sample" with its real moed (it's a mislabeled session; currently sorted last as an exception)
+//
+// CONTENT:
+// - Add remaining Calculus (Infi) exams
+// - Add Discrete Math course
+//
+// FIXES:
+// - Fix mislabeled Algebra exam "2026_sample_I": replace moed "sample" with its actual moed
+//   (currently sorted last because "sample" doesn't match any real moed)
+//
+// QUALITY:
+// - Review and correct Algebra & Calculus question wording to match the original exam phrasing
+//
+// EDGE CASE — Multi-topic sections:
+// - Some sections cover two unrelated topics (even within the same section number).
+//   Resolution options:
+//   (a) Split into two separate questions
+//   (b) Add a topic-specific tag or annotation so the question can be filtered correctly
