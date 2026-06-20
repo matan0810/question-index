@@ -6,6 +6,7 @@ export { default as Chip, useTypeHelpers } from "./Chip";
 export { default as QuestionChips } from "./QuestionChips";
 export { default as ExamPartLabel } from "./ExamPartLabel";
 export { default as ActiveLabelChips } from "./ActiveLabelChips";
+export { default as ConfirmDialog } from "./ConfirmDialog";
 export { default as ErrorBoundary } from "./ErrorBoundary";
 export { default as ExcludedTag, excludedRowStyle } from "./ExcludedTag";
 export { default as Footer } from "./Footer";

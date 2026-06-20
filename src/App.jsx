@@ -50,7 +50,7 @@ export default function App() {
 // - Review and correct Algebra & Calculus question wording to match the original exam phrasing
 //
 // EDGE CASE — Multi-topic sections:
-// - Some sections cover two unrelated topics (even within the same section number).
+// - Some sections cover two unrelated topics (even within the same section number). שאלה 3 ראיה: 2019 מועד ב
 //   Resolution options:
 //   (a) Split into two separate questions
 //   (b) Add a topic-specific tag or annotation so the question can be filtered correctly

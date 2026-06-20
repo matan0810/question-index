@@ -41,7 +41,6 @@ export function useProgress(courseId) {
   );
 
   const resetProgress = useCallback(() => {
-    if (!window.confirm("לאפס את כל ההתקדמות? פעולה זו אינה הפיכה.")) return;
     setDone(new Set());
     setDoneVersion((v) => v + 1);
     localStorage.removeItem(storageKey(courseId));
