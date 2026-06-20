@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { COURSE_LIST } from "../courses/index";
 import { COLORS_UI, FONTS, card } from "../styles";
-import DarkToggle from "../components/DarkToggle";
+import { DarkToggle, Footer } from "../components";
 
 export default function CoursePicker() {
   const navigate = useNavigate();
@@ -107,23 +107,7 @@ export default function CoursePicker() {
       </div>
 
       {/* Footer — pushed to the bottom of the viewport */}
-      <div
-        style={{
-          marginTop: "auto",
-          paddingTop: 28,
-          borderTop: `1px solid ${COLORS_UI.border}`,
-          fontSize: 11,
-          color: COLORS_UI.muted,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <span style={{ flex: 1 }}>סיווג ידני</span>
-        <span style={{ flex: 2, textAlign: "center" }}>
-          האפליקציה מיועדת לשימוש אישי בלבד לצורכי לימוד.
-        </span>
-        <span style={{ flex: 1, textAlign: "end" }}>v2.0</span>
-      </div>
+      <Footer stickToBottom />
     </div>
   );
 }

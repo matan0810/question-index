@@ -1,65 +1,10 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useStats, useProgress, useLabels } from "../hooks";
-import { COLORS_UI } from "../styles";
-import { Header, FormatBanner, TabBar } from "../components";
+import { useStats, useProgress, useLabels, useUrlParam } from "../hooks";
+import { Header, FormatBanner, TabBar, Footer, ScrollProgress } from "../components";
 import { Overview, Heatmap, ExamsTab, SearchTab, Insights } from "../tabs";
 import { useCourse } from "../context/CourseContext";
 import { examMatchesLecturer, buildLecturersList } from "../utils/exam";
-
-function ScrollProgress({ color }) {
-  const [pct, setPct] = useState(0);
-  useEffect(() => {
-    const update = () => {
-      const el = document.documentElement;
-      const max = el.scrollHeight - el.clientHeight;
-      setPct(max > 0 ? (el.scrollTop / max) * 100 : 0);
-    };
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        right: 0,
-        left: 0,
-        height: 3,
-        zIndex: 1000,
-        pointerEvents: "none",
-      }}
-    >
-      <div
-        style={{
-          height: "100%",
-          width: `${pct}%`,
-          background: color,
-          opacity: 0.65,
-          transition: "width 0.08s linear",
-        }}
-      />
-    </div>
-  );
-}
-
-function useParam(params, setParams, key) {
-  const value = params.get(key) ?? "";
-  const setValue = useCallback(
-    (v) =>
-      setParams(
-        (prev) => {
-          const next = new URLSearchParams(prev);
-          if (v) next.set(key, v);
-          else next.delete(key);
-          return next;
-        },
-        { replace: true },
-      ),
-    [setParams, key],
-  );
-  return [value, setValue];
-}
 
 export default function CourseApp() {
   const {
@@ -92,7 +37,7 @@ export default function CourseApp() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [tab, setTab] = useParam(searchParams, setSearchParams, "tab");
+  const [tab, setTab] = useUrlParam(searchParams, setSearchParams, "tab");
   const activeTab = tab || "overview";
   const setActiveTab = useCallback(
     (v) => setTab(v === "overview" ? "" : v),
@@ -100,26 +45,26 @@ export default function CourseApp() {
   );
 
   // Global lecturer mode
-  const [activeLecturer, setActiveLecturer] = useParam(
+  const [activeLecturer, setActiveLecturer] = useUrlParam(
     searchParams,
     setSearchParams,
     "activeLecturer",
   );
 
   // ExamsTab filters
-  const [examYear, setExamYear] = useParam(searchParams, setSearchParams, "examYear");
-  const [examMoed, setExamMoed] = useParam(searchParams, setSearchParams, "examMoed");
-  const [examLecturer, setExamLecturer] = useParam(searchParams, setSearchParams, "examLecturer");
+  const [examYear, setExamYear] = useUrlParam(searchParams, setSearchParams, "examYear");
+  const [examMoed, setExamMoed] = useUrlParam(searchParams, setSearchParams, "examMoed");
+  const [examLecturer, setExamLecturer] = useUrlParam(searchParams, setSearchParams, "examLecturer");
 
   // SearchTab filters
-  const [searchQuery, setSearchQuery] = useParam(searchParams, setSearchParams, "q");
-  const [searchTopic, setSearchTopic] = useParam(searchParams, setSearchParams, "topic");
-  const [searchChapter, setSearchChapter] = useParam(searchParams, setSearchParams, "chapter");
-  const [searchType, setSearchType] = useParam(searchParams, setSearchParams, "type");
-  const [searchYear, setSearchYear] = useParam(searchParams, setSearchParams, "year");
-  const [searchMoed, setSearchMoed] = useParam(searchParams, setSearchParams, "moed");
-  const [searchLecturer, setSearchLecturer] = useParam(searchParams, setSearchParams, "lecturer");
-  const [searchProgressFilter, setSearchProgressFilter] = useParam(
+  const [searchQuery, setSearchQuery] = useUrlParam(searchParams, setSearchParams, "q");
+  const [searchTopic, setSearchTopic] = useUrlParam(searchParams, setSearchParams, "topic");
+  const [searchChapter, setSearchChapter] = useUrlParam(searchParams, setSearchParams, "chapter");
+  const [searchType, setSearchType] = useUrlParam(searchParams, setSearchParams, "type");
+  const [searchYear, setSearchYear] = useUrlParam(searchParams, setSearchParams, "year");
+  const [searchMoed, setSearchMoed] = useUrlParam(searchParams, setSearchParams, "moed");
+  const [searchLecturer, setSearchLecturer] = useUrlParam(searchParams, setSearchParams, "lecturer");
+  const [searchProgressFilter, setSearchProgressFilter] = useUrlParam(
     searchParams,
     setSearchParams,
     "progress",
@@ -308,25 +253,14 @@ export default function CourseApp() {
         />
       )}
 
-      <div
-        style={{
-          marginTop: 28,
-          paddingTop: 14,
-          borderTop: `1px solid ${COLORS_UI.border}`,
-          fontSize: 11,
-          color: COLORS_UI.muted,
-          display: "flex",
-          alignItems: "center",
+      <Footer
+        stats={{
+          exams: displayExams.length,
+          questions: totalQuestions,
+          minYear,
+          maxYear,
         }}
-      >
-        <span style={{ flex: 1 }}>
-          סיווג ידני · {displayExams.length} מבחנים · {totalQuestions} שאלות · {minYear}–{maxYear}
-        </span>
-        <span style={{ flex: 2, textAlign: "center" }}>
-          האפליקציה מיועדת לשימוש אישי בלבד לצורכי לימוד.
-        </span>
-        <span style={{ flex: 1, textAlign: "end" }}>v2.0</span>
-      </div>
+      />
     </div>
   );
 }
