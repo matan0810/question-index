@@ -1,8 +1,18 @@
 import { memo } from "react";
-import { Chip, useTypeHelpers, ExcludedTag, MathText, StudyControls } from "../components";
+import {
+  QuestionChips,
+  ExamPartLabel,
+  ActiveLabelChips,
+  ExcludedTag,
+  MathText,
+  StudyControls,
+} from "../components";
 import { COLORS_UI, FONTS } from "../styles";
-import { examLecturerLabel } from "../utils/exam";
-import { LABEL_DEFS } from "../hooks/useLabels";
+import {
+  examLecturerLabel,
+  questionExamPartName,
+  questionDisplayNumber,
+} from "../utils/exam";
 
 function SearchResultCard({
   exam,
@@ -19,13 +29,12 @@ function SearchResultCard({
   doneVersion: _dv,
   labelsVersion: _lv,
 }) {
-  const { typeToLabel, typeToKind } = useTypeHelpers();
   const pri = colorsUI?.primary ?? COLORS_UI.primary;
   const sec = colorsUI?.secondary ?? COLORS_UI.secondary;
   const excluded = isExcluded(question.topic);
+  const examPart = questionExamPartName(exam, question.id);
   const questionKey = `${exam.code}__${question.id}`;
   const done = isDone?.(questionKey) ?? false;
-  const activeLabels = LABEL_DEFS.filter((def) => hasLabel?.(questionKey, def.key));
 
   return (
     <div
@@ -61,15 +70,15 @@ function SearchResultCard({
               lineHeight: 1,
             }}
           >
-            {question.id.replace(/^[^\d]+/, "")}
+            {questionDisplayNumber(question)}
           </div>
+          <ExamPartLabel part={examPart} style={{ marginTop: 2 }} />
         </div>
       </div>
 
       {/* col 2: chips */}
       <div className="result-card-chips">
-        <Chip kind={question.chapter}>פרק {question.chapter}</Chip>
-        <Chip kind={typeToKind(question.type)}>{typeToLabel(question.type)}</Chip>
+        <QuestionChips question={question} />
       </div>
 
       {/* col 3: topic + summary + active label chips */}
@@ -95,25 +104,7 @@ function SearchResultCard({
         <div style={{ lineHeight: 1.5, fontSize: 13 }}>
           <MathText>{question.summary}</MathText>
         </div>
-        {activeLabels.length > 0 && (
-          <div style={{ marginTop: 5, display: "flex", gap: 4, flexWrap: "wrap" }}>
-            {activeLabels.map((def) => (
-              <span
-                key={def.key}
-                style={{
-                  fontSize: 10,
-                  padding: "1px 7px",
-                  background: def.bg,
-                  color: def.color,
-                  border: `1px solid ${def.color}55`,
-                  fontWeight: 700,
-                }}
-              >
-                {def.icon} {def.label}
-              </span>
-            ))}
-          </div>
-        )}
+        <ActiveLabelChips questionKey={questionKey} hasLabel={hasLabel} />
       </div>
 
       {/* col 4: study controls (study mode only) */}

@@ -1,12 +1,21 @@
 import { useMemo } from "react";
-import { Chip, useTypeHelpers, ExcludedTag, MathText, StudyControls } from "../components";
+import {
+  Chip,
+  QuestionChips,
+  ExamPartLabel,
+  ActiveLabelChips,
+  ExcludedTag,
+  MathText,
+  StudyControls,
+} from "../components";
 import { card, inp, COLORS_UI, FONTS, clearBtn, countBadge } from "../styles";
 import {
   examMatchesLecturer,
   examLecturerLabel,
   buildLecturersList,
+  questionExamPartName,
+  questionDisplayNumber,
 } from "../utils/exam";
-import { LABEL_DEFS } from "../hooks/useLabels";
 
 const MOED_OPTIONS = [
   { value: "א", label: "מועד א" },
@@ -31,7 +40,6 @@ export default function ExamsTab({
   hasLabel,
   toggleLabel,
 }) {
-  const { typeToLabel, typeToKind } = useTypeHelpers();
   const pri = colorsUI?.primary ?? COLORS_UI.primary;
   const sec = colorsUI?.secondary ?? COLORS_UI.secondary;
 
@@ -171,12 +179,9 @@ export default function ExamsTab({
                   : exam.questions
                 ).map((q) => {
                 const excluded = isExcluded(q.topic);
-                const questionNumber = q.id.replace(/^[^\d]+/, "");
+                const examPart = questionExamPartName(exam, q.id);
                 const questionKey = `${exam.code}__${q.id}`;
                 const done = isDone?.(questionKey) ?? false;
-                const activeLabels = LABEL_DEFS.filter(
-                  (def) => hasLabel?.(questionKey, def.key),
-                );
 
                 return (
                   <div
@@ -203,7 +208,8 @@ export default function ExamsTab({
                         paddingTop: 2,
                       }}
                     >
-                      {questionNumber}
+                      {questionDisplayNumber(q)}
+                      <ExamPartLabel part={examPart} style={{ marginTop: 2 }} />
                     </div>
 
                     {/* Content */}
@@ -217,8 +223,7 @@ export default function ExamsTab({
                           marginBottom: 2,
                         }}
                       >
-                        <Chip kind={q.chapter}>פרק {q.chapter}</Chip>
-                        <Chip kind={typeToKind(q.type)}>{typeToLabel(q.type)}</Chip>
+                        <QuestionChips question={q} />
                         <span
                           onClick={() => setSearchTopic(q.topic)}
                           style={{
@@ -246,25 +251,7 @@ export default function ExamsTab({
                       >
                         <MathText>{q.summary}</MathText>
                       </div>
-                      {activeLabels.length > 0 && (
-                        <div style={{ marginTop: 3, display: "flex", gap: 3, flexWrap: "wrap" }}>
-                          {activeLabels.map((def) => (
-                            <span
-                              key={def.key}
-                              style={{
-                                fontSize: 9,
-                                padding: "0 5px",
-                                background: def.bg,
-                                color: def.color,
-                                border: `1px solid ${def.color}55`,
-                                fontWeight: 700,
-                              }}
-                            >
-                              {def.icon} {def.label}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                      <ActiveLabelChips questionKey={questionKey} hasLabel={hasLabel} />
                     </div>
 
                     {/* Study controls */}

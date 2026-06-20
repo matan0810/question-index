@@ -43,3 +43,5 @@ export default function App() {
 // - remove all the old code and comments that are no longer relevant
 // - use meaningful variable and function names
 // - add error handling and loading states where necessary
+// - remove lecturers from open page and only show them on course page
+// - make alex recent lecturer on algebra (fined out a good way to do this without hardcoding it)

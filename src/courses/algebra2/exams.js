@@ -954,7 +954,7 @@ export const EXAMS = [
         topic: "orthogonal_operator",
         points: 6,
         summary:
-          "$S:\\mathbb{R}^5\\to\\mathbb{R}^5$ אורתוגונלי ⟹ קיים $v\\neq0$: $Sv=\\pm v$",
+          "$S:\\mathbb{R}^3\\to\\mathbb{R}^3$ אורתוגונלי ⟹ קיים $v\\neq0$: $S^2v=v$",
       },
       {
         id: "ב2",
