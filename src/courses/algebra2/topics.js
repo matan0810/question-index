@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────
-//  src/data/topics.js
+//  src/courses/algebra2/topics.js
 //  Topic vocabulary used by every question in exams.js.
 //  Keys are snake_case and stable across all years.
 // ─────────────────────────────────────────────────────────────────────

@@ -37,10 +37,10 @@ export default function CoursePicker() {
               ),
               "שאלות",
             ],
-          ].map(([n, l]) => (
-            <div key={l}>
-              <div className="stat-num">{n}</div>
-              <div className="stat-label">{l}</div>
+          ].map(([value, label]) => (
+            <div key={label}>
+              <div className="stat-num">{value}</div>
+              <div className="stat-label">{label}</div>
             </div>
           ))}
         </div>
@@ -95,10 +95,10 @@ export default function CoursePicker() {
                   `${Math.min(...course.EXAMS.map((e) => e.year))}–${Math.max(...course.EXAMS.map((e) => e.year))}`,
                   "שנים",
                 ],
-              ].map(([n, l]) => (
-                <div key={l}>
-                  <div className="stat-num" style={{ fontSize: 20 }}>{n}</div>
-                  <div className="stat-label">{l}</div>
+              ].map(([value, label]) => (
+                <div key={label}>
+                  <div className="stat-num" style={{ fontSize: 20 }}>{value}</div>
+                  <div className="stat-label">{label}</div>
                 </div>
               ))}
             </div>

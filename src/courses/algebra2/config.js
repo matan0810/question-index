@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────
-//  src/data/config.js
+//  src/courses/algebra2/config.js
 //  Course-level metadata: course identity, chapter mapping,
 //  excluded topics, traps, latest exam format.
 // ─────────────────────────────────────────────────────────────────────

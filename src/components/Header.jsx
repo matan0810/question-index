@@ -170,10 +170,10 @@ export default function Header({
             "נושאים",
           ],
           [yearRange, "שנים"],
-        ].map(([n, l]) => (
-          <div key={l}>
-            <div className="stat-num">{n}</div>
-            <div className="stat-label">{l}</div>
+        ].map(([value, label]) => (
+          <div key={label}>
+            <div className="stat-num">{value}</div>
+            <div className="stat-label">{label}</div>
           </div>
         ))}
 
