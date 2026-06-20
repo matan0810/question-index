@@ -1,4 +1,4 @@
-import { LABEL_DEFS } from "../hooks/useLabels";
+import { LABEL_DEFS } from "../../hooks/useLabels";
 
 // The user's study labels (e.g. "important", "review") active on a question,
 // rendered as small chips. Shared by the exams list and search results.

@@ -1,5 +1,5 @@
-import { useCourse } from "../context/CourseContext";
-import { COLORS_UI } from "../styles";
+import { useCourse } from "../../context/CourseContext";
+import { COLORS_UI } from "../../styles";
 
 const TABS = [
   { id: "overview", l: "📊 סקירה" },

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { COLORS_UI, FONTS, primaryColor } from "../../styles";
-import DarkToggle from "../DarkToggle";
+import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
+import DarkToggle from "../../ui/DarkToggle";
 
 export default function TopRow({ course, colorsUI, studyMode, toggleStudyMode }) {
   const pri = primaryColor(colorsUI);

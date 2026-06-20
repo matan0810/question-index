@@ -8,7 +8,7 @@ import {
   buildLecturersList,
   sortExams,
 } from "../utils/exam";
-import ExamCard from "./ExamCard";
+import { ExamCard } from "../components";
 
 const PAGE_SIZE = 6;
 

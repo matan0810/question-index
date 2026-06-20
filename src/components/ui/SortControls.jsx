@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS, primaryColor } from "../styles";
+import { COLORS_UI, FONTS, primaryColor } from "../../styles";
 
 const SORT_OPTIONS = [
   { value: "date", label: "תאריך" },

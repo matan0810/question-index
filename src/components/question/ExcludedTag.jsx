@@ -1,4 +1,4 @@
-import { FONTS } from "../styles";
+import { FONTS } from "../../styles";
 
 const TAG = {
   bg: "var(--bar-bg)",

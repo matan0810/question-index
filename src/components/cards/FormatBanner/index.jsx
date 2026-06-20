@@ -1,4 +1,4 @@
-import { card, COLORS_UI, FONTS, primaryColor } from "../../styles";
+import { card, COLORS_UI, FONTS, primaryColor } from "../../../styles";
 import ChapterCell from "./ChapterCell";
 import BadgePill from "./BadgePill";
 

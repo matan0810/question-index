@@ -1,6 +1,6 @@
 import { useSearchData, usePagination } from "../../hooks";
 import { ShowMore } from "../../components";
-import SearchResultCard from "../SearchResultCard";
+import { SearchResultCard } from "../../components";
 import SearchFilterBar from "./SearchFilterBar";
 
 const PAGE_SIZE = 50;

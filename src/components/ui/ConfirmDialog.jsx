@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { COLORS_UI, FONTS } from "../styles";
+import { COLORS_UI, FONTS } from "../../styles";
 
 export default function ConfirmDialog({ title, body, confirmLabel = "אשר", onConfirm, onCancel }) {
   const cancelRef = useRef(null);

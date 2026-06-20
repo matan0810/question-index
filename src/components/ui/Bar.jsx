@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS } from "../styles";
+import { COLORS_UI, FONTS } from "../../styles";
 
 export default function Bar({ label, val, max, color, pct, onClick }) {
   return (

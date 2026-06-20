@@ -36,23 +36,21 @@ export default function App() {
   );
 }
 
-// TODO:
+// TODO
 //
-// CONTENT:
-// - Add remaining Calculus (Infi) exams
-// - Add Discrete Math course
+// Content
+// - Add missing Infi exams
+// - Add Discrete Mathematics course
+// - Sort topics by order in the course material
 //
-// FIXES:
-// - Fix mislabeled Algebra exam "2026_sample_I": replace moed "sample" with its actual moed
-//   (currently sorted last because "sample" doesn't match any real moed)
+// Fixes
+// - Algebra exam "2026_sample_I": replace "sample" with the real exam session
+//   (currently sorted last because "sample" doesn't map to a real session)
 //
-// QUALITY:
-// - Review and correct Algebra & Calculus question wording to match the original exam phrasing
+// Editing & quality
+// - Review and fix wording of Algebra and Infi questions against the original exam
 //
-// EDGE CASE — Multi-topic sections:
-// - Some sections cover two unrelated topics (even within the same section number). שאלה 3 ראיה: 2019 מועד ב
-//   Resolution options:
-//   (a) Split into two separate questions
-//   (b) Add a topic-specific tag or annotation so the question can be filtered correctly
-
-// טיפול במקרים בהם יש ששני סמסטרים! דורש טיפול מעמיק הן במאגר והן בקוד
+// Structure — edge cases
+// - Questions covering two different topics in a single part (e.g. question 3, 2019 moed B)
+//   Options: (a) split into two separate questions · (b) dual-tag the topic
+// - Exams spanning two semesters — requires deeper handling in both the data and the code

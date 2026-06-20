@@ -1,4 +1,4 @@
-import { COLORS_UI } from "../styles";
+import { COLORS_UI } from "../../styles";
 
 // Compact, uniform label for the exam part (חלק) a question belonged to in the
 // original exam, shown right next to the question number. `part` is the already

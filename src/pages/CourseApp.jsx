@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   useStats,
@@ -41,7 +41,12 @@ export default function CourseApp() {
     toggleStudyMode,
   } = useProgress(courseId);
 
-  const { hasLabel, toggleLabel, labelsVersion } = useLabels(courseId);
+  const { hasLabel, toggleLabel, labelsVersion, resetLabels, labelCount } = useLabels(courseId);
+
+  const resetAll = useCallback(() => {
+    resetProgress();
+    resetLabels();
+  }, [resetProgress, resetLabels]);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -120,8 +125,9 @@ export default function CourseApp() {
         exams={displayExams}
         colorsUI={colorsUI}
         doneCount={doneCount}
+        labelCount={labelCount}
         totalQuestions={totalQuestions}
-        resetProgress={resetProgress}
+        resetProgress={resetAll}
         studyMode={studyMode}
         toggleStudyMode={toggleStudyMode}
         activeLecturer={activeLecturer}

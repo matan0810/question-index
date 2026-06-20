@@ -1,4 +1,4 @@
-import { COLORS_UI } from "../../styles";
+import { COLORS_UI } from "../../../styles";
 import TopRow from "./TopRow";
 import Title from "./Title";
 import Stats from "./Stats";
@@ -8,6 +8,7 @@ export default function Header({
   exams,
   colorsUI,
   doneCount,
+  labelCount,
   totalQuestions,
   resetProgress,
   studyMode,
@@ -46,6 +47,7 @@ export default function Header({
         lecturers={lecturers}
         studyMode={studyMode}
         doneCount={doneCount}
+        labelCount={labelCount}
         totalQuestions={totalQuestions}
         resetProgress={resetProgress}
       />

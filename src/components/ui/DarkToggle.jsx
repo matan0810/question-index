@@ -1,5 +1,5 @@
-import { useTheme } from "../context/ThemeContext";
-import { COLORS_UI } from "../styles";
+import { useTheme } from "../../context/ThemeContext";
+import { COLORS_UI } from "../../styles";
 
 export default function DarkToggle() {
   const { isDark, toggle } = useTheme();

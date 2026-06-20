@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import { card, COLORS_UI } from "../../styles";
+import { card, COLORS_UI } from "../../../styles";
 import ExamHeader from "./ExamHeader";
 import QuestionRow from "./QuestionRow";
 

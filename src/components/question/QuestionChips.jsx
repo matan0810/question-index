@@ -1,4 +1,4 @@
-import Chip, { useTypeHelpers } from "./Chip";
+import Chip, { useTypeHelpers } from "../ui/Chip";
 
 // The two classifier chips shown for every question: the course-topic chapter
 // (colored, "פרק X") and the question type. Shared by the exams list and the

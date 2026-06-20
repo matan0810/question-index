@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS, primaryColor } from "../../styles";
+import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
 
 export default function Title({ course, colorsUI, activeLecturer, setActiveLecturer }) {
   const pri = primaryColor(colorsUI);

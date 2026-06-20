@@ -24,12 +24,12 @@ export const TOPIC_HE = {
 };
 
 export const COLORS = [
-  CHAPTERS[0].chipColor ?? CHAPTERS[0].color,  // #c1440e
-  CHAPTERS[1].chipColor ?? CHAPTERS[1].color,  // #4a7aab (was dark navy)
-  CHAPTERS[2].chipColor ?? CHAPTERS[2].color,  // #5a8a5a (was dark green)
-  "#d4a017",   // gold
-  "#8a5aab",   // medium purple  (was #5a3a6b dark)
-  "#c05050",   // medium red     (was #9a3232 dark)
-  "#a07850",   // medium brown   (was #7a5c3e dark)
-  "#3a9696",   // medium teal    (was #2a6b6b dark)
+  CHAPTERS[0].chipColor ?? CHAPTERS[0].color,
+  CHAPTERS[1].chipColor ?? CHAPTERS[1].color,
+  CHAPTERS[2].chipColor ?? CHAPTERS[2].color,
+  "#d4a017", // gold
+  "#8a5aab", // purple
+  "#c05050", // red
+  "#a07850", // brown
+  "#3a9696", // teal
 ];

@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS } from "../../styles";
+import { COLORS_UI, FONTS } from "../../../styles";
 
 export default function BadgePill({ label, variant, accent }) {
   const styles = {

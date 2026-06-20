@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { COLORS_UI, FONTS } from "../styles";
+import { COLORS_UI, FONTS } from "../../styles";
 
 // Catches render-time errors anywhere below it and shows a friendly fallback
 // instead of a blank screen. Class component because React only exposes error

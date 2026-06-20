@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS } from "../styles";
+import { COLORS_UI, FONTS } from "../../styles";
 
 // "Show more / show all" control shown under a paginated list (see usePagination).
 export default function ShowMore({ visible, total, remaining, step, unit, onMore, onAll }) {

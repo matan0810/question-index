@@ -52,5 +52,18 @@ export function useLabels(courseId) {
     [courseId],
   );
 
-  return { hasLabel, getLabels, toggleLabel, labelsVersion: version };
+  const resetLabels = useCallback(() => {
+    setLabels({});
+    setVersion((v) => v + 1);
+    localStorage.removeItem(storageKey(courseId));
+  }, [courseId]);
+
+  return {
+    hasLabel,
+    getLabels,
+    toggleLabel,
+    resetLabels,
+    labelsVersion: version,
+    labelCount: Object.keys(labels).length,
+  };
 }

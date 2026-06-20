@@ -1,18 +1,16 @@
 import { memo } from "react";
-import {
-  QuestionChips,
-  ExamPartLabel,
-  ActiveLabelChips,
-  ExcludedTag,
-  MathText,
-  StudyControls,
-} from "../../components";
-import { COLORS_UI, FONTS, primaryColor } from "../../styles";
+import QuestionChips from "../../question/QuestionChips";
+import ExamPartLabel from "../../question/ExamPartLabel";
+import ActiveLabelChips from "../../question/ActiveLabelChips";
+import ExcludedTag from "../../question/ExcludedTag";
+import MathText from "../../question/MathText";
+import StudyControls from "../../question/StudyControls";
+import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
 import {
   examLecturerLabel,
   questionExamPartName,
   questionDisplayNumber,
-} from "../../utils/exam";
+} from "../../../utils/exam";
 
 function SearchResultCard({
   exam,

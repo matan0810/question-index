@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { COLORS_UI, FONTS } from "../../styles";
-import ConfirmDialog from "../ConfirmDialog";
+import { COLORS_UI, FONTS } from "../../../styles";
+import ConfirmDialog from "../../ui/ConfirmDialog";
 
-export default function ProgressWidget({ doneCount, totalQuestions, resetProgress }) {
+export default function ProgressWidget({ doneCount, labelCount, totalQuestions, resetProgress }) {
   const [resetArmed, setResetArmed] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const armTimer = useRef(null);
@@ -41,7 +41,7 @@ export default function ProgressWidget({ doneCount, totalQuestions, resetProgres
           {doneCount}/{totalQuestions} ({progressPct}%)
         </span>
 
-        {doneCount > 0 && (
+        {(doneCount > 0 || labelCount > 0) && (
           <button
             onClick={handleResetClick}
             title={resetArmed ? "לחץ שוב לאיפוס" : "איפוס התקדמות"}
@@ -86,7 +86,7 @@ export default function ProgressWidget({ doneCount, totalQuestions, resetProgres
       {showConfirm && (
         <ConfirmDialog
           title="איפוס התקדמות"
-          body="כל השאלות שסימנת כ-'הושלמו' יימחקו. פעולה זו אינה הפיכה."
+          body="כל הסימונים (בוצע, קשה, להמשך) יימחקו. פעולה זו אינה הפיכה."
           confirmLabel="איפוס הכל"
           onConfirm={handleConfirmReset}
           onCancel={() => setShowConfirm(false)}

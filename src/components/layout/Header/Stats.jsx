@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS, primaryColor } from "../../styles";
+import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
 import ProgressWidget from "./ProgressWidget";
 
 export default function Stats({
@@ -9,6 +9,7 @@ export default function Stats({
   lecturers,
   studyMode,
   doneCount,
+  labelCount,
   totalQuestions,
   resetProgress,
 }) {
@@ -62,6 +63,7 @@ export default function Stats({
       {studyMode && totalQuestions > 0 && (
         <ProgressWidget
           doneCount={doneCount}
+          labelCount={labelCount}
           totalQuestions={totalQuestions}
           resetProgress={resetProgress}
         />

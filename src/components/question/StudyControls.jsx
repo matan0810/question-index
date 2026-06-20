@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS } from "../styles";
+import { COLORS_UI, FONTS } from "../../styles";
 
 const STATES = [
   { key: "none",  icon: "○", label: "ללא",    bg: COLORS_UI.cardBg, border: COLORS_UI.border, color: COLORS_UI.subdued },

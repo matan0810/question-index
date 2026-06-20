@@ -1,5 +1,5 @@
-import { useCourse } from "../context/CourseContext";
-import { COLORS_UI } from "../styles";
+import { useCourse } from "../../context/CourseContext";
+import { COLORS_UI } from "../../styles";
 
 const STATIC_TYPE_COLORS = {
   proof: {

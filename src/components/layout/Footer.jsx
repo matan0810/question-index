@@ -1,4 +1,4 @@
-import { COLORS_UI } from "../styles";
+import { COLORS_UI } from "../../styles";
 
 // Shared page footer. Pass `stats` ({ exams, questions, minYear, maxYear }) to
 // show the course summary line (course page); omit it on the landing page.
