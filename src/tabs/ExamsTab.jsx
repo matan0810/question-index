@@ -51,7 +51,7 @@ export default function ExamsTab({
   const latestYear = useMemo(() => Math.max(...exams.map((e) => e.year)), [exams]);
 
   const effectiveSortBy = sortBy || "date";
-  const effectiveSortDir = sortDir || "asc";
+  const effectiveSortDir = sortDir || "desc";
 
   const filteredExams = useMemo(() => {
     const pool = exams.filter(

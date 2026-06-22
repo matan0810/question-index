@@ -29,6 +29,10 @@ The home page lists all available courses. Clicking a course opens five tabs:
 
 Dark mode is toggled with the **☽ לילה / ☼ יום** button in the top-right corner on every page. The preference is saved in `localStorage`.
 
+**Study mode** (toggled from the header) adds per-question progress tracking — mark questions as done or tag them ★ קשה / ◎ להמשך. Progress and labels are saved per course in `localStorage`.
+
+In Search, questions whose topics are no longer in the syllabus (**לא בחומר**) are hidden by default; use the **לא בחומר** toggle to show them. Both the Exams and Search lists default to newest-first.
+
 ---
 
 ## Adding a new course
@@ -114,23 +118,35 @@ export function isExcluded(topicKey) {
 ```js
 export const EXAMS = [
   {
-    code:      "12345_2024a",   // unique string
-    year:      2024,
+    code:      "12345_2024_א",  // unique string
+    year:      2024,            // calendar year
     moed:      "א",             // "א" | "ב" | "ג"
-    date:      "15.01.24",      // optional display string
+    semester:  "summer",        // "winter" | "summer" — a calendar year can hold both
+    date:      "15.01.24",      // "dd.mm.yy", optional; drives chronological sort
     lecturers: ["שם המרצה"],    // array, optional
     questions: [
       {
-        id:      "1א",           // question number as shown on the exam
+        id:      "1",            // stable id within the exam
+        number:  1,              // display number; falls back to digits in id
         chapter: "א",
-        topic:   "limits",       // must match a key in TOPIC_HE
+        topic:   "limits",       // primary topic — must match a key in TOPIC_HE
+        topics:  ["continuity"], // optional secondary topics (also counted)
         type:    "הוכחה",        // must match a key in QUESTION_TYPES
+        points:  20,             // optional
         summary: "תיאור קצר של השאלה",
+        subparts: [              // optional; each subpart's topic is counted too
+          { id: "1א", topic: "limits", summary: "סעיף א" },
+        ],
       },
     ],
   },
 ];
 ```
+
+> A question is counted under **every** topic it touches — its primary `topic`,
+> any `topics: []`, and each subpart's `topic` — across stats, trends, heatmap,
+> and search. Topics declared earlier in `TOPIC_HE` sort earlier (it's read in
+> syllabus order), so list topic keys in the order they're taught.
 
 ### 5. Register the course in `src/courses/index.js`
 

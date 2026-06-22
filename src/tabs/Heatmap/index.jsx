@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { COLORS_UI, blendHex, darkenHex, primaryColor } from "../../styles";
 import { CardTitle } from "../../components";
 import { useTheme } from "../../context/ThemeContext";
+import { makeTopicOrder } from "../../utils/exam";
 import Trends from "../Trends";
 import HeatmapTable from "./HeatmapTable";
 import HeatmapLegend from "./HeatmapLegend";
@@ -29,13 +30,18 @@ export default function Heatmap({ stats, setSearchTopic, exams, topicHe, isExclu
     return heatColors[Math.min(count, heatColors.length - 1)];
   }
 
+  // Rows follow the syllabus order (TOPIC_HE key order) so the map reads like the
+  // course outline top-to-bottom; excluded topics drop to the bottom.
   const sortedTopics = useMemo(() => {
-    const all = Object.entries(stats.topicCounts).sort((a, b) => b[1] - a[1]);
+    const bySyllabus = makeTopicOrder(topicHe);
+    const all = Object.entries(stats.topicCounts).sort((a, b) =>
+      bySyllabus(a[0], b[0]),
+    );
     return [
       ...all.filter(([key]) => !isExcluded(key)),
       ...all.filter(([key]) => isExcluded(key)),
     ];
-  }, [stats, isExcluded]);
+  }, [stats, isExcluded, topicHe]);
 
   const latestYear = useMemo(() => Math.max(...exams.map((e) => e.year)), [exams]);
 

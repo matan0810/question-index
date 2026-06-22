@@ -5,6 +5,7 @@ import {
   sortExams,
   latestExamYear,
   questionTopics,
+  questionInSyllabus,
 } from "../utils/exam";
 
 // isDone and hasLabel are stable refs (see useProgress/useLabels).
@@ -31,6 +32,8 @@ export function useSearchData(
     sortBy,
     sortDir,
     hideLatest,
+    hideExcluded,
+    isExcluded,
   } = filters;
 
   const topicsByFrequency = useMemo(
@@ -72,6 +75,8 @@ export function useSearchData(
       (latestYear === null || exam.year !== latestYear);
 
     const questionMatches = (q, exam) => {
+      if (hideExcluded && isExcluded && !questionInSyllabus(q, isExcluded))
+        return false;
       if (topic && !questionTopics(q).includes(topic)) return false;
       if (chapter && q.chapter !== chapter) return false;
       if (type && q.type !== type) return false;
@@ -117,6 +122,8 @@ export function useSearchData(
     sortBy,
     sortDir,
     hideLatest,
+    hideExcluded,
+    isExcluded,
     doneVersion,
     labelsVersion,
   ]);

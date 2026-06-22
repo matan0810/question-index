@@ -41,8 +41,6 @@ export default function App() {
 // Content
 // - Add missing Infi exams
 // - Add Discrete Mathematics course
-// - Sort topics by order in the course material
-// - Update readme file
 //
 // Editing & quality
 // - Review and fix wording of Infi questions against the original exam

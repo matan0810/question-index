@@ -120,6 +120,19 @@ export const questionTopics = (q) => {
   return out;
 };
 
+// True when a question still belongs to the syllabus — i.e. at least one of the
+// topics it touches is not excluded. A question is "לא בחומר" only when every
+// topic it covers has been dropped from the course.
+export const questionInSyllabus = (q, isExcluded) =>
+  questionTopics(q).some((t) => !isExcluded(t));
+
+// Comparator that orders topic keys by their position in the course's topic map
+// (TOPIC_HE), which is declared in syllabus order. Unknown keys sort to the end.
+export const makeTopicOrder = (topicHe) => {
+  const rank = new Map(Object.keys(topicHe).map((k, i) => [k, i]));
+  return (a, b) => (rank.get(a) ?? Infinity) - (rank.get(b) ?? Infinity);
+};
+
 export const buildLecturersList = (exams) =>
   [
     ...new Set(

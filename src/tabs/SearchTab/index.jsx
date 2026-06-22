@@ -17,6 +17,7 @@ export default function SearchTab({
   sortBy, setSortBy,
   sortDir, setSortDir,
   hideLatest, setHideLatest,
+  hideExcluded, setHideExcluded,
   clearAll,
   exams,
   topicHe,
@@ -32,20 +33,27 @@ export default function SearchTab({
   labelsVersion,
 }) {
   const effectiveSortBy = sortBy || "date";
-  const effectiveSortDir = sortDir || "asc";
+  const effectiveSortDir = sortDir || "desc";
   const filters = { query, topic, chapter, type, year, moed, lecturer, progressFilter };
   const { topicsByFrequency, years, lecturers, types, results } = useSearchData(
     exams,
-    { ...filters, sortBy: effectiveSortBy, sortDir: effectiveSortDir, hideLatest },
+    {
+      ...filters,
+      sortBy: effectiveSortBy,
+      sortDir: effectiveSortDir,
+      hideLatest,
+      hideExcluded,
+      isExcluded,
+    },
     topicHe,
     isDone,
     doneVersion,
     hasLabel,
     labelsVersion,
   );
-  const hasActiveFilters = Object.values(filters).some(Boolean) || hideLatest;
+  const hasActiveFilters = Object.values(filters).some(Boolean) || hideLatest || !hideExcluded;
 
-  const resetKey = `${query}|${topic}|${chapter}|${type}|${year}|${moed}|${lecturer}|${progressFilter}|${effectiveSortBy}|${effectiveSortDir}|${hideLatest}`;
+  const resetKey = `${query}|${topic}|${chapter}|${type}|${year}|${moed}|${lecturer}|${progressFilter}|${effectiveSortBy}|${effectiveSortDir}|${hideLatest}|${hideExcluded}`;
   const page = usePagination(results.length, { pageSize: PAGE_SIZE, resetKey });
 
   return (
@@ -62,6 +70,7 @@ export default function SearchTab({
         sortBy={effectiveSortBy} setSortBy={setSortBy}
         sortDir={effectiveSortDir} setSortDir={setSortDir}
         hideLatest={hideLatest} setHideLatest={setHideLatest}
+        hideExcluded={hideExcluded} setHideExcluded={setHideExcluded}
         clearAll={clearAll}
         topicsByFrequency={topicsByFrequency}
         topicHe={topicHe}

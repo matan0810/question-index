@@ -12,6 +12,7 @@ const SEARCH_KEYS = [
   "lecturer",
   "progress",
   "hideLatest",
+  "showExcl",
 ];
 
 // SearchTab's full filter set, keyed to the tab's prop names for spreading onto
@@ -33,6 +34,9 @@ export function useSearchFilters(params, setParams) {
   const [sortBy, setSortBy] = useUrlParam(params, setParams, "sort");
   const [sortDir, setSortDir] = useUrlParam(params, setParams, "dir");
   const [hideLatest, setHideLatest] = useUrlParam(params, setParams, "hideLatest");
+  // Out-of-syllabus ("לא בחומר") questions are hidden by default; the URL only
+  // records the non-default state, so "showExcl=1" means "show them".
+  const [showExcluded, setShowExcluded] = useUrlParam(params, setParams, "showExcl");
 
   const clearAll = useCallback(() => {
     setParams(
@@ -68,6 +72,8 @@ export function useSearchFilters(params, setParams) {
     setSortDir,
     hideLatest: hideLatest === "1",
     setHideLatest: (on) => setHideLatest(on ? "1" : ""),
+    hideExcluded: showExcluded !== "1",
+    setHideExcluded: (hide) => setShowExcluded(hide ? "" : "1"),
     clearAll,
   };
 }

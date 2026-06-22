@@ -1,5 +1,5 @@
 import { useTypeHelpers, SortControls } from "../../components";
-import { inp, clearBtn, countBadge } from "../../styles";
+import { inp, clearBtn, countBadge, COLORS_UI, primaryColor } from "../../styles";
 import { MOED_OPTIONS } from "../../utils/exam";
 
 const PROGRESS_OPTIONS = [
@@ -21,6 +21,7 @@ export default function SearchFilterBar({
   sortBy, setSortBy,
   sortDir, setSortDir,
   hideLatest, setHideLatest,
+  hideExcluded, setHideExcluded,
   clearAll,
   topicsByFrequency,
   topicHe,
@@ -34,6 +35,7 @@ export default function SearchFilterBar({
   studyMode,
 }) {
   const { typeToLabel } = useTypeHelpers();
+  const accent = primaryColor(colorsUI);
 
   return (
     <div className="ui-card filter-bar">
@@ -99,6 +101,23 @@ export default function SearchFilterBar({
         setHideLatest={setHideLatest}
         colorsUI={colorsUI}
       />
+      <button
+        onClick={() => setHideExcluded(!hideExcluded)}
+        title="שאלות בנושאים שאינם בסילבוס הנוכחי מוסתרות כברירת מחדל"
+        style={{
+          height: 30,
+          padding: "0 12px",
+          border: `1px solid ${hideExcluded ? COLORS_UI.border : accent}`,
+          background: hideExcluded ? COLORS_UI.bg : `${accent}14`,
+          color: hideExcluded ? COLORS_UI.muted : accent,
+          fontWeight: hideExcluded ? 600 : 700,
+          fontSize: 12,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {hideExcluded ? "לא בחומר מוסתר" : "✓ מציג לא בחומר"}
+      </button>
       <span style={countBadge}>{resultCount} תוצאות</span>
       {hasActiveFilters && (
         <button onClick={clearAll} style={clearBtn}>נקה סינון</button>
