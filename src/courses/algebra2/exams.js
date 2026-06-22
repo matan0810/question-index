@@ -58,7 +58,230 @@
 
 export const EXAMS = [
   // ════════════════════════════════════════════════════════════════
-  //  תש"ע  2010
+  //  2006 (תשס"ו) — Moed A.  Source: full PDF pp. 1–3.
+  // ════════════════════════════════════════════════════════════════
+  {
+    code: "2006_א_I",
+    year: 2006,
+    moed: "א",
+    semester: "summer",
+    date: "19.07.06",
+    lecturers: ["מר שמואל ברגר", "פרופ' אהוד פרידגוט"],
+    duration_hours: 3,
+    total_points: 105,
+    verified: true,
+    parts: [
+      { name: "חלק I", points: 50, choose: 2, from: ["Q1", "Q2", "Q3"], note: "ענו על 2 מתוך 3 — 25 נק' כל אחת" },
+      { name: "חלק II", points: 20, choose: 2, from: ["Q4", "Q5"], note: "ענו על שתי השאלות — 10 נק' כל אחת" },
+      { name: "חלק III", points: 35, choose: 7, from: ["Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"], note: "ענו על כל 7 השאלות — 5 נק' כל אחת" },
+    ],
+    questions: [
+      { id: "Q1", number: 1, chapter: "א", type: "proof_short", topic: "volume_function", points: 25, summary: 'פונקציית נפח $\\Delta$: (א) $\\Delta(\\alpha_1,\\ldots,\\alpha_n)=t\\,\\Delta(\\varepsilon_1,\\ldots,\\varepsilon_n)$ עם $t$ תלוי רק ב-$a_{ij}$; (ב) מתאפסת על בסיס ⟹ זהותית אפס; (ג) $\\alpha_i$ בת"ל ⟺ $\\Delta\\neq0$' },
+      { id: "Q2", number: 2, chapter: "ג", type: "proof_theorem", topic: "spectral_theorem_complex", points: 25, summary: '$V$ ממ"פ מעל $\\mathbb{C}$, $T$ נורמלית ⟹ קיים בסיס אורתונורמלי של ו"ע של $T$' },
+      { id: "Q3", number: 3, chapter: "א", type: "proof_theorem", topic: "diagonalization", points: 25, summary: '$T$ לכסינה ⟺ הפולינום האופייני מתפרק לגורמים ליניאריים והריבוי הגאומטרי = האלגברי לכל ע"ע' },
+      { id: "Q4", number: 4, chapter: "ג", type: "compute", topic: "spectral_theorem_real", points: 10, summary: '$A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$; מצאו $P$ אורתוגונלית כך ש-$P^{-1}AP$ אלכסונית' },
+      { id: "Q5", number: 5, chapter: "ג", type: "compute", topic: "orthogonal_projection", points: 10, summary: 'הוקטור ב-$U=\\mathrm{Span}((1,1,0),(1,-1,0))$ הקרוב ביותר ל-$(1,1,1)$' },
+      { id: "Q6", number: 6, chapter: "א", type: "true_false", topic: "diagonalization", points: 5, summary: '$B=\\begin{pmatrix}1&5&7\\\\0&2&6\\\\0&0&3\\end{pmatrix}$ — האם לכסינה?' },
+      { id: "Q7", number: 7, chapter: "א", type: "compute", topic: "minimal_polynomial", points: 5, summary: 'הפולינום המינימלי של $B^{100}$' },
+      { id: "Q8", number: 8, chapter: "א", type: "compute", topic: "char_polynomial", points: 5, summary: '$A\\in M_4(\\mathbb{C})$; מצאו $\\sum\\lambda_i$ ו-$\\prod\\lambda_i$ (עקבה ודטרמיננטה)' },
+      { id: "Q9", number: 9, chapter: "ג", type: "true_false", topic: "spectral_theorem_real", points: 5, summary: 'האם מטריצה סימטרית $5\\times5$ נתונה דומה לאלכסונית מעל $\\mathbb{R}$? (רמז: סימטרית)' },
+      { id: "Q10", number: 10, chapter: "ג", type: "counterexample", topic: "bilinear_form", points: 5, summary: 'תבנית בילינארית $f$: אם $f(\\alpha_i,\\alpha_j)=f(\\alpha_j,\\alpha_i)$ לכל $i,j$ ⟹ $f$ סימטרית?' },
+      { id: "Q11", number: 11, chapter: "ג", type: "true_false", topic: "self_adjoint", points: 5, summary: '$T$ צמוד לעצמו, $\\langle Tv,v\\rangle=0\\,\\forall v$ ⟹ $T=0$?' },
+      { id: "Q12", number: 12, chapter: "ג", type: "true_false", topic: "orthogonal_operator", points: 5, summary: '$T:\\mathbb{R}^2\\to\\mathbb{R}^2$ אורתוגונלי המיוצג ע"י מטריצה אלכסונית — אילו מטריצות אפשריות?' },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  //  2006 (תשס"ו) — Moed B.  Source: full PDF pp. 4–5.
+  // ════════════════════════════════════════════════════════════════
+  {
+    code: "2006_ב_I",
+    year: 2006,
+    moed: "ב",
+    semester: "summer",
+    date: "00.00.06",
+    lecturers: ["מר שמואל ברגר", "פרופ' אהוד פרידגוט"],
+    duration_hours: 3,
+    total_points: 105,
+    verified: true,
+    parts: [
+      { name: "חלק I", points: 50, choose: 2, from: ["Q1", "Q2", "Q3"], note: "ענו על 2 מתוך 3 — 25 נק' כל אחת" },
+      { name: "חלק II", points: 20, choose: 2, from: ["Q4", "Q5"], note: "ענו על שתי השאלות — 10 נק' כל אחת" },
+      { name: "חלק III", points: 35, choose: 7, from: ["Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"], note: "ענו על כל 7 השאלות — 5 נק' כל אחת" },
+    ],
+    questions: [
+      { id: "Q1", number: 1, chapter: "א", type: "proof_short", topic: "volume_function", points: 25, summary: '$\\Delta$ פונקציית נפח, $A$ מייצגת את $T$ ⟹ $\\Delta(T\\alpha_1,\\ldots,T\\alpha_n)=|A|\\,\\Delta(\\alpha_1,\\ldots,\\alpha_n)$' },
+      { id: "Q2", number: 2, chapter: "ג", type: "proof_theorem", topic: "spectral_theorem_complex", points: 25, summary: '$V$ ממ"פ מעל $\\mathbb{C}$, $T$ נורמלית ⟹ קיים בסיס אורתונורמלי של ו"ע' },
+      { id: "Q3", number: 3, chapter: "ג", type: "proof_theorem", topic: "sylvester_inertia", points: 25, summary: 'נסחו והוכיחו את משפט ההתמדה של סילבסטר' },
+      { id: "Q4", number: 4, chapter: "ג", type: "compute", topic: "orthogonal_complement", points: 10, summary: '$U=\\mathrm{Span}((1,0,3),(3,0,1))$: (א) מצאו $U^\\perp$; (ב) הוקטור ב-$U$ הקרוב ל-$\\alpha\\in U^\\perp$' },
+      { id: "Q5", number: 5, chapter: "א", type: "compute", topic: "minimal_polynomial", points: 10, summary: '$A=\\begin{pmatrix}1&0&0&0\\\\1&2&0&0\\\\0&0&1&0\\\\0&0&0&1\\end{pmatrix}$; פולינום אופייני ומינימלי; האם לכסינה' },
+      { id: "Q6", number: 6, chapter: "א", type: "compute", topic: "char_polynomial", points: 5, summary: '$A=\\begin{pmatrix}1&4&17\\\\0&2&15\\\\0&0&3\\end{pmatrix}$, $B=A^{100}+A^{80}$; ע"ע של $B$' },
+      { id: "Q7", number: 7, chapter: "א", type: "true_false", topic: "diagonalization", points: 5, summary: '$A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ — האם לכסינה?' },
+      { id: "Q8", number: 8, chapter: "א", type: "true_false", topic: "field_char", points: 5, summary: '$A=\\begin{pmatrix}0&1\\\\1&1\\end{pmatrix}$ — לכסינה ב-$M_2(\\mathbb{R})$? וב-$M_2(\\mathbb{F}_2)$?' },
+      { id: "Q9", number: 9, chapter: "ג", type: "true_false", topic: "bilinear_form", points: 5, summary: 'האם $A=\\begin{pmatrix}1&1\\\\0&2\\end{pmatrix}$, $B=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$ חופפות?' },
+      { id: "Q10", number: 10, chapter: "ג", type: "true_false", topic: "normal_operator", points: 5, summary: 'האם קיימת $T:\\mathbb{C}^n\\to\\mathbb{C}^n$ נורמלית שאינה אוניטרית ואינה הרמיטית?' },
+      { id: "Q11", number: 11, chapter: "ג", type: "compute", topic: "bilinear_form", points: 5, summary: '$f((x,y),(z,w))=xz+2xw+3yz+4yw$: מטריצה מייצגת; בסיס שבו ייצוג סימטרי או נמקו מדוע אין' },
+      { id: "Q12", number: 12, chapter: "א", type: "true_false", topic: "dual_space", points: 5, summary: '$\\dim V=17$, $\\varphi_i(\\alpha_j)=\\delta_{ij}$ ⟹ האם $\\varphi_1,\\varphi_2,\\varphi_3$ בת"ל?' },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  //  2007 (תשס"ז) — Moed A.  Source: full PDF pp. 6–7.
+  // ════════════════════════════════════════════════════════════════
+  {
+    code: "2007_א_I",
+    year: 2007,
+    moed: "א",
+    semester: "summer",
+    date: "02.08.07",
+    lecturers: ["פרופ' אלכס לובוצקי", "מר שמואל ברגר"],
+    duration_hours: 3,
+    total_points: 100,
+    verified: true,
+    parts: [
+      { name: "חלק א'", points: 40, choose: 2, from: ["Q1", "Q2", "Q3"], note: "ענו על 2 מתוך 3 — 20 נק' כל אחת" },
+      { name: "חלק ב'", points: 30, choose: 2, from: ["Q4", "Q5", "Q6"], note: "ענו על 2 מתוך 3 — 15 נק' כל אחת" },
+      { name: "חלק ג'", points: 30, choose: 3, from: ["Q7", "Q8", "Q9", "Q10"], note: "ענו על 3 מתוך 4 — 10 נק' כל אחת" },
+    ],
+    questions: [
+      { id: "Q1", number: 1, chapter: "א", type: "proof_theorem", topic: "determinant_basics", points: 20, summary: 'נסחו והוכיחו את נוסחת קרמר לפתרון מערכת משוואות' },
+      { id: "Q2", number: 2, chapter: "ג", type: "proof_short", topic: "self_adjoint", points: 20, summary: '(א) $T$ מעל $\\mathbb{C}$, $\\langle Tv,v\\rangle=0\\,\\forall v$ ⟹ $T=0$; (ב) האם נכון גם מעל $\\mathbb{R}$?' },
+      { id: "Q3", number: 3, chapter: "א", type: "proof_theorem", topic: "diagonalization", points: 20, summary: 'פולינום אופייני מתפרק לינארית + ריבוי אלגברי=גאומטרי לכל ע"ע ⟹ $A$ לכסינה' },
+      { id: "Q4", number: 4, chapter: "א", type: "proof_short", topic: "dual_space", points: 15, summary: '$f$ פונקציונל $\\neq0$, $N=\\ker f$, $\\alpha_0\\notin N$ ⟹ לכל $\\alpha$ קיימים יחידים $c,\\beta\\in N$: $\\alpha=c\\alpha_0+\\beta$' },
+      { id: "Q5", number: 5, chapter: "א", type: "proof_short", topic: "diagonalization", points: 15, summary: '$V=\\mathbb{R}_{\\leq2}[x]$, $(Tp)(x)=p(x+1)$ ⟹ $T$ אינה לכסינה' },
+      { id: "Q6", number: 6, chapter: "ג", type: "proof_short", topic: "orthogonal_operator", points: 15, summary: '$0\\neq v_1,v_2\\in\\mathbb{R}^n$ מאורך זהה ⟹ קיימת $T$ אוניטרית: $Tv_1=v_2$' },
+      { id: "Q7", number: 7, chapter: "א", type: "proof_short", topic: "char_polynomial", points: 10, summary: '$A,B\\in M_n(\\mathbb{C})$ רגולריות ⟹ ל-$AB$ ו-$BA$ אותם ע"ע' },
+      { id: "Q8", number: 8, chapter: "א", type: "compute", topic: "determinant_basics", points: 10, summary: 'מטריצת תמורה $a_{ij}=1$ אם $j=\\sigma(i)$; דטרמיננטה; $A$ הפיכה' },
+      { id: "Q9", number: 9, chapter: "ג", type: "proof_short", topic: "orthogonal_complement", points: 10, summary: '$0\\neq v_1,v_2$, $v_1\\neq v_2$ ⟹ $v_1^\\perp=v_2^\\perp$ ⟺ $v_1,v_2$ ת"ל' },
+      { id: "Q10", number: 10, chapter: "א", type: "compute", topic: "dual_space", points: 10, summary: '$\\alpha_1,\\alpha_2,\\alpha_3\\in\\mathbb{R}^3$, $\\varphi_i(\\alpha_j)=\\delta_{ij}$; חשבו $\\varphi_2\\binom{12}{14,16}$' },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  //  2007 (תשס"ז) — Moed B.  Source: full PDF pp. 8–9.
+  // ════════════════════════════════════════════════════════════════
+  {
+    code: "2007_ב_I",
+    year: 2007,
+    moed: "ב",
+    semester: "summer",
+    date: "23.08.07",
+    lecturers: ["פרופ' אלכס לובוצקי", "מר שמואל ברגר"],
+    duration_hours: 3,
+    total_points: 100,
+    verified: true,
+    parts: [
+      { name: "חלק א'", points: 40, choose: 2, from: ["Q1", "Q2", "Q3"], note: "ענו על 2 מתוך 3 — 20 נק' כל אחת" },
+      { name: "חלק ב'", points: 30, choose: 2, from: ["Q4", "Q5", "Q6"], note: "ענו על 2 מתוך 3 — 15 נק' כל אחת" },
+      { name: "חלק ג'", points: 30, choose: 3, from: ["Q7", "Q8", "Q9", "Q10"], note: "ענו על 3 מתוך 4 — 10 נק' כל אחת" },
+    ],
+    questions: [
+      { id: "Q1", number: 1, chapter: "א", type: "proof_short", topic: "eigenvectors_independent", points: 20, summary: '$A\\in M_n(F)$ עם $n$ ע"ע שונים ⟹ הוכיחו ישירות ש-$A$ לכסינה' },
+      { id: "Q2", number: 2, chapter: "ג", type: "proof_theorem", topic: "unitary_operator", points: 20, summary: 'שקילות: (א) $T$ אוניטרית; (ב) $TT^*=Id$; (ג) $T$ מעבירה בסיס אורתונורמלי לאורתונורמלי' },
+      { id: "Q3", number: 3, chapter: "א", type: "proof_short", topic: "dual_space", points: 20, summary: '$U\\leq V$, $U^0=\\{\\ell\\in V^*:\\ell|_U=0\\}$ ⟹ $\\dim U+\\dim U^0=n$' },
+      { id: "Q4", number: 4, chapter: "א", type: "compute", topic: "field_char", points: 15, summary: '$F=\\mathbb{Z}_p$, $a_{ij}=i\\bmod p$ אם $j=\\sigma(i)$; דטרמיננטה; $A$ הפיכה ⟺ $p>n$' },
+      { id: "Q5", number: 5, chapter: "א", type: "proof_short", topic: "minimal_polynomial", points: 15, summary: '$\\dim\\mathrm{sp}\\{I,A,A^2,\\ldots\\}$ = מעלת הפולינום המינימלי של $A$' },
+      { id: "Q6", number: 6, chapter: "א", type: "proof_short", topic: "invariant_subspace", points: 15, summary: '$A,B\\in M_n(\\mathbb{C})$ מתחלפות ($AB=BA$) ⟹ יש ו"ע משותף' },
+      { id: "Q7", number: 7, chapter: "א", type: "compute", topic: "determinant_basics", points: 10, summary: '$A\\in M_4(\\mathbb{C})$, $|A|=8$; חשבו דטרמיננטה של $B$ (לאחר פעולות שורה/עמודה)' },
+      { id: "Q8", number: 8, chapter: "א", type: "compute", topic: "minimal_polynomial", points: 10, summary: '$A$ אוניטרית לא סקלרית, $A^5(A^4-I)=0$, $\\pm1$ אינם ע"ע; הפולינום המינימלי' },
+      { id: "Q9", number: 9, chapter: "ג", type: "proof_short", topic: "unitary_diagonalization", points: 10, summary: '$A=\\begin{pmatrix}1&2&3\\\\2&3&5\\\\3&5&8\\end{pmatrix}$: (א) דומה לאלכסונית; (ב) אינה דומה לאוניטרית' },
+      { id: "Q10", number: 10, chapter: "א", type: "true_false", topic: "matrix_similarity", points: 10, summary: 'האם שתי מטריצות משולשיות עליונות מעל $\\mathbb{Z}_{11}$ דומות?' },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  //  2008 (תשס"ח) — Moed B.  Source: full PDF p. 10.
+  // ════════════════════════════════════════════════════════════════
+  {
+    code: "2008_ב_I",
+    year: 2008,
+    moed: "ב",
+    semester: "summer",
+    date: "18.09.08",
+    lecturers: ["פרופ' ענר שלו", "מר שמואל ברגר"],
+    duration_hours: 3,
+    total_points: 100,
+    verified: true,
+    parts: [
+      { name: "כל המבחן", points: 100, choose: 4, from: ["Q1", "Q2", "Q3", "Q4", "Q5"], note: "ענו על 4 מתוך 5 — 25 נק' כל אחת" },
+    ],
+    questions: [
+      { id: "Q1", number: 1, chapter: "א", type: "proof_short", topic: "determinant_basics", points: 25, summary: '$\\det A\\neq0$ ⟺ שורות $A$ בת"ל' },
+      { id: "Q2", number: 2, chapter: "ג", type: "proof_theorem", topic: "spectral_theorem_complex", points: 25, summary: '$V$ ממ"פ מעל $\\mathbb{C}$, $T$ נורמלית ⟹ קיים בסיס אורתונורמלי של ו"ע' },
+      { id: "Q3", number: 3, chapter: "א", type: "compute", topic: "determinant_basics", points: 25, summary: '(א) $A$ עם $x$ באלכסון ו-$c$ אחרת: נוסחה ל-$\\det$, פתרו $\\det(A)=0$; (ב) $\\det B=0$ ⟺ $n>2$' },
+      { id: "Q4", number: 4, chapter: "א", type: "proof_short", topic: "determinant_basics", points: 25, summary: '$\\mathrm{rank}(\\mathrm{adj}(A))=n,1,0$ לפי $\\mathrm{rank}(A)=n,\\,n-1,\\,\\leq n-2$' },
+      { id: "Q5", number: 5, chapter: "א", type: "true_false", topic: "matrix_similarity", points: 25, summary: 'אילו מבין $\\begin{pmatrix}2&8\\\\2&2\\end{pmatrix},\\begin{pmatrix}2&0\\\\2&2\\end{pmatrix},\\begin{pmatrix}2&4\\\\4&2\\end{pmatrix},\\begin{pmatrix}6&0\\\\0&-2\\end{pmatrix}$ דומות?' },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  //  2009 (תשס"ט) — Moed A.  Source: full PDF pp. 11–14.
+  // ════════════════════════════════════════════════════════════════
+  {
+    code: "2009_א_I",
+    year: 2009,
+    moed: "א",
+    semester: "summer",
+    date: "06.07.09",
+    lecturers: ["פרופ' יעקב ורשבסקי", 'ד"ר דן רומיק'],
+    duration_hours: 3,
+    total_points: 100,
+    verified: true,
+    parts: [
+      { name: "חלק א'", points: 40, choose: 2, from: ["Q1", "Q2", "Q3"], note: "ענו על 2 מתוך 3 — 20 נק' כל אחת" },
+      { name: "חלק ב'", points: 30, choose: 2, from: ["Q4", "Q5", "Q6"], note: "ענו על 2 מתוך 3 — 15 נק' כל אחת" },
+      { name: "חלק ג'", points: 30, choose: 5, from: ["Q7", "Q8", "Q9", "Q10", "Q11"], note: "ענו על כל 5 — 6 נק' כל אחת (נכון/לא נכון + נימוק)" },
+    ],
+    questions: [
+      { id: "Q1", number: 1, chapter: "ג", type: "proof_short", topic: "orthogonal_complement", points: 20, summary: '(א) הגדירו משלים אורתוגונלי וסכום ישר; (ב) $V=U\\oplus U^\\perp$; (ג) $(U^\\perp)^\\perp=U$' },
+      { id: "Q2", number: 2, chapter: "ג", type: "proof_theorem", topic: "unitary_operator", points: 20, summary: 'שקילות (מ"פ מרוכב): (א) $T$ אוניטרית; (ב) $T^{-1}=T^*$; (ג) שומרת בסיס אורתונורמלי' },
+      { id: "Q3", number: 3, chapter: "א", type: "proof_theorem", topic: "cayley_hamilton", points: 20, summary: '(א) נסחו והוכיחו קיילי-המילטון ל-$M_n(\\mathbb{C})$; (ב) הגדירו פולינום מינימלי והוכיחו שהוא מחלק את האופייני' },
+      { id: "Q4", number: 4, chapter: "ב", type: "compute", topic: "jordan_form", points: 15, summary: 'מצאו צורת ז\'ורדן של $A$ (5×5) ומטריצה הפיכה $P$: $P^{-1}AP=J$' },
+      { id: "Q5", number: 5, chapter: "ג", type: "compute", topic: "gram_schmidt", points: 15, summary: 'מ"פ לא סטנדרטית $\\langle u,v\\rangle=v^tAu$, $A=\\begin{pmatrix}2&-1&0\\\\-1&2&0\\\\0&0&3\\end{pmatrix}$; בסיס אורתונורמלי' },
+      { id: "Q6", number: 6, chapter: "ג", type: "compute", topic: "spectral_theorem_real", points: 15, summary: '$A=\\begin{pmatrix}2&-1&-1\\\\-1&2&-1\\\\-1&-1&2\\end{pmatrix}$; מצאו $P$ אורתוגונלית ו-$D$ אלכסונית: $A=PDP^{-1}$' },
+      { id: "Q7", number: 7, chapter: "ג", type: "true_false", topic: "normal_operator", points: 6, summary: '$A$ נורמלית, $p\\in\\mathbb{C}[t]$ ⟹ $p(A)$ נורמלית?' },
+      { id: "Q8", number: 8, chapter: "א", type: "true_false", topic: "matrix_similarity", points: 6, summary: 'ל-$A$ יש $n$ ע"ע שונים, $A,B$ אותו פולינום אופייני ⟹ דומות?' },
+      { id: "Q9", number: 9, chapter: "ב", type: "true_false", topic: "nilpotent_basic", points: 6, summary: 'לכל $v$ קיים $k$: $T^kv=0$ ⟹ $T$ נילפוטנטי?' },
+      { id: "Q10", number: 10, chapter: "ב", type: "true_false", topic: "jordan_form", points: 6, summary: 'אותו $f_A=f_B$ ואותו $m_A=m_B$ (דרגה $\\leq6$) ⟹ דומות?' },
+      { id: "Q11", number: 11, chapter: "א", type: "true_false", topic: "diagonalization", points: 6, summary: '(א) $T$ לכסינה ⟹ $T^2$ לכסינה? (ב) $T^2$ לכסינה ⟹ $T$ לכסינה?' },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  //  2009 (תשס"ט) — Moed B.  Source: full PDF pp. 15–18.
+  // ════════════════════════════════════════════════════════════════
+  {
+    code: "2009_ב_I",
+    year: 2009,
+    moed: "ב",
+    semester: "summer",
+    date: "06.08.09",
+    lecturers: ["פרופ' יעקב ורשבסקי", 'ד"ר דן רומיק'],
+    duration_hours: 3,
+    total_points: 100,
+    verified: true,
+    parts: [
+      { name: "חלק א'", points: 40, choose: 2, from: ["Q1", "Q2", "Q3"], note: "ענו על 2 מתוך 3 — 20 נק' כל אחת" },
+      { name: "חלק ב'", points: 30, choose: 2, from: ["Q4", "Q5", "Q6"], note: "ענו על 2 מתוך 3 — 15 נק' כל אחת" },
+      { name: "חלק ג'", points: 30, choose: 5, from: ["Q7", "Q8", "Q9", "Q10", "Q11"], note: "ענו על כל 5 (7–11) — 6 נק' כל אחת" },
+    ],
+    questions: [
+      { id: "Q1", number: 1, chapter: "ג", type: "proof_short", topic: "cauchy_schwarz", points: 20, summary: '(א) נסחו והוכיחו אי-שוויון קושי-שוורץ, ציינו מתי שוויון; (ב) קבוצה אורתונורמלית ⟹ בת"ל' },
+      { id: "Q2", number: 2, chapter: "ג", type: "proof_short", topic: "bilinear_form", points: 20, summary: '$\\mathrm{char}\\,F\\neq2$: (א) לכל תבנית בילינארית קיים בסיס שבו $[f]_B$ אלכסונית; (ב) $F=\\mathbb{C}$ ⟹ ייצוג $I_r$, מספר ה-1-ים יחיד' },
+      { id: "Q3", number: 3, chapter: "ג", type: "proof_short", topic: "normal_operator", points: 20, summary: 'שקילות: (א) $T$ נורמלית; (ב) $T=R+iS$ הרמיטיות מתחלפות; (ג) $T=HU=UH$, $H$ הרמיטית $U$ אוניטרית' },
+      { id: "Q4", number: 4, chapter: "ב", type: "true_false", topic: "jordan_form", points: 15, summary: 'האם $A,B\\in M_4$ נתונות דומות? (רמז: צורות ז\'ורדן)' },
+      { id: "Q5", number: 5, chapter: "ג", type: "compute", topic: "adjoint_operator", points: 15, summary: 'מ"פ $\\langle v,u\\rangle=v^tAu$, $A=\\mathrm{diag}(1,2,3)$, $T=\\begin{pmatrix}1&2&3\\\\4&5&6\\\\7&8&9\\end{pmatrix}$; חשבו $T^*$' },
+      { id: "Q6", number: 6, chapter: "ג", type: "compute", topic: "unitary_diagonalization", points: 15, summary: '$A=\\begin{pmatrix}1&0&i\\\\0&1&0\\\\-i&0&1\\end{pmatrix}$; מצאו $U$ אוניטרית ו-$D$ אלכסונית: $A=UDU^{-1}$' },
+      { id: "Q7", number: 7, chapter: "א", type: "compute", topic: "char_polynomial", points: 6, summary: '$A\\in M_4(\\mathbb{C})$ (בלוקים); חשבו $\\sum\\lambda_i$ ו-$\\prod\\lambda_i$' },
+      { id: "Q8", number: 8, chapter: "ב", type: "true_false", topic: "jordan_form", points: 6, summary: '$A,B\\in M_4(\\mathbb{C})$ אותו פולינום אופייני ומינימלי ⟹ דומות?' },
+      { id: "Q9", number: 9, chapter: "ג", type: "true_false", topic: "unitary_operator", points: 6, summary: '$A$ אוניטרית וצמודה לעצמה ⟹ $A^2=I$?' },
+      { id: "Q10", number: 10, chapter: "ב", type: "true_false", topic: "nilpotent_basic", points: 6, summary: '(א) מכפלת נילפוטנטיות נילפוטנטית? (ב) סכום נילפוטנטיות נילפוטנטי?' },
+      { id: "Q11", number: 11, chapter: "ג", type: "true_false", topic: "unitary_operator", points: 6, summary: '$T$ אוניטרית: (א) קיים $\\lambda$: $T-\\lambda I$ לא הפיכה; (ב) הפיכה ל-$|\\lambda|\\neq1$; (ג) ל-$|\\lambda|=1$' },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════
+  //  2010 (תש"ע)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2010_א_I",
@@ -87,7 +310,7 @@ export const EXAMS = [
         number: 1,
         chapter: "א",
         type: "true_false",
-        topic: "matrix_similarity",
+        topic: "cayley_hamilton",
         points: 7,
         summary:
           "תהי $A$ מטריצה רגולרית. אזי $A^{-1}$ צירוף לינארי של $I, A, \\ldots, A^{n-1}$",
@@ -114,7 +337,7 @@ export const EXAMS = [
       {
         id: "ג1",
         number: 4,
-        chapter: "ג",
+        chapter: "ב",
         type: "true_false",
         topic: "nilpotent_classify",
         points: 7,
@@ -124,7 +347,7 @@ export const EXAMS = [
       {
         id: "ב1",
         number: 5,
-        chapter: "ב",
+        chapter: "ג",
         type: "true_false",
         topic: "unitary_operator",
         points: 7,
@@ -324,9 +547,9 @@ export const EXAMS = [
       {
         id: "ג6",
         number: 11,
-        chapter: "א",
+        chapter: "ג",
         type: "counterexample",
-        topic: "invariant_subspace",
+        topic: "self_adjoint_invariant",
         points: 17,
         summary: "$U$ הוא $T$-אינווריאנטי ⟺ $U^\\perp$ הוא $T^*$-אינווריאנטי?",
       },
@@ -344,7 +567,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"א  2011
+  //  2011 (תשע"א)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2011_א_I",
@@ -441,7 +664,7 @@ export const EXAMS = [
       {
         id: "ב1",
         number: 5,
-        chapter: "א",
+        chapter: "ב",
         type: "compute",
         topic: "jordan_form",
         points: 15,
@@ -1015,7 +1238,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ב  2012
+  //  2012 (תשע"ב)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2012_א_I",
@@ -1194,7 +1417,7 @@ export const EXAMS = [
         topic: "jordan_form",
         points: 6,
         summary:
-          "האם קיימות מטריצות ב-$M_4(\\mathbb{C})$ עם: א) $p_A=(x+1)(x-2)$, $m_A=(x-2)$; ב) $p_A=(x+1)(x+3)$, $m_A=(x+1)(x+3)$",
+          "האם קיימות מטריצות ב-$M_2(\\mathbb{C})$ עם: א) $p_A=(x+1)(x-2)$, $m_A=(x-2)$; ב) $p_A=(x+1)(x+3)$, $m_A=(x+1)(x+3)$",
       },
     ],
   },
@@ -1403,7 +1626,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ג  2013  (מועד ב' בלבד)
+  //  2013 (תשע"ג) — Moed B only
   // ════════════════════════════════════════════════════════════════
   {
     code: "2013_ב_I",
@@ -1615,13 +1838,13 @@ export const EXAMS = [
         topic: "matrix_similarity",
         points: 5,
         summary:
-          "$F$ שדה, $A$ מטריצה $4\\times4$ מעל $F$, $A^t=0$, $A^3\\neq0$",
+          "$F$ שדה, $A$ מטריצה $4\\times4$ מעל $F$ עם $A^4=0$, $A^3\\neq0$; טענה על צורת ז'ורדן של $A$ (הניסוח המלא טעון אימות מול PDF עמ' 39)",
       },
     ],
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ד  2014
+  //  2014 (תשע"ד)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2014_א_I",
@@ -1746,10 +1969,10 @@ export const EXAMS = [
         number: 7,
         chapter: "א",
         type: "counterexample",
-        topic: "invariant_subspace",
+        topic: "dual_space",
         points: 6,
         summary:
-          '$V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$ ל"ל, $W$ $f$-אינווריאנטי ⟹ $\\mathrm{span}(W,Tv)$ לכל $v$ הוא $f$-אינווריאנטי? (טענה לא ברורה לחלוטין מתמונת המקור)',
+          '$V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$ ל"ל. הוכיחו או הפריכו: לכל $W\\leq V$ $f$-אינווריאנטי, המאפס $W^\\circ\\leq V^\\vee$ הוא $f^\\vee$-אינווריאנטי (EXCLUDED — מרחב דואלי)',
       },
       {
         id: "א3",
@@ -1954,14 +2177,17 @@ export const EXAMS = [
         ],
       },
       {
+        // הוכחה דרך נילפוטנטיות: עבור $k$ מינימלי, $(f-\lambda I)^{k-1}v\neq0$
+        // אך $(f-\lambda I)$ מאפס אותו ⟹ זהו ו"ע. הנושא הוא מרחב עצמי מוכלל
+        // ($\ker(f-\lambda I)^k$), הממוקם בפרק הנילפוטנטיות.
         id: "א2",
         number: 7,
-        chapter: "א",
+        chapter: "ב",
         type: "counterexample",
-        topic: "eigenvalue_definition",
+        topic: "generalized_eigenspace",
         points: 6,
         summary:
-          '$V$ ממ"ס, $f:V\\to V$ ל"ל, $\\lambda\\in\\mathbb{F}$. $\\ker(f-\\lambda\\mathrm{Id}_V)^k\\neq\\{0\\}$ עבור $k\\in\\mathbb{N}$ ⟹ $\\lambda$ ע"ע של $f$',
+          '$V$ ממ"ס, $f:V\\to V$ ל"ל, $\\lambda\\in\\mathbb{F}$. $\\ker(f-\\lambda\\mathrm{Id}_V)^k\\neq\\{0\\}$ עבור $k\\in\\mathbb{N}$ ⟹ $\\lambda$ ע"ע של $f$ (דרך נילפוטנטיות)',
       },
       {
         id: "ב5",
@@ -2051,7 +2277,7 @@ export const EXAMS = [
         number: 2,
         chapter: "ג",
         type: "proof_theorem",
-        topic: "self_adjoint",
+        topic: "unitary_operator",
         points: 15,
         summary:
           '$V$ אוניטרי ממ"ס מעל $\\mathbb{C}$ עם מ"פ מרוכבת, $f:V\\to V$ אוניטרי, $\\lambda$ ע"ע. א) $|\\lambda|=1$; ב) $v,w$ ו"ע לע"ע שונים ⟹ $\\langle v,w\\rangle=0$',
@@ -2117,7 +2343,7 @@ export const EXAMS = [
         topic: "spectral_theorem_real",
         points: 20,
         summary:
-          '$f$ ל"ל על $\\mathbb{R}^2$ הנתון ע"י $f(x,y)=(?,?)$. א) פולינום אופייני; ב) ע"ע; ג) בסיס ל-$\\mathbb{R}^2$ של ו"ע; ד) $D,P\\in M_2(\\mathbb{R})$, $D$ אלכסונית: $P^{-1}AP=D$',
+          '$f$ ל"ל על $\\mathbb{R}^2$ הנתון ע"י מטריצה $2\\times2$ (הערכים המדויקים טעונים אימות מול PDF עמ\' 60). א) פולינום אופייני; ב) ע"ע; ג) בסיס ל-$\\mathbb{R}^2$ של ו"ע; ד) $D,P\\in M_2(\\mathbb{R})$, $D$ אלכסונית: $P^{-1}AP=D$',
         subparts: [
           {
             id: "א",
@@ -2157,14 +2383,14 @@ export const EXAMS = [
         topic: "jordan_form",
         points: 20,
         summary:
-          "$A\\in M_3(\\mathbb{C})$. א) $v\\in\\mathbb{C}^2$: $v\\in\\ker A$; ב) $J\\in M_3(\\mathbb{C})$ ז'ורדן הדומה ל-$A$; ג) $P$ הפיכה: $J=P^{-1}AP$",
+          "$A=\\begin{pmatrix}0&1&2\\\\0&0&0\\\\0&0&0\\end{pmatrix}\\in M_3(\\mathbb{C})$ (שימו לב $A^2=0$). א) מצאו $v\\in\\mathbb{C}^3$ עם $v\\notin\\ker A$; ב) $J\\in M_3(\\mathbb{C})$ ז'ורדן הדומה ל-$A$; ג) $P$ הפיכה: $J=P^{-1}AP$",
         subparts: [
           {
             id: "א",
             points: 5,
             type: "compute",
             topic: "jordan_form",
-            summary: "וקטור $v\\in\\ker A$",
+            summary: "וקטור $v\\notin\\ker A$",
           },
           {
             id: "ב",
@@ -2246,7 +2472,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ה  2015
+  //  2015 (תשע"ה)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2015_א_I",
@@ -2658,8 +2884,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ו  2016
-  //  מבנה חדש: 5 שאלות, ענו על 4. כל שאלה 25 נק'. ללא חלוקה לחלקים.
+  //  2016 (תשע"ו) — new format: single block, no part division
   // ════════════════════════════════════════════════════════════════
   {
     code: "2016_א_I",
@@ -2803,7 +3028,7 @@ export const EXAMS = [
       {
         id: "Q4",
         number: 4,
-        chapter: "ג",
+        chapter: "א",
         type: "mixed",
         topic: "primary_decomposition",
         points: 25,
@@ -2836,9 +3061,9 @@ export const EXAMS = [
       {
         id: "Q5",
         number: 5,
-        chapter: "ג",
+        chapter: "א",
         type: "mixed",
-        topic: "bilinear_form",
+        topic: "cyclic_subspace",
         points: 25,
         summary:
           "א) $g_A$ עם $A=\\begin{pmatrix}1&2&-1\\\\2&5&-1\\\\-1&-1&1\\end{pmatrix}$: בסיס אורתוגונלי, $G$ המייצגת, $0\\neq v: g(v,v)=0$ (EXCLUDED לסעיף א'); ב) $V$ ממ\"ס, $T:V\\to V$, $v\\in V$, $T^kv\\in\\mathrm{Span}(v,Tv,\\ldots,T^{k-1}v)$ עם $k$ מינימלי ⟹ $T^mv\\in\\mathrm{Span}(...)$ לכל $m$",
@@ -3003,7 +3228,7 @@ export const EXAMS = [
       {
         id: "Q4",
         number: 4,
-        chapter: "א",
+        chapter: "ג",
         type: "mixed",
         topic: "spectral_theorem_real",
         points: 25,
@@ -3045,7 +3270,7 @@ export const EXAMS = [
         number: 5,
         chapter: "ג",
         type: "mixed",
-        topic: "bilinear_form",
+        topic: "unitary_operator",
         points: 25,
         summary:
           'א) $q(x_1,x_2,x_3)=x_1^2-4x_1x_2+3x_2^2-6x_2x_3-9x_3^2$: מטריצת $g$, בסיס למשלים $\\binom{3}{1,0}^\\perp$, גרעין (EXCLUDED לסעיף א\'); ב) $V$ ממ"פ ממ"ס מעל $\\mathbb{C}$, $T$ אוניטרי, $\\lambda$ ע"ע ⟹ $|\\lambda|=1$',
@@ -3084,7 +3309,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ז  2017
+  //  2017 (תשע"ז)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2017_א_I",
@@ -3108,33 +3333,33 @@ export const EXAMS = [
       {
         id: "Q1",
         number: 1,
-        chapter: "ג",
+        chapter: "א",
         type: "mixed",
-        topic: "self_adjoint",
+        topic: "eigenvalue_definition",
         points: 25,
         summary:
-          "א) $A\\in M_n(\\mathbb{R})$: 3 טענות לבדיקה — שוויונים בין סכומי ריבועים של שורות/עמודות; ב) $g$ ביליניארית סימטרית עם מטריצת גרם נתונה, מצאו בסיס $B$ אלכסונה (EXCLUDED לסעיף ב')",
+          'א) $A=(a^i_j)\\in M_n(\\mathbb{R})$: אלו מהטענות נכונות (הוכחה/דוגמה נגדית) — תנאים על שוויון סכומי שורות/עמודות (וסכומי ריבועים) הגוררים קיום ע"ע; ב) $g$ ביליניארית סימטרית עם מטריצת גרם נתונה, מצאו בסיס $B$ אלכסונה (EXCLUDED לסעיף ב\')',
         subparts: [
           {
             id: "א.i",
             points: 5,
             type: "true_false",
-            topic: "self_adjoint",
-            summary: "טענה 1 — סכום ריבועי שורות שווה",
+            topic: "eigenvalue_definition",
+            summary: "סכום איברי כל שורה שווה ⟹ קיים ע\"ע?",
           },
           {
             id: "א.ii",
             points: 5,
             type: "true_false",
-            topic: "self_adjoint",
-            summary: "טענה 2 — סכום ריבועי עמודות שווה",
+            topic: "eigenvalue_definition",
+            summary: "תנאי על העמודות ⟹ קיים ע\"ע?",
           },
           {
             id: "א.iii",
             points: 5,
             type: "true_false",
-            topic: "self_adjoint",
-            summary: "טענה 3 — שורה $l$ זהה לכל",
+            topic: "eigenvalue_definition",
+            summary: "תנאי על סכומי ריבועים ⟹ קיים ע\"ע?",
           },
           {
             id: "ב",
@@ -3416,7 +3641,7 @@ export const EXAMS = [
         number: 4,
         chapter: "ג",
         type: "mixed",
-        topic: "spectral_theorem_real",
+        topic: "orthogonal_operator",
         points: 25,
         summary:
           'א) $V$ ממ"פ פנימית מעל $\\mathbb{R}$, $f^3=\\mathrm{Id}_V$. הוכיחו $g(u,v):=\\langle u|v\\rangle+\\langle fu|fv\\rangle+\\langle f^2u|f^2v\\rangle$ מ"פ ש-$f$ אורתוגונלי ביחס אליה; ב) $A=\\begin{pmatrix}a&1&1&1&1\\\\1&a&1&1&1\\\\1&1&a&1&1\\\\1&1&1&a&1\\\\1&1&1&1&a\\end{pmatrix}$. (i) $a-1$ ע"ע, מימד $V_{a-1}$; (ii) $a+4$ ע"ע; (iii) $A$ לכסינה',
@@ -3488,7 +3713,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ח  2018
+  //  2018 (תשע"ח)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2018_א_I",
@@ -3571,9 +3796,9 @@ export const EXAMS = [
       {
         id: "Q3",
         number: 3,
-        chapter: "ג",
+        chapter: "ב",
         type: "mixed",
-        topic: "bilinear_form",
+        topic: "matrix_similarity",
         points: 25,
         summary:
           "א) $V$ ממ\"ס, $\\mathrm{char}\\,F\\neq 2$, $g$ ביליניארית סימטרית, $q$ ריבועית. (i) $g(u,v)=(q(u+v)-q(u-v))/4$; (ii) $g\\neq0$ ⟹ קיים $0\\neq v: q(v)\\neq0$ (EXCLUDED לסעיף א'); ב) $A=\\begin{pmatrix}0&0&0\\\\1&0&-4\\\\0&0&2\\end{pmatrix}, B=\\begin{pmatrix}0&-2&0\\\\0&2&0\\\\1&-3&0\\end{pmatrix}$: האם דומות?",
@@ -3865,14 +4090,13 @@ export const EXAMS = [
         topic: "spectral_theorem_real",
         points: 25,
         summary:
-          "(שאלה 5 — הדף לא נסרק במלואו בקובץ המקור) מבוסס על מבנה ידוע של 2018 ב': חלק (א) על לכסון אורתוגונלי/אוניטרי, חלק (ב) על קושי-שוורץ או תבנית ביליניארית",
+          "(שאלה 5 — טעון אימות מול ה-PDF, עמ' 93; הסריקה אינה חד-משמעית) לפי מבנה מבחני 2018 (זמל/נבו/פרין): חלק (א) זיהוי אילו נוסחאות מגדירות מכפלה פנימית על מרחב פולינומים; חלק (ב) לכסון אורתוגונלי של מטריצה סימטרית",
       },
     ],
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ט  2019 — סמסטר א' חורף (קורס 80135-1)
-  //  מרצה: מר איתמר צביק
+  //  2019 (תשע"ט) — winter (course 80135-1)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2019w_א_I",
@@ -3929,9 +4153,9 @@ export const EXAMS = [
       {
         id: "Q2",
         number: 2,
-        chapter: "ב",
+        chapter: "א",
         type: "mixed",
-        topic: "primary_decomposition",
+        topic: "diagonalization",
         points: 25,
         summary:
           'א) $V$ ממ"ס מעל $\\mathbb{F}$, $\\mathrm{char}\\,F\\neq 2$, $f:V\\to V$. (i) הגדירו $f$ שיקוף; (ii) $f$ שיקוף ⟺ $f^2=\\mathrm{Id}_V$; ב) $V=\\mathbb{R}_{\\leq 2}[X]$ עם $\\langle p|q\\rangle:=p(-1)q(-1)+p(0)q(0)+p(1)q(1)$. (i) גרם-שמידט על $(1,X,X^2)$; (ii) $d(X^2,\\mathrm{Span}(1,X))$',
@@ -4276,8 +4500,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשע"ט  2019 — סמסטר ב' קיץ
-  //  מרצים: ד"ר קלואי פרין, פרופ' ערן נבו, ד"ר איב גודין
+  //  2019 (תשע"ט) — summer
   // ════════════════════════════════════════════════════════════════
   {
     code: "2019_א_I",
@@ -4307,7 +4530,7 @@ export const EXAMS = [
         topic: "cauchy_schwarz",
         points: 25,
         summary:
-          'א) $V$ ממ"פ ממ"ס מעל $\\mathbb{C}$. נסחו והוכיחו את אי-שוויון קושי-שוורץ + תנאי שוויון; ב) $A=\\begin{pmatrix}7&-4&0&0\\\\9&-5&0&0\\\\-5&3&1&0\\\\-10&6&0&1\\end{pmatrix}, B=\\begin{pmatrix}-7&-5&0&0\\\\4&3&0&-4\\\\1&0&1&-1\\\\-6&-4&0&7\\end{pmatrix}\\in M_4(\\mathbb{C})$. האם $A,B$ דומות?',
+          'א) $V$ ממ"פ ממ"ס מעל $\\mathbb{C}$. נסחו והוכיחו את אי-שוויון קושי-שוורץ + תנאי שוויון; ב) $A=\\begin{pmatrix}7&-4&0&0\\\\9&-5&0&0\\\\-5&3&1&0\\\\-10&6&0&1\\end{pmatrix}, B=\\begin{pmatrix}-7&-5&0&8\\\\4&3&0&-4\\\\1&0&1&-1\\\\-6&-4&0&7\\end{pmatrix}\\in M_4(\\mathbb{C})$. האם $A,B$ דומות?',
         subparts: [
           {
             id: "א",
@@ -4553,21 +4776,21 @@ export const EXAMS = [
         topic: "char_polynomial",
         points: 25,
         summary:
-          'א) $\\mathbb{F}$ שדה, $P=a_0+\\ldots+a_{n-1}X^{n-1}+X^n$. $A$ מטריצת חברה. הוכיחו $P(A)=0$ והוא הפ"א; ב) $V$ ממ"ס מעל $F$, $\\mathrm{char}(F)\\neq 2$, $g$ ביליניארית. האם קיים בסיס $B$ עם $g$ אורתוגונלית? (EXCLUDED לסעיף ב\')',
+          'א) $\\mathbb{F}$ שדה, $P=a_0+\\ldots+a_{n-1}X^{n-1}+X^n$. $A$ המטריצה המלווה של $P$. הוכיחו $P(A)=O_n$ ו-$Q(A)\\neq O_n$ לכל $0\\leq\\deg Q<n$; ב) $V$ ממ"ס מעל $F$, $\\mathrm{char}(F)\\neq 2$, $g$ ביליניארית סימטרית. האם קיים בסיס $B$ אורתוגונלי ביחס ל-$g$ המכיל וקטור $b_i$ ניצב לעצמו שאינו בגרעין? (EXCLUDED לסעיף ב\')',
         subparts: [
           {
             id: "א",
             points: 12.5,
             type: "proof_short",
             topic: "char_polynomial",
-            summary: 'מטריצה חברה: $P(A)=0$ ופ"א',
+            summary: "מטריצה מלווה: $P(A)=0$ ואין מאפס ממעלה $<n$",
           },
           {
             id: "ב",
             points: 12.5,
             type: "counterexample",
             topic: "bilinear_form",
-            summary: "האם בסיס אורתוגונלי? (EXCLUDED)",
+            summary: "בסיס אורתוגונלי עם וקטור איזוטרופי לא בגרעין? (EXCLUDED)",
           },
         ],
       },
@@ -4648,7 +4871,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תש"ף  2020 — מועד א' חורף בלבד (קורונה)
+  //  2020 (תש"ף) — Moed A only (COVID)
   // ════════════════════════════════════════════════════════════════
   {
     code: "2020_א_I",
@@ -4838,7 +5061,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"א  2021 — מועד ב' חורף, פורמט יוצא דופן: 2 חלקים נפרדים
+  //  2021 (תשפ"א) — Moed B, unusual format: two separate parts
   // ════════════════════════════════════════════════════════════════
   {
     code: "2021w_ב_I",
@@ -4848,7 +5071,7 @@ export const EXAMS = [
     date: "09.03.21",
     lecturers: ["פרופ' יעקב ורשבסקי"],
     duration_hours: 2,
-    total_points: 119,
+    total_points: 102,
     verified: true,
     parts: [
       {
@@ -4856,14 +5079,14 @@ export const EXAMS = [
         points: 51,
         choose: 3,
         from: ["Q1", "Q2", "Q3"],
-        note: "כל שאלה 17 נק', 1 שעה",
+        note: "ענו על כל 3 השאלות — 17 נק' כל אחת, 1 שעה",
       },
       {
         name: "חלק 2",
-        points: 68,
-        choose: 4,
+        points: 51,
+        choose: 3,
         from: ["Q4", "Q5", "Q6", "Q7"],
-        note: "כל שאלה 17 נק', 1 שעה",
+        note: "ענו על 3 מתוך 4 — 17 נק' כל אחת, 1 שעה",
       },
     ],
     questions: [
@@ -4916,54 +5139,55 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "proof_short",
-        topic: "minimal_polynomial",
+        type: "mixed",
+        topic: "diagonalization",
         points: 17,
-        summary: '$T:V\\to V$. אם $f_T(T)=0$ אז $f_T$ הוא הפ"מ של $T$',
+        summary:
+          '$V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$, $\\lambda_1,\\ldots,\\lambda_k$ כל הע"ע השונים. (א) הגדירו אופרטור לכסין, סכום וסכום ישר של תתי-מרחבים; (ב) הוכיחו $f$ לכסין אמ"מ $V=\\bigoplus_{i=1}^k V_{\\lambda_i}$',
       },
       {
         id: "Q5",
         number: 5,
         chapter: "א",
         type: "proof_short",
-        topic: "primary_decomposition",
+        topic: "minimal_polynomial",
         points: 17,
         summary:
-          '$\\lambda_1,\\ldots,\\lambda_k$ ע"ע שונים ⟹ $V_{\\lambda_1}+\\ldots+V_{\\lambda_k}=V_{\\lambda_1}\\oplus\\ldots\\oplus V_{\\lambda_k}$',
+          '$V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$, $m_f$ הפ"מ, $\\chi_f$ הפ"א, $\\lambda\\in\\mathbb{F}$. הוכיחו את הגרירות (i)⟹(ii)⟹(iii)⟹(i): (i) $\\lambda$ ע"ע של $f$; (ii) $m_f(\\lambda)=0$; (iii) $\\chi_f(\\lambda)=0$',
       },
       {
         id: "Q6",
         number: 6,
         chapter: "ג",
-        type: "proof_short",
-        topic: "spectral_theorem_real",
+        type: "counterexample",
+        topic: "inner_product_axioms",
         points: 17,
         summary:
-          '$V$ ממ"פ ממ"ס מעל $\\mathbb{R}$, $T$ צמוד לעצמו ⟹ יש בסיס אורתונורמלי של ו"ע',
+          '$V=\\mathbb{R}_{\\leq4}[x]$. הוכיחו או הפריכו: (א) $\\langle P|Q\\rangle=\\sum_{i=1}^4 P(i)Q(i)$ מ"פ פנימית על $V$; (ב) $\\langle P|Q\\rangle=\\sum_{i=1}^5 P(i)Q(i)$ מ"פ פנימית על $V$',
       },
       {
         id: "Q7",
         number: 7,
         chapter: "ג",
         type: "proof_short",
-        topic: "unitary_operator",
+        topic: "self_adjoint",
         points: 17,
         summary:
-          '$V$ ממ"פ מעל $\\mathbb{C}$, $T$ אוניטרי. (i) ע"ע על מעגל יחידה; (ii) ו"ע לע"ע שונים אורתוגונליים',
+          '$V$ ממ"פ ממ"ס, $f:V\\to V$ אופ\' הפיך. (א) הראו שאם $\\langle f(v),v\\rangle>0$ לכל $0\\neq v$ אז ל-$f$ אין ע"ע (לא חיובי); (ב) הראו שאם $f=-f^*$ אז ל-$f$ אין ע"ע ממשי',
         subparts: [
           {
-            id: "i",
-            points: 8,
+            id: "א",
+            points: 7,
             type: "proof_short",
-            topic: "unitary_operator",
-            summary: 'ע"ע של אוניטרי על $|z|=1$',
+            topic: "self_adjoint",
+            summary: '$\\langle f(v),v\\rangle>0\\,\\forall v\\neq0$ ⟹ אין ע"ע (לא חיובי)',
           },
           {
-            id: "ii",
-            points: 9,
+            id: "ב",
+            points: 10,
             type: "proof_short",
-            topic: "unitary_operator",
-            summary: 'ו"ע לע"ע שונים אורתוגונליים',
+            topic: "self_adjoint",
+            summary: '$f=-f^*$ ⟹ אין ע"ע ממשי',
           },
         ],
       },
@@ -5019,38 +5243,24 @@ export const EXAMS = [
         number: 2,
         chapter: "א",
         type: "mixed",
-        topic: "primary_decomposition",
+        topic: "cyclic_subspace",
         points: 25,
         summary:
-          'א) $f^\\ell=f$ עם $\\ell\\geq 2$. (i) $W$ $f$-ציקלי ⟹ $\\dim W<n$; (ii) $V$ סכום ישר של $f$-ציקליים; ב) (i) הגדירו $f$ אורתוגונלי; (ii) $f$ אורתוגונלי ⟺ שמירת מ"פ פנימית',
+          '(א) $V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$ עם $\\ell\\geq2$ טבעי כך ש-$f^\\ell=f$. הוכיחו: אם $W\\subseteq V$ תת-מרחב $f$-ציקלי אז $\\dim W\\leq\\ell$; (ב) נתונה מכפלה פנימית $\\langle\\cdot|\\cdot\\rangle$ על $\\mathbb{R}^3$ (תבנית סימטרית $4x_1y_1-2x_1y_2-2x_2y_1+2x_2y_2+8x_3y_3$). (1) הוכיחו שהיא מ"פ פנימית; (2) מצאו בסיס אורתונורמלי',
         subparts: [
           {
-            id: "א.i",
-            points: 5,
+            id: "א",
+            points: 12,
             type: "proof_short",
             topic: "cyclic_subspace",
-            summary: "$W$ ציקלי ⟹ $\\dim W<n$",
+            summary: "$f^\\ell=f$, $W$ $f$-ציקלי ⟹ $\\dim W\\leq\\ell$",
           },
           {
-            id: "א.ii",
-            points: 8,
-            type: "proof_short",
-            topic: "primary_decomposition",
-            summary: "$V$ סכום ישר של ציקליים",
-          },
-          {
-            id: "ב.i",
-            points: 3,
-            type: "definition_apply",
-            topic: "orthogonal_operator",
-            summary: "הגדרת $f$ אורתוגונלי",
-          },
-          {
-            id: "ב.ii",
-            points: 9,
-            type: "proof_short",
-            topic: "orthogonal_operator",
-            summary: '$f$ אורתוגונלי ⟺ שמירת מ"פ',
+            id: "ב",
+            points: 13,
+            type: "compute",
+            topic: "gram_schmidt",
+            summary: 'מ"פ פנימית על $\\mathbb{R}^3$: הוכחה + בסיס אורתונורמלי',
           },
         ],
       },
@@ -5088,21 +5298,21 @@ export const EXAMS = [
         topic: "self_adjoint",
         points: 25,
         summary:
-          "א) $A\\in M_n(\\mathbb{C})$. $\\ker(I+AA^*)=\\{0\\}$; ב) דוגמה $A,B\\in M_7(\\mathbb{R})$ עם אותו $m_T$ ו-rank — לא דומות",
+          "א) $A\\in M_n(\\mathbb{C})$. הוכיחו $\\ker(I_n+AA^*)=\\{0\\}$; ב) מצאו שתי מטריצות נילפוטנטיות $A,B\\in M_7(\\mathbb{R})$ שאינן דומות, עם אותו פולינום מינימלי ו-$\\mathrm{rk}(A)=\\mathrm{rk}(B)$",
         subparts: [
           {
             id: "א",
             points: 12,
             type: "proof_short",
             topic: "self_adjoint",
-            summary: "$\\ker(I+AA^*)=\\{0\\}$",
+            summary: "$\\ker(I_n+AA^*)=\\{0\\}$",
           },
           {
             id: "ב",
             points: 13,
             type: "counterexample",
-            topic: "matrix_similarity",
-            summary: "$A,B$ עם אותם $m_T$,rank לא דומות",
+            topic: "nilpotent_classify",
+            summary: "$A,B\\in M_7$ נילפוטנטיות לא דומות, אותו $m_T$ ודרגה",
           },
         ],
       },
@@ -5247,7 +5457,7 @@ export const EXAMS = [
         topic: "matrix_similarity",
         points: 25,
         summary:
-          'א) $T$ אורתוגונלי ⟺ $[T]_C$ אורתוגונלית עבור $C$ אורתונורמלי; ב) ספירת $A\\in M_6(\\mathbb{C})$ אי-דומות עם $\\mathrm{rk}(A-2I)=4$ ופ"א $(X-2)^4(X+4)^2$',
+          'א) $V$ ממ"פ ממ"ס מעל $\\mathbb{R}$, $B$ אורתונורמלי, $C$ בסיס, $T$ אורתוגונלי; הוכיחו: $[T]_C$ אורתוגונלית ⟹ $C$ אורתונורמלי; ב) כמה $A\\in M_6(\\mathbb{C})$ אי-דומות עם $\\mathrm{rk}(A-2I)=4$ ופולינום מינימלי $(X-2)^2(X+4)^2$',
         subparts: [
           {
             id: "א",
@@ -5309,9 +5519,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ב  2022 — סמסטר א' חורף (קורס 80135-1)
-  //  פורמט חדש: 9 שאלות. שאלה 1 חובה, 2-of-3 משאלות 2-4, 4-of-5 משאלות 5-9
-  //  משך: 2.5 שעות. מרצה: מר איתמר צביק
+  //  2022 (תשפ"ב) — winter (course 80135-1), new format: mandatory + choose blocks
   // ════════════════════════════════════════════════════════════════
   {
     code: "2022w_א_I",
@@ -5449,7 +5657,7 @@ export const EXAMS = [
         number: 9,
         chapter: "א",
         type: "proof_short",
-        topic: "primary_decomposition",
+        topic: "char_polynomial",
         points: 14,
         summary:
           '$V$ מ"מ ממ"ס מעל שדה $\\mathbb{F}$, $f:V\\to V$ אופ\'. הוכיחו: אם $v\\in V$ ו"ע של $f$ עם ע"ע $\\lambda\\in\\mathbb{F}$ אז $(T-\\lambda)|\\chi_f(T)$ או $\\chi_f(T)\\equiv 0$',
@@ -5492,7 +5700,7 @@ export const EXAMS = [
         topic: "minimal_polynomial_vec",
         points: 16,
         summary:
-          '$V=\\mathbb{R}^3$, $f:V\\to V$ נתון ע"י $f(x)=Ax$ עם $A=\\begin{pmatrix}1&1&\\\\1&1&\\\\1&1&\\end{pmatrix}\\in M_3(\\mathbb{R})$. (i) הוכיחו $\\chi_A(T)=(T+1)^2(T-2)\\in\\mathbb{R}[T]$ הוא הפ"א של $A$; (ii) מצאו בסיס סדור $U$ של $V$ אורתוגונלי ביחס למ"פ הסטנ\' כך ש-$[f]_U$ אלכסונית; (iii) מצאו תת-מרחב ציקלי ביחס ל-$A$ ממימד מקסימלי',
+          '$V=\\mathbb{R}^3$, $f:V\\to V$ נתון ע"י $f(x)=Ax$ עם $A=\\begin{pmatrix}0&1&1\\\\1&0&1\\\\1&1&0\\end{pmatrix}\\in M_3(\\mathbb{R})$. (i) הוכיחו $\\chi_A(T)=(T+1)^2(T-2)\\in\\mathbb{R}[T]$ הוא הפ"א של $A$; (ii) מצאו בסיס סדור $U$ של $V$ אורתוגונלי ביחס למ"פ הסטנ\' כך ש-$[f]_U$ אלכסונית; (iii) מצאו תת-מרחב ציקלי ביחס ל-$A$ ממימד מקסימלי',
         subparts: [
           {
             id: "i",
@@ -5601,9 +5809,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ב  2022 — סמסטר ב' קיץ
-  //  פורמט: 5 שאלות, ענו על 4. 25 נק' לשאלה. 3 שעות
-  //  מרצים: ד"ר אלכס גורביץ, פרופ' צליל סלע, ד"ר ארי שנידמן
+  //  2022 (תשפ"ב) — summer
   // ════════════════════════════════════════════════════════════════
   {
     code: "2022_א_I",
@@ -5718,7 +5924,7 @@ export const EXAMS = [
         topic: "orthogonal_projection",
         points: 25,
         summary:
-          'א) $V$ ממ"פ ממ"ס, $U,W\\subseteq V$ ת"מ עם $U\\perp W$, $v_U,v_W\\in V$ ההטלות האורתוגונליות של $u,v\\in V$ על $U,W$ בהתאמה. הוכיחו $\\|v\\|^2\\geq\\|v_U\\|^2+\\|v_W\\|^2$; ב) הוכיחו $x,y,z\\in\\mathbb{R}$ חיוביים, $x+y+z=1$ ⟹ $(x\\sqrt{z}+y\\sqrt{x}+z\\sqrt{y})^2\\leq xyz(\\frac{1}{x}+\\frac{1}{y}+\\frac{1}{z})$',
+          'א) $V$ ממ"פ ממ"ס, $U,W\\subseteq V$ ת"מ עם $U\\perp W$. יהי $v\\in V$ ו-$v_U,v_W$ ההטלות האורתוגונליות שלו על $U,W$ בהתאמה. הוכיחו $\\|v\\|^2\\geq\\|v_U\\|^2+\\|v_W\\|^2$; ב) הוכיחו $x,y,z\\in\\mathbb{R}$ חיוביים, $x+y+z=1$ ⟹ $(x\\sqrt{z}+y\\sqrt{x}+z\\sqrt{y})^2\\leq xyz(\\frac{1}{x}+\\frac{1}{y}+\\frac{1}{z})$',
         subparts: [
           {
             id: "א",
@@ -5744,14 +5950,14 @@ export const EXAMS = [
         topic: "primary_decomposition",
         points: 25,
         summary:
-          'א) $V$ ממ"ס, $f:V\\to V$, $\\lambda,\\mu\\in F$ ע"ע של $f$ עם $\\lambda\\neq\\mu$, $W\\subseteq V$ $f$-אינווריאנטי. הוכיחו: $u\\in W$, $v\\in W$ ו"ע של $f$ ל-$\\lambda,\\mu$ בהתאמה ⟹ $u+v\\in W$; ב) $A\\in M_7(\\mathbb{C})$ עם פ"מ $(X-1)^2(X-4)^2$ ו-$\\mathrm{rk}(A-4I_7)=4$. רשמו את כל מטריצות הז\'ורדן עבור $A$',
+          'א) $V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$. יהיו $u,w$ ו"ע של $f$ לערכים $\\lambda\\neq\\mu$ בהתאמה, ו-$W\\subseteq V$ ת"מ $f$-אינווריאנטי כך ש-$u+w\\in W$. הוכיחו $u,w\\in W$; ב) $A\\in M_7(\\mathbb{C})$ עם פ"מ $(X-1)^2(X-4)^2$ ו-$\\mathrm{rk}(A-4I_7)=4$. רשמו את כל מטריצות הז\'ורדן עבור $A$',
         subparts: [
           {
             id: "א",
             points: 12,
             type: "proof_short",
             topic: "invariant_subspace",
-            summary: 'ת"מ אינווריאנטי + ו"ע נפרדים ⟹ סגירות',
+            summary: 'ת"מ $f$-אינווריאנטי, $u+w\\in W$ ⟹ $u,w\\in W$',
           },
           {
             id: "ב",
@@ -5792,14 +5998,14 @@ export const EXAMS = [
         topic: "matrix_similarity",
         points: 25,
         summary:
-          "א) $A\\in M_n(\\mathbb{C})$. הוכיחו $A$ דומה ל-$A^{t^*}=\\bar A^t$ (הצמודה ההרמיטית); ב) הוכיחו לכל $x,y,z\\in\\mathbb{C}$ קיים $a\\in\\mathbb{C}$ עם $|y|=|z|$ כך ש-$\\begin{pmatrix}x&y\\\\z&a\\end{pmatrix}$ ניתן ללכסון אוניטרי",
+          "א) $A\\in M_n(\\mathbb{C})$. הוכיחו $A$ דומה ל-$A^t$ (השחלוף); ב) הוכיחו לכל $x,y,z\\in\\mathbb{C}$ המקיימים $|y|=|z|$ קיים $a\\in\\mathbb{C}$ כך ש-$\\begin{pmatrix}x&y\\\\z&a\\end{pmatrix}$ ניתנת ללכסון אוניטרי",
         subparts: [
           {
             id: "i",
             points: 12,
             type: "proof_short",
             topic: "matrix_similarity",
-            summary: "$A$ דומה ל-$A^*$",
+            summary: "$A$ דומה ל-$A^t$ (שחלוף)",
           },
           {
             id: "ii",
@@ -5819,14 +6025,14 @@ export const EXAMS = [
         topic: "jordan_form",
         points: 25,
         summary:
-          "א) $V$ ממ\"ס סוף, $g:V\\times V\\to\\mathbb{R}$ תבנית ביליניארית סימטרית עם סיגנטורה $(n,0)$ (חיובית) שאינה $(0,n)$. הוכיחו לכל $0\\neq v\\in V$ מתקיים $g(v,v)\\neq 0$ (EXCLUDED — סיגנטורה); ב) $B=(v_1,\\ldots,v_n)$ בסיס $V$ מעל $\\mathbb{C}$, $f:V\\to V$ אופ' עם $f(v_i)=v_{i+1}$ עבור $1\\leq i<n$ ו-$f(v_n)=v_1$. חשבו את צורת ז'ורדן של $f$",
+          "א) $V$ ממ\"ס, $g:V\\times V\\to\\mathbb{R}$ תבנית ביליניארית סימטרית עם סיגנטורה (חתימה) שאינה $(0,n)$ ואינה $(n,0)$. הוכיחו שקיים $0\\neq v\\in V$ כך ש-$g(v,v)=0$ (EXCLUDED — סיגנטורה); ב) $B=(v_1,\\ldots,v_n)$ בסיס $V$ מעל $\\mathbb{C}$, $f:V\\to V$ אופ' עם $f(v_i)=v_{i+1}$ עבור $1\\leq i<n$ ו-$f(v_n)=v_1$. חשבו את צורת ז'ורדן של $f$",
         subparts: [
           {
             id: "א",
             points: 12,
             type: "proof_short",
             topic: "bilinear_form",
-            summary: "סיגנטורה חיובית ⟹ $g(v,v)>0$ (EXCLUDED)",
+            summary: "סיגנטורה לא מוגדרת ⟹ קיים $v\\neq0$: $g(v,v)=0$ (EXCLUDED)",
           },
           {
             id: "ב",
@@ -5919,9 +6125,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ג  2023 — סמסטר א' חורף
-  //  פורמט: 9 שאלות. שאלות 1-2 חובה, 1-of-3 משאלות 3-4, 4-of-5 משאלות 5-9
-  //  משך: 3 שעות. מרצה: מר איתמר צביק
+  //  2023 (תשפ"ג) — winter
   // ════════════════════════════════════════════════════════════════
   {
     code: "2023w_א_I",
@@ -5996,7 +6200,7 @@ export const EXAMS = [
         number: 2,
         chapter: "ג",
         type: "mixed",
-        topic: "spectral_theorem_real",
+        topic: "unitary_diagonalization",
         points: 14,
         summary:
           '$A=\\begin{pmatrix}&i\\\\i&\\end{pmatrix}\\in M_2(\\mathbb{C})$. מצאו ע"ע של $A$. $D,U\\in M_2(\\mathbb{C})$ אוניטרית, $D$ אלכסונית: $D=U^*AU$. חשבו $A^{203}$',
@@ -6078,7 +6282,7 @@ export const EXAMS = [
         topic: "minimal_polynomial_vec",
         points: 14,
         summary:
-          '$V$ מ"מ ממ"ס מעל שדה $\\mathbb{F}$, $f:V\\to V$ אופ\'. יהי $0\\neq v\\in V$ עבורו מתקיים $f^2v=0$, $f^3v=0$. הוכיחו $(v,fv,f^2v)$ בלתי תלויה לינארית ב-$V$',
+          '$V$ מ"מ ממ"ס מעל שדה $\\mathbb{F}$, $f:V\\to V$ אופ\'. יהי $0\\neq v\\in V$ עבורו מתקיים $f^2v\\neq0$, $f^3v=0$. הוכיחו $(v,fv,f^2v)$ בלתי תלויה לינארית ב-$V$',
       },
       {
         id: "Q7",
@@ -6303,7 +6507,7 @@ export const EXAMS = [
         topic: "minimal_polynomial",
         points: 14,
         summary:
-          '$V$ מ"מ ממ"ס מעל שדה $\\mathbb{F}$, $f:V\\to V$ אופ\' לינארי. הוכיחו כי לכסין אמ"מ הפ"מ של $f$ הוא מצורה $\\mu(T)=(T-\\lambda)(T-\\delta)$ עם $\\lambda\\neq\\delta$',
+          '$V$ מ"מ ממ"ד 2 מעל $\\mathbb{C}$, $f:V\\to V$ אופ\' לינארי. הוכיחו כי $f$ לכסין אמ"מ הפ"מ של $f$ לינארי או מהצורה $\\mu(T)=(T-\\lambda)(T-\\delta)$ עם $\\lambda\\neq\\delta$',
       },
       {
         id: "Q9",
@@ -6335,8 +6539,7 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ד  2024 — סמסטר א', מועד א' (9.4.24)
-  //  פורמט: 9 שאלות, ענו על 7 (2 חובה + 5 בחירה). מרצה: ד"ר שי אברה
+  //  2024 (תשפ"ד) — Moed A.
   // ════════════════════════════════════════════════════════════════
   {
     code: "2024_א_I",
@@ -6347,29 +6550,13 @@ export const EXAMS = [
     lecturers: ['ד"ר שי אברה'],
     duration_hours: 3,
     total_points: 100,
-    verified: false,
+    verified: true,
     parts: [
       {
-        name: "חובה",
-        points: 30,
-        choose: 2,
-        from: ["Q1", "Q2"],
-        mandatory: ["Q1", "Q2"],
-        note: "Q1: 16 נק', Q2: 14 נק'",
-      },
-      {
-        name: "חלק (א)",
-        points: 14,
-        choose: 1,
-        from: ["Q3", "Q4"],
-        note: "כל שאלה 14 נק'",
-      },
-      {
-        name: "חלק (ב)",
-        points: 56,
+        name: "כל המבחן",
+        points: 100,
         choose: 4,
-        from: ["Q5", "Q6", "Q7", "Q8", "Q9"],
-        note: "כל שאלה 14 נק'",
+        from: ["Q1", "Q2", "Q3", "Q4", "Q5"],
       },
     ],
     questions: [
@@ -6378,93 +6565,139 @@ export const EXAMS = [
         number: 1,
         chapter: "א",
         type: "mixed",
-        topic: "minimal_polynomial_vec",
-        points: 16,
+        topic: "diagonalization",
+        points: 25,
         summary:
-          "מצאו $m_\\min(e_1,A)$, בסיס ז'ורדן, תת-מרחב מקסימלי שצמצום $A$ אליו לכסין (חובה)",
+          '(1) $\\mathbb{F}$ שדה, $a,b,c,d\\in\\mathbb{F}$. הוכיחו כי $A=\\begin{pmatrix}a&1&0\\\\0&a&0\\\\b&c&d\\end{pmatrix}$ אינה לכסינה; (2) $V$ ממ"פ פנימית מעל $\\mathbb{R}$ ממ"ס, $T:V\\to V$ אופרטור. הוכיחו $T$ אורתוגונלי ($T^*T=I_V$) אמ"מ $\\|T(v)\\|=\\|v\\|$ לכל $v\\in V$',
+        subparts: [
+          {
+            id: "1",
+            points: 12,
+            type: "proof_short",
+            topic: "diagonalization",
+            summary:
+              '$A=\\begin{pmatrix}a&1&0\\\\0&a&0\\\\b&c&d\\end{pmatrix}$ אינה לכסינה',
+          },
+          {
+            id: "2",
+            points: 13,
+            type: "proof_short",
+            topic: "orthogonal_operator",
+            summary: '$T^*T=I_V$ ⟺ $\\|Tv\\|=\\|v\\|$ לכל $v$',
+          },
+        ],
       },
       {
         id: "Q2",
         number: 2,
-        chapter: "ג",
+        chapter: "א",
         type: "mixed",
-        topic: "unitary_diagonalization",
-        points: 14,
+        topic: "primary_decomposition",
+        points: 25,
         summary:
-          'מצאו ע"ע ל-$H\\in M_2(\\mathbb{C})$ הרמיטית; $D,U$ אוניטרית (חובה)',
+          '(1) $T:V\\to V$ ממ"ס, $T^2=T$. נסמן $\\mathrm{im}(T)=\\{T(v):v\\in V\\}$. הוכיחו $V=\\ker(T)\\oplus\\mathrm{im}(T)$; (2) $V=M_2(\\mathbb{R})$ עם $\\langle A,B\\rangle=\\mathrm{trace}(A^tB)$, $T(A)=\\tfrac12(A+A^t)$. מצאו בסיס אורתונורמלי $B$ כך ש-$[T]_B$ אלכסונית',
+        subparts: [
+          {
+            id: "1",
+            points: 12,
+            type: "proof_short",
+            topic: "primary_decomposition",
+            summary: '$T^2=T$ ⟹ $V=\\ker T\\oplus\\mathrm{im}\\,T$',
+          },
+          {
+            id: "2",
+            points: 13,
+            type: "compute",
+            topic: "spectral_theorem_real",
+            summary:
+              '$T(A)=\\tfrac12(A+A^t)$: בסיס אורתונורמלי שבו $[T]_B$ אלכסונית',
+          },
+        ],
       },
       {
         id: "Q3",
         number: 3,
-        chapter: "ג",
-        type: "compute",
-        topic: "gram_schmidt",
-        points: 14,
-        summary: "גרם-שמידט, הטלה אורתוגונלית ומרחק ב-$\\mathbb{R}^3$",
+        chapter: "א",
+        type: "mixed",
+        topic: "diagonalization_compute",
+        points: 25,
+        summary:
+          '(1) $A=\\begin{pmatrix}1&2&3\\\\4&4&4\\\\3&2&1\\end{pmatrix}\\in M_3(\\mathbb{R})$. מצאו $P,B\\in M_3(\\mathbb{R})$, $P$ הפיכה, כך ש-$A^{100}P=PB$; (2) מצאו $0\\neq x\\in\\mathbb{R}^n$ שעבורו $\\frac{(x_1+2x_2+\\ldots+nx_n)^2}{x_1^2+\\ldots+x_n^2}$ מקבל ערך מקסימלי, והוכיחו שהוא המקסימום',
+        subparts: [
+          {
+            id: "1",
+            points: 12,
+            type: "compute",
+            topic: "diagonalization_compute",
+            summary: '$A^{100}P=PB$ עבור $P$ הפיכה',
+          },
+          {
+            id: "2",
+            points: 13,
+            type: "compute",
+            topic: "cauchy_schwarz",
+            summary: 'מקסום $(x_1+2x_2+\\ldots+nx_n)^2/\\sum x_i^2$ (קושי-שוורץ)',
+          },
+        ],
       },
       {
         id: "Q4",
         number: 4,
-        chapter: "ב",
-        type: "proof_short",
-        topic: "jordan_form",
-        points: 14,
+        chapter: "א",
+        type: "mixed",
+        topic: "minimal_polynomial",
+        points: 25,
         summary:
-          "אותו $p,m$ ⟹ אותה ז'ורדן; דוגמה לז'ורדנים שונים עם אותו $p,m$",
+          '(1) $A\\in M_n(\\mathbb{F})$, $Z=\\mathrm{span}\\{I,A,A^2,A^3,\\ldots\\}\\leq M_n(\\mathbb{F})$. הוכיחו $\\dim(Z)\\leq n$; (2) $A=\\begin{pmatrix}2&-1&0\\\\-1&2&-1\\\\0&-1&2\\end{pmatrix}\\in M_3(\\mathbb{R})$. מצאו $D$ אלכסונית ו-$O$ אורתוגונלית כך ש-$D=O^tAO$',
+        subparts: [
+          {
+            id: "1",
+            points: 12,
+            type: "proof_short",
+            topic: "minimal_polynomial",
+            summary: '$\\dim\\mathrm{span}\\{I,A,A^2,\\ldots\\}\\leq n$',
+          },
+          {
+            id: "2",
+            points: 13,
+            type: "compute",
+            topic: "spectral_theorem_real",
+            summary: "לכסון אורתוגונלי $D=O^tAO$ למטריצה סימטרית",
+          },
+        ],
       },
       {
         id: "Q5",
         number: 5,
-        chapter: "ג",
-        type: "proof_short",
-        topic: "spectral_theorem_real",
-        points: 14,
-        summary:
-          'הוכיחו: $A\\in M_2(\\mathbb{R})$ סימטרית ⟹ בסיס אורתונורמלי של ו"ע',
-      },
-      {
-        id: "Q6",
-        number: 6,
-        chapter: "ב",
-        type: "proof_short",
-        topic: "jordan_chain",
-        points: 14,
-        summary: '$f^3v=0$, $f^2v\\neq0$ ⟹ $(v,fv,f^2v)$ בת"ל',
-      },
-      {
-        id: "Q7",
-        number: 7,
         chapter: "א",
-        type: "proof_short",
-        topic: "primary_decomposition",
-        points: 14,
+        type: "mixed",
+        topic: "diagonalization_compute",
+        points: 25,
         summary:
-          "$\\gcd(P,Q)=1$, $P(f)Q(f)=0$ ⟹ $V=\\ker P(f)\\oplus\\ker Q(f)$",
-      },
-      {
-        id: "Q8",
-        number: 8,
-        chapter: "א",
-        type: "proof_short",
-        topic: "minimal_polynomial",
-        points: 14,
-        summary: '$\\lambda$ ע"ע ⟺ $\\lambda$ שורש $m_T$',
-      },
-      {
-        id: "Q9",
-        number: 9,
-        chapter: "ג",
-        type: "proof_short",
-        topic: "unitary_operator",
-        points: 14,
-        summary: 'קיים ע"ע ב-$\\mathbb{C}$; ע"ע אוניטרי $|\\lambda|=1$',
+          '(1) $A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}\\in M_2(\\mathbb{R})$. חשבו את $A^{100}$; (2) $A\\in M_n(\\mathbb{C})$. הראו כי $\\ker(A)=\\ker(A^*A)$',
+        subparts: [
+          {
+            id: "1",
+            points: 12,
+            type: "compute",
+            topic: "diagonalization_compute",
+            summary:
+              "חשבו $A^{100}$ עבור $A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$",
+          },
+          {
+            id: "2",
+            points: 13,
+            type: "proof_short",
+            topic: "self_adjoint",
+            summary: "$\\ker(A)=\\ker(A^*A)$",
+          },
+        ],
       },
     ],
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ד  2024 — קיץ, מועד ב' (סמסטר א' תשפ"ד)
-  //  פורמט: 5 שאלות, ענו על 4. 25 נק' לשאלה. מרצה: ד"ר שי אברה
+  //  2024 (תשפ"ד) — Moed B.
   // ════════════════════════════════════════════════════════════════
   {
     code: "2024_ב_I",
@@ -6620,8 +6853,8 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ד  2024 — קיץ, מועד ג' (3.9.24)
-  //  קורס קיץ תשפ"ד. פורמט: 9 שאלות, ענו על 7. מרצה: פרופ' אלכס גורביץ'
+  //  2024 (תשפ"ד) — Moed C.  Note: the paper is labeled "Moed B"; coded "C" here
+  //  to distinguish it from Avraham's Moed B that year.
   // ════════════════════════════════════════════════════════════════
   {
     code: "2024_ג_I",
@@ -6629,17 +6862,17 @@ export const EXAMS = [
     moed: "ג",
     semester: "summer",
     date: "03.09.24",
-    lecturers: ["פרופ' אלכס גורביץ'"],
+    lecturers: ["פרופ' אלכס גורביץ'", "אורי פרזנצ'בסקי"],
     duration_hours: 3,
     total_points: 100,
-    verified: false,
+    verified: true,
     parts: [
       {
         name: "כל המבחן",
         points: 100,
-        choose: 7,
+        choose: 8,
         from: ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"],
-        note: "ענו על 7 מתוך 9 שאלות",
+        note: "ענו על 8 מתוך 9 שאלות",
       },
     ],
     questions: [
@@ -6648,27 +6881,27 @@ export const EXAMS = [
         number: 1,
         chapter: "א",
         type: "compute",
-        topic: "char_polynomial",
+        topic: "determinant_basics",
         summary:
-          "חשבו דטרמיננטה של $A\\in M_5(\\mathbb{R})$ עם פרמטר $c$; עבור אילו $c$ היא הפיכה",
+          "$a\\in\\mathbb{R}$; חשבו דטרמיננטה של המטריצה הטרי-דיאגונלית $A\\in M_5(\\mathbb{R})$ ($a$ באלכסון, $1$ מעליו ומתחתיו); עבור אילו ערכי $a$ היא הפיכה",
       },
       {
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "counterexample",
         topic: "invariant_subspace",
         summary:
-          '$T\\circ S=S\\circ T$, $\\lambda$ ע"ע של $S$ ⟹ $V_\\lambda^S$ הוא $T$-אינווריאנטי; האם $\\lambda$ ע"ע של $T$?',
+          '$S\\circ T=T\\circ S$, $\\lambda$ ע"ע של $S$, $V_\\lambda$ המרחב העצמי. הוכיחו/הפריכו: (א) $\\lambda$ בהכרח ע"ע של $T$; (ב) $V_\\lambda$ בהכרח $T$-אינווריאנטי',
       },
       {
         id: "Q3",
         number: 3,
         chapter: "ב",
-        type: "compute",
+        type: "true_false",
         topic: "matrix_similarity",
         summary:
-          "קבעו האם שתי מטריצות $3\\times3$ נתונות דומות; נמקו בפירוט",
+          "האם $A=\\begin{pmatrix}0&2&0\\\\3&0&2\\\\5&3&0\\end{pmatrix}$, $B=\\begin{pmatrix}0&2&0\\\\4&0&2\\\\5&2&0\\end{pmatrix}\\in M_3(\\mathbb{C})$ דומות? הסבירו",
       },
       {
         id: "Q4",
@@ -6676,7 +6909,8 @@ export const EXAMS = [
         chapter: "ג",
         type: "proof_short",
         topic: "orthogonal_operator",
-        summary: '$T$ ממפה ו"י לו"י ⟹ $T$ אורתוגונלי',
+        summary:
+          '$V$ ממ"פ ממשי ממ"ס, $T:V\\to V$ כך שלכל וקטור יחידה $v$ גם $T(v)$ וקטור יחידה ⟹ $T$ אורתוגונלי',
       },
       {
         id: "Q5",
@@ -6685,15 +6919,16 @@ export const EXAMS = [
         type: "proof_short",
         topic: "cauchy_schwarz",
         summary:
-          "הוכיחו $\\sqrt{x_1+x_2}+\\ldots+\\sqrt{x_n+x_1}\\leq\\sqrt{2n(x_1+\\ldots+x_n)}$; מתי שוויון?",
+          "הוכיחו לכל $x,y\\in\\mathbb{R}$: $x^2+xy+y^2\\leq\\sqrt{(2x^2+y^2)(x^2+2y^2)}$; קבעו עבור אילו $x,y$ מתקיים שוויון",
       },
       {
         id: "Q6",
         number: 6,
         chapter: "ב",
         type: "proof_short",
-        topic: "nilpotent_basic",
-        summary: "$A^{45}=0$ ⟹ $A^{72}=0$; מצאו $k$ מינימלי כך ש-$A^k=0$",
+        topic: "nilpotent_classify",
+        summary:
+          "$A\\in M_{n\\times n}(\\mathbb{R})$, $A^k=0$ ⟹ הוכיחו $\\mathrm{rk}\\,A\\leq\\frac{(k-1)n}{k}$",
       },
       {
         id: "Q7",
@@ -6702,7 +6937,7 @@ export const EXAMS = [
         type: "compute",
         topic: "gram_schmidt",
         summary:
-          "מצאו בסיס ל-$S\\subseteq\\mathbb{R}^2$; בסיס אורתונורמלי ל-$\\mathrm{Span}(5e_1+e_2)$",
+          "$\\mathbb{R}^4$ (מ\"פ סטנדרטית), $S=\\{(1,1,-1,-2),(-2,-2,1,1)\\}$: (א) בסיס כלשהו ל-$S^\\perp$; (ב) בסיס אורתונורמלי ל-$\\mathrm{Span}(S)$",
       },
       {
         id: "Q8",
@@ -6711,7 +6946,7 @@ export const EXAMS = [
         type: "proof_short",
         topic: "orthogonal_projection",
         summary:
-          "הוכיחו: $\\langle P_W(v_1),P_W(v_2)\\rangle=\\langle P_W(v_1),v_2\\rangle$",
+          "$u_1,u_2$ ההיטלים האורתוגונליים של $v_1,v_2$ על תת-מרחב $U$; הוכיחו $\\langle u_1\\mid v_2\\rangle=\\langle v_1\\mid u_2\\rangle$",
       },
       {
         id: "Q9",
@@ -6720,15 +6955,14 @@ export const EXAMS = [
         type: "mixed",
         topic: "spectral_theorem_real",
         summary:
-          "מצאו $O$ אורתוגונלית: $O^tAO$ אלכסונית; האם $\\langle Ax,x\\rangle<0$ לאיזה $x\\neq0$?",
+          "$A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}\\in M_2(\\mathbb{R})$; מצאו $O$ אורתוגונלית כך ש-$O^{-1}AO$ אלכסונית; קבעו האם קיים $x\\in\\mathbb{R}^2$: $(Ax)^tx<0$",
       },
     ],
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ה  2025 — סמסטר א', מועד א' (23.2.25)
-  //  פורמט: 5 שאלות, ענו על 4. 25 נק' לשאלה. מרצה: ד"ר שי אברה
-  //  הערה: השאלון מציין "תשפ"ד" אך התאריך הוא תשפ"ה (טעות בכותרת)
+  //  2025 (תשפ"ה) — Moed A.  Note: the paper's header says "תשפ"ד" but the date
+  //  is תשפ"ה (header typo).
   // ════════════════════════════════════════════════════════════════
   {
     code: "2025_א_I",
@@ -6757,7 +6991,7 @@ export const EXAMS = [
         topic: "diagonalization",
         points: 25,
         summary:
-          '(א) $\\mathbb{F}$ שדה, $a\\in\\mathbb{F}$, $A=\\begin{pmatrix}-a+4&a-2&0\\\\-a+2&a&2\\\\0&0&3\\end{pmatrix}\\in M_3(\\mathbb{F})$. מצאו עבור אילו ערכים של $a$ המטריצה הנ"ל היא לכסינה; (ב) $A\\in M_n(\\mathbb{C})$ נורמלית עם ע"ע $\\lambda_1,\\ldots,\\lambda_n\\in\\mathbb{R}$. הוכיחו כי $A$ הרמיטית אמ"מ $A=A^*$',
+          '(א) $\\mathbb{F}$ שדה, $a\\in\\mathbb{F}$, $A=\\begin{pmatrix}-a+4&a-2&0\\\\-a+2&a&2\\\\0&0&3\\end{pmatrix}\\in M_3(\\mathbb{F})$. מצאו עבור אילו ערכים של $a$ המטריצה הנ"ל היא לכסינה; (ב) $A\\in M_n(\\mathbb{C})$ נורמלית עם ע"ע $\\lambda_1,\\ldots,\\lambda_n$. הוכיחו כי $A$ הרמיטית אם ורק אם כל הערכים העצמיים ממשיים',
         subparts: [
           {
             id: "א",
@@ -6771,7 +7005,7 @@ export const EXAMS = [
             points: 13,
             type: "proof_short",
             topic: "self_adjoint",
-            summary: '$A$ נורמלית + ע"ע ב-$\\mathbb{R}$ ⟺ הרמיטית',
+            summary: '$A$ נורמלית ⟹ ($A$ הרמיטית ⟺ הע"ע ממשיים)',
           },
         ],
       },
@@ -6883,9 +7117,8 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ה  2025 — סמסטר א', מועד ב' (19.3.25)
-  //  פורמט: 5 שאלות, ענו על 4. 25 נק' לשאלה. מרצה: ד"ר שי אברה
-  //  זהו המבחן האחרון שפורסם — מבחן המראה את הפורמט הנוכחי
+  //  2025 (תשפ"ה) — Moed B.  Source: full PDF pp. 159–160 (last exam in the file).
+  //  Distinct from Moed A (23.2.25): 5 questions, each with parts A/B.
   // ════════════════════════════════════════════════════════════════
   {
     code: "2025_ב_I",
@@ -6903,6 +7136,7 @@ export const EXAMS = [
         points: 100,
         choose: 4,
         from: ["Q1", "Q2", "Q3", "Q4", "Q5"],
+        note: "ענו על 4 מתוך 5 שאלות — 25 נק' כל אחת; כל שאלה בשני סעיפים א/ב",
       },
     ],
     questions: [
@@ -6911,26 +7145,24 @@ export const EXAMS = [
         number: 1,
         chapter: "א",
         type: "mixed",
-        topic: "matrix_similarity",
+        topic: "char_polynomial",
         points: 25,
         summary:
-          "(א) $A\\in M_6(\\mathbb{Q})$ מדרגה $\\mathrm{rk}(A)=2$ ועם פולינום אופייני $P_A$ המקיים $X^2-2X-15|P_A$. חשבו את העקבה של ריבוע המטריצה $\\mathrm{tr}(A^2)$; (ב) $V$ ממ\"פ פנימית ממשי אי-זוגי, $T$ אופ' אורתוגונלי וצמוד עצמית על $V$. יהי $B\\subset V$ בסיס ונניח שקיים $0\\neq v\\in V$ כך ש-$T(v)=v$ ו-$\\det[T]_B=1$. הוכיחו $T(v)=v$",
+          '(א) $A\\in M_6(\\mathbb{Q})$ מדרגה $2$ עם פולינום אופייני $p_A$ המקיים $x^2-2x-15\\mid p_A$; חשבו את $\\mathrm{tr}(A^2)$; (ב) $V$ ממ"פ ממשי ממימד אי-זוגי, $T$ אורתוגונלי וצמוד לעצמו, $B$ בסיס עם $\\det[T]_B=1$ ⟹ קיים $0\\neq v\\in V$: $T(v)=v$',
         subparts: [
           {
             id: "א",
-            points: 12,
             type: "compute",
-            topic: "trace_basics",
+            topic: "char_polynomial",
             summary:
-              "$A\\in M_6(\\mathbb{Q})$, $\\mathrm{rk}=2$, $P_A$ עם $X^2-2X-15$ ⟹ $\\mathrm{tr}(A^2)$",
+              "$A\\in M_6(\\mathbb{Q})$, rank $2$, $x^2-2x-15\\mid p_A$ ⟹ $\\mathrm{tr}(A^2)$",
           },
           {
             id: "ב",
-            points: 13,
             type: "proof_short",
             topic: "orthogonal_operator",
             summary:
-              '$T$ אורתוגונלי+צמוד עצמי, ממ"ד אי-זוגי, $\\det=1$ ⟹ $T(v)=v$',
+              '$T$ אורתוגונלי+צמוד לעצמו, ממד אי-זוגי, $\\det=1$ ⟹ $\\exists v\\neq0$: $Tv=v$',
           },
         ],
       },
@@ -6942,19 +7174,17 @@ export const EXAMS = [
         topic: "diagonalization_compute",
         points: 25,
         summary:
-          '(א) $a\\neq b$, $a,b\\in\\mathbb{Q}$. מצאו בסיס של ו"ע לאופ\' $T:\\mathbb{Q}^3\\to\\mathbb{Q}^3$, $T\\binom{x}{y,z}=\\binom{ax+by+bz}{bx+ay+bz,bx+by+az}$; (ב) $V$ ממ"פ פנימית, $U,W\\subseteq V$ ת"מ. הראו כי $(U+W)^\\perp=U^\\perp\\cap W^\\perp$',
+          '(א) $a\\neq b\\in\\mathbb{Q}$; מצאו בסיס של וקטורים עצמיים לאופרטור $T:\\mathbb{Q}^3\\to\\mathbb{Q}^3$, $T(x,y,z)=(ax+by+bz,\\,bx+ay+bz,\\,bx+by+az)$; (ב) $U,W\\subseteq V$ תתי-מרחבים ⟹ $(U+W)^\\perp=U^\\perp\\cap W^\\perp$',
         subparts: [
           {
             id: "א",
-            points: 12,
             type: "compute",
             topic: "diagonalization_compute",
             summary:
-              "בסיס ו\"ע לאופ' $T:\\mathbb{Q}^3\\to\\mathbb{Q}^3$ עם פרמטרים $a,b$",
+              'בסיס ו"ע ל-$T(x,y,z)=(ax+by+bz,bx+ay+bz,bx+by+az)$',
           },
           {
             id: "ב",
-            points: 13,
             type: "proof_short",
             topic: "orthogonal_complement",
             summary: "$(U+W)^\\perp=U^\\perp\\cap W^\\perp$",
@@ -6969,75 +7199,69 @@ export const EXAMS = [
         topic: "cayley_hamilton",
         points: 25,
         summary:
-          "(א) $A\\in M_n(\\mathbb{F})$ הפיכה. הוכיחו כי קיים $Q\\in\\mathbb{F}[x]$ כך ש-$A^{-1}=Q(A)$; (ב) עבור איזה ערכי $1\\leq n\\in\\mathbb{Z}$ הפונקציה $f:\\mathbb{R}^n\\setminus\\{0\\}\\to\\mathbb{R}$, $f(x_1,\\ldots,x_n)=\\frac{(\\sum_{k=1}^n\\sqrt{k}x_k)^2}{\\sum_{k=1}^n x_k^2}$ מקיימת $f(x)\\leq 15$ לכל $0\\neq x\\in\\mathbb{R}^n$",
+          "(א) $A\\in M_n(\\mathbb{F})$ הפיכה ⟹ קיים $Q\\in\\mathbb{F}[x]$: $A^{-1}=Q(A)$; (ב) עבור אילו $1\\leq n\\in\\mathbb{Z}$ הפונקציה $f(x_1,\\ldots,x_n)=\\frac{\\left(\\sum_{k=1}^n\\sqrt{k}\\,x_k\\right)^2}{\\sum_{k=1}^n x_k^2}$ מקיימת $f(x)\\leq 15$ לכל $x\\neq0$",
         subparts: [
           {
             id: "א",
-            points: 12,
             type: "proof_short",
             topic: "cayley_hamilton",
-            summary: "$A^{-1}=Q(A)$ דרך קיילי-המילטון",
+            summary: "$A$ הפיכה ⟹ $A^{-1}=Q(A)$ (קיילי-המילטון)",
           },
           {
             id: "ב",
-            points: 13,
             type: "compute",
             topic: "cauchy_schwarz",
             summary:
-              "$f(x)=(\\sum\\sqrt{k}x_k)^2/\\sum x_k^2\\leq 15$ — חיפוש $n$",
+              "$f(x)=(\\sum\\sqrt{k}x_k)^2/\\sum x_k^2\\leq 15$ — עבור אילו $n$",
           },
         ],
       },
       {
         id: "Q4",
         number: 4,
-        chapter: "ג",
+        chapter: "א",
         type: "mixed",
-        topic: "spectral_theorem_real",
+        topic: "cyclic_subspace",
         points: 25,
         summary:
-          '(א) $T$ אופ\' מעל מ"מ ממ"ס ממשי $V$ עם פולינום אופייני $P_T=x^2+4\\in\\mathbb{R}[x]$. הוכיחו לכל $0\\neq v\\in V$ המרחב הציקלי של $v$ ביחס ל-$T$ הוא כל המרחב $V$; (ב) $V$ ממ"פ פנימית מעל המרוכבים, $T$ אופ\' הרמיטי על $V$, $\\lambda_1,\\ldots,\\lambda_n\\in\\mathbb{C}$ הע"ע של $T$. הוכיחו 3 התכונות הבאות שקולות: (1) $\\langle v,Tv\\rangle\\in\\mathbb{R}$ לכל $v\\in V$; (2) $\\lambda_1,\\ldots,\\lambda_n\\in\\mathbb{R}$; (3) $0<\\langle v,Tv\\rangle$ לכל $0\\neq v\\in V$ ⟺ $0<\\lambda_1,\\ldots,\\lambda_n$',
+          '(א) $T$ אופרטור ממשי עם $p_T=x^2+4$ ⟹ לכל $0\\neq v\\in V$ המרחב הציקלי $Z_{T,v}=V$; (ב) $T$ הרמיטי עם ע"ע $\\lambda_1,\\ldots,\\lambda_n$ ⟹ $\\langle v,Tv\\rangle\\in\\mathbb{R}$, $\\lambda_i\\in\\mathbb{R}$, ושקילות $0<\\lambda_i\\Leftrightarrow 0<\\langle v,Tv\\rangle\\,\\forall v\\neq0$',
         subparts: [
           {
             id: "א",
-            points: 12,
             type: "proof_short",
             topic: "cyclic_subspace",
-            summary: "$P_T=x^2+4$ אי-פריק ⟹ כל $v\\neq 0$ ציקלי גלובלי",
+            summary: "$p_T=x^2+4$ ⟹ $Z_{T,v}=V$ לכל $v\\neq0$",
           },
           {
             id: "ב",
-            points: 13,
             type: "proof_short",
             topic: "self_adjoint",
-            summary: "3 תכונות שקולות עבור $T$ הרמיטי",
+            summary:
+              '$T$ הרמיטי: ע"ע ממשיים ו-$0<\\lambda_i\\Leftrightarrow 0<\\langle v,Tv\\rangle$ (אופרטור חיובי)',
           },
         ],
       },
       {
         id: "Q5",
         number: 5,
-        chapter: "ג",
+        chapter: "א",
         type: "mixed",
         topic: "diagonalization",
         points: 25,
         summary:
-          '(א) $A\\in M_n(\\mathbb{R})$ עם $A^2=I$. הוכיחו $A=I$ אם 1 הוא הע"ע היחיד של $A$; (ב) $V=M_2(\\mathbb{R})$ עם המ"פ הפנימית $\\langle\\cdot,\\cdot\\rangle:V\\times V\\to\\mathbb{R}$, $\\langle A,B\\rangle=\\mathrm{trace}(A^tB)$. נסמן $W=\\mathrm{span}\\left\\{\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix},\\begin{pmatrix}1&0\\\\1&1\\end{pmatrix}\\right\\}\\leq V$, ויהי $P_W$ ההטלה האורתוגונלית על $W$. חשבו את $P_W\\left(\\begin{pmatrix}1&2\\\\0&0\\end{pmatrix}\\right)$ (ניתן לתת תשובה שהיא צירוף לינארי של 2 או 3 וקטורים)',
+          '(א) $A\\in M_n(\\mathbb{R})$, $A^2=I$; אם $1$ הוא הע"ע היחיד ⟹ $A=I$; (ב) $V=M_2(\\mathbb{R})$, $\\langle A,B\\rangle=\\mathrm{trace}(A^tB)$, $W=\\mathrm{span}\\left\\{\\binom{1\\,1}{0\\,1},\\binom{1\\,0}{1\\,1}\\right\\}$; חשבו $P_W\\!\\left(\\binom{1\\,2}{0\\,0}\\right)$',
         subparts: [
           {
             id: "א",
-            points: 12,
             type: "proof_short",
             topic: "diagonalization",
-            summary: '$A^2=I$, ע"ע יחיד $1$ ⟹ $A=I$',
+            summary: "$A^2=I$ + ע\"ע יחיד $1$ ⟹ $A=I$",
           },
           {
             id: "ב",
-            points: 13,
             type: "compute",
             topic: "orthogonal_projection",
-            summary:
-              "$P_W\\left(\\begin{pmatrix}1&2\\\\0&0\\end{pmatrix}\\right)$ ב-$M_2(\\mathbb{R})$",
+            summary: "היטל אורתוגונלי $P_W(I_2\\text{-block})$ ב-$M_2(\\mathbb{R})$",
           },
         ],
       },
@@ -7045,8 +7269,8 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ו  2026 — סמסטר א', מועד ב' (19.3.26)
-  //  פורמט: 10 שאלות, ענו על 7. מרצה: פרופ' אלכס גורביץ'
+  //  2026 (תשפ"ו) — Moed B.  Source: entered manually by the user, not present in
+  //  any project PDF. verified:false = not page-checked, but user-attested.
   // ════════════════════════════════════════════════════════════════
   {
     code: "2026_ב_I",
@@ -7163,37 +7387,33 @@ export const EXAMS = [
   },
 
   // ════════════════════════════════════════════════════════════════
-  //  תשפ"ו  2026 — מבחן לדוגמא
-  //  פורמט: 9 שאלות, ענו על 7 (2 חובה + 5 בחירה). מרצה: פרופ' אלכס גורביץ'
+  //  2026 (תשפ"ו) — Moed A.  Source: the exam-report PDF (id 202600801351170);
+  //  questions only — the handwritten solution and grade report are not indexed.
   // ════════════════════════════════════════════════════════════════
   {
-    code: "2026_sample_I",
+    code: "2026_א_I",
     year: 2026,
-    // TODO: "sample" is not a real session — replace with this exam's correct
-    // moed (א/ב/ג). Until then it's an exceptional session, sorted last within
-    // its year (see isExceptionalMoed in utils/exam.js).
-    moed: "sample",
+    moed: "א",
     semester: "winter",
-    date: "2026",
+    date: "13.02.26",
     lecturers: ["פרופ' אלכס גורביץ'"],
     duration_hours: 3,
     total_points: 100,
-    verified: false,
+    verified: true,
     parts: [
       {
         name: "חלק א'",
-        points: 40,
-        choose: 2,
+        points: 20,
+        choose: 1,
         from: ["Q1", "Q2"],
-        mandatory: ["Q1", "Q2"],
-        note: "כל שאלה 20 נק'",
+        note: "ענו על 1 מתוך 2 שאלות — 20 נק' כל אחת",
       },
       {
         name: "חלק ב'",
-        points: 60,
-        choose: 5,
+        points: 84,
+        choose: 6,
         from: ["Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"],
-        note: "כל שאלה 12 נק'",
+        note: "ענו על 6 מתוך 7 שאלות — 14 נק' כל אחת (מקסימום מבחן 100)",
       },
     ],
     questions: [
@@ -7202,20 +7422,20 @@ export const EXAMS = [
         number: 1,
         chapter: "א",
         type: "proof_short",
-        topic: "eigenvalue_definition",
+        topic: "minimal_polynomial",
         points: 20,
         summary:
-          'הוכיחו: $\\lambda$ ע"ע של $T$ $\\Leftrightarrow$ $\\ker(\\lambda\\mathrm{Id}_V-T)\\neq\\{0\\}$ (חלק א\')',
+          '$T:V\\to V$ על מ"ו נוצר סופית, $P\\in\\mathbb{F}[x]$ עם $P(T)=0$; הוכיחו כי $m_T\\mid P$',
       },
       {
         id: "Q2",
         number: 2,
-        chapter: "ג",
+        chapter: "ב",
         type: "proof_short",
-        topic: "self_adjoint_invariant",
+        topic: "jordan_chain",
         points: 20,
         summary:
-          "הוכיחו: $T$ צמוד לעצמו, $W$ $T$-אינווריאנטי ⟹ $W^\\perp$ $T$-אינווריאנטי (חלק א')",
+          '$T:V\\to V$ נילפוטנטי, $v$ וקטור מגובה $h$; הוכיחו ש-$(v,T(v),\\ldots,T^{h-1}(v))$ בת"ל',
       },
       {
         id: "Q3",
@@ -7223,68 +7443,85 @@ export const EXAMS = [
         chapter: "א",
         type: "proof_short",
         topic: "diagonalization",
-        points: 12,
+        points: 14,
         summary:
-          '$P_\\sigma^2=I$ ⟹ $P_\\sigma$ לכסינה, $1$ ע"ע; הוכיחו $\\dim V_1\\geq n/2$',
+          "$T\\circ T\\circ T=T$; (א) הוכיחו $T$ לכסין; (ב) קיימים $T_1$ אידמפוטנטי ו-$T_2$ אינוולוציה מתחלפים עם $T=T_1\\circ T_2$",
       },
       {
         id: "Q4",
         number: 4,
-        chapter: "א",
-        type: "proof_short",
-        topic: "minimal_polynomial",
-        points: 12,
-        summary: "הוכיחו: קיים $k\\in\\mathbb{N}$: $p_T\\mid(m_T)^k$",
+        chapter: "ב",
+        type: "compute",
+        topic: "jordan_form",
+        points: 14,
+        summary:
+          "$T:\\mathbb{R}[x]_{\\leq2}\\to\\mathbb{R}[x]_{\\leq2}$, $T(p)=2p-p'$; מצאו מטריצת ז'ורדן של $T$ ובסיס $B$ שבו $[T]_B$ ז'ורדנית",
       },
       {
         id: "Q5",
         number: 5,
-        chapter: "ב",
-        type: "compute",
-        topic: "nilpotent_basic",
-        points: 12,
+        chapter: "ג",
+        type: "counterexample",
+        topic: "norm_basics",
+        points: 14,
         summary:
-          "מצאו כל $a,b\\in\\mathbb{R}$ עבורם $A=\\begin{pmatrix}1&1&3\\\\a&2&b\\\\-2&-1&-3\\end{pmatrix}$ נילפוטנטית",
+          "$u,v,w$ עם $u\\perp v$, $w\\perp v$; הוכיחו או הפריכו: (א) $\\|u\\|^2+\\|w\\|^2=\\|v\\|^2\\Rightarrow w\\perp u$; (ב) $\\|u\\|^2+\\|v\\|^2+\\|w\\|^2=\\|u+v+w\\|^2\\Rightarrow w\\perp u$",
       },
       {
         id: "Q6",
         number: 6,
-        chapter: "ב",
+        chapter: "ג",
         type: "compute",
-        topic: "jordan_form",
-        points: 12,
+        topic: "cauchy_schwarz",
+        points: 14,
         summary:
-          "מצאו מטריצה בצורת ז'ורדן הדומה ל-$A=\\begin{pmatrix}2&2&3\\\\1&3&3\\\\-1&-2&-2\\end{pmatrix}\\in M_3(\\mathbb{C})$",
+          "$a,b,c>0$, $a+b+c=1$; מצאו את הערך המקסימלי של $\\sqrt{2a+1}+\\sqrt{2b+1}+\\sqrt{2c+1}$ והוכיחו שהוא מקסימלי (קושי-שוורץ)",
       },
       {
         id: "Q7",
         number: 7,
         chapter: "ג",
-        type: "proof_short",
-        topic: "cauchy_schwarz",
-        points: 12,
+        type: "compute",
+        topic: "orthogonal_projection",
+        points: 14,
         summary:
-          "הוכיחו: $\\sqrt{x_1+x_2}+\\ldots+\\sqrt{x_n+x_1}\\leq\\sqrt{2n(x_1+\\ldots+x_n)}$ לכל $x_i\\geq0$",
+          "מ\"פ ב-$\\mathbb{R}^3$: $\\langle x,y\\rangle=2x_1y_1+x_2y_1+x_1y_2+2x_2y_2+3x_3y_3$, $W=\\{x_1+x_2+x_3=0\\}$",
+        subparts: [
+          {
+            id: "א",
+            points: 7,
+            type: "compute",
+            topic: "gram_schmidt",
+            summary: "מצאו בסיס אורתונורמלי ל-$W$",
+          },
+          {
+            id: "ב",
+            points: 7,
+            type: "compute",
+            topic: "orthogonal_projection",
+            summary: "חשבו את ההיטל האורתוגונלי של $(1,0,0)$ על $W$",
+          },
+        ],
       },
       {
         id: "Q8",
         number: 8,
         chapter: "ג",
-        type: "compute",
-        topic: "gram_schmidt",
-        points: 12,
+        type: "proof_short",
+        topic: "orthogonal_operator",
+        points: 14,
         summary:
-          'מצאו בסיס אורתונורמלי ל-$\\{(1,1,1)\\}^\\perp$ ביחס למ"פ $5x_1y_1+3x_2y_2-2x_2y_3-2x_3y_2+2x_3y_3$',
+          '$T$ אורתוגונלי, $1$ ו-$(-1)$ ע"ע, $\\dim V_1+\\dim V_{-1}>n-2$; הוכיחו $V=V_1\\oplus V_{-1}$',
       },
       {
         id: "Q9",
         number: 9,
         chapter: "ג",
-        type: "proof_short",
-        topic: "orthogonal_operator",
-        points: 12,
+        type: "compute",
+        topic: "unitary_diagonalization",
+        points: 14,
         summary:
-          "הוכיחו: עמודות $A$ בסיס אורתונורמלי ⟺ שורות $A$ בסיס אורתונורמלי",
+          "$A=\\begin{pmatrix}2&i\\\\z&2\\end{pmatrix}\\in M_2(\\mathbb{C})$; (א) עבור אילו $z$ היא לכסינה אוניטרית; (ב) עבור $z=i$ מצאו $U$ אוניטרית עם $U^{-1}AU$ אלכסונית",
       },
     ],
   },

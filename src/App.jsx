@@ -42,15 +42,17 @@ export default function App() {
 // - Add missing Infi exams
 // - Add Discrete Mathematics course
 // - Sort topics by order in the course material
-//
-// Fixes
-// - Algebra exam "2026_sample_I": replace "sample" with the real exam session
-//   (currently sorted last because "sample" doesn't map to a real session)
+// - Update readme file
 //
 // Editing & quality
-// - Review and fix wording of Algebra and Infi questions against the original exam
+// - Review and fix wording of Infi questions against the original exam
+// - Algebra exams audited 2006–2026. A few fuzzy-OCR reconstructions still want a
+//   second look vs a clean copy: 2021_א Q2ב bilinear form, 2021w_ב Q7 wording,
+//   2019_א Q1ב B(1,4) entry, 2018_ב Q5, 2014_ג Q5 matrix, 2013_ב Q12 claim.
+// - ExamHeader renders `מבנה {exam.chapter_structure}` but no exam has that field,
+//   so every card shows "מבנה undefined". Drop the field or populate it.
 //
-// Structure — edge cases
-// - Questions covering two different topics in a single part (e.g. question 3, 2019 moed B)
-//   Options: (a) split into two separate questions · (b) dual-tag the topic
-// - Exams spanning two semesters — requires deeper handling in both the data and the code
+// Known limitations (current behavior, not bugs)
+// - useStats aggregates only the primary `topic`; subpart topics and the optional
+//   `topics: []` array are not counted.
+// - Exams spanning two semesters need deeper handling in both data and code.

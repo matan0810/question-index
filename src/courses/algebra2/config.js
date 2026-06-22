@@ -64,19 +64,19 @@ export const TRAPS = [
   },
   {
     t: '$\\lambda$ ע"ע של $T$ ↔ $\\ker(\\lambda I-T)\\neq\\{0\\}$',
-    n: "שאלת חלק א' במבחן לדוגמא תשפ\"ו (20 נק'); וריאציות הופיעו ב-2014 ב' (q7), 2019 ב', 2011, 2010; הוכחה דו-כיוונית",
+    n: "וריאציות הופיעו ב-2014 ב' (q7), 2019 ב', 2011, 2010; הוכחה דו-כיוונית",
   },
   {
     t: "$T$ צמוד לעצמו, $W$ $T$-אינווריאנטי ⟹ $W^\\perp$ אינווריאנטי",
-    n: 'מבחן לדוגמא תשפ"ו, תשפ"ה, חורף 2018; ב-תשע"ה זו הייתה Q1 חובה (16 נק\'); ההוכחה דרך $T^*=T$',
+    n: 'תשפ"ה, חורף 2018; ב-תשע"ה זו הייתה Q1 חובה (16 נק\'); ההוכחה דרך $T^*=T$',
   },
   {
-    t: "$\\sqrt{x_1+x_2}+\\ldots\\leq\\sqrt{2n\\sum x_i}$ ווריאציות דרך קושי-שוורץ",
-    n: "קיץ 2024 (גרסה מקורית), חורף 2025 ($1/(ab)+...\\geq 16/(a+b+c+d)^2$), 2026 ב' ($f(x)=(\\sum\\sqrt{kx_k})^2/\\sum x_k^2\\leq 15$); הכלי: $|\\langle u,v\\rangle|\\leq\\|u\\|\\cdot\\|v\\|$",
+    t: "אי-שוויונות אלגבריים שמוכחים דרך קושי-שוורץ / גרם",
+    n: "קיץ 2024 (3.9.24, q5: $x^2+xy+y^2\\leq\\sqrt{(2x^2+y^2)(x^2+2y^2)}$), חורף 2025 א' ($16/(a+b+c+d)\\leq 1/a+1/b+1/c+1/d$), קיץ 2024 (26.5.24, q3: $(a^2b+\\ldots)(ab^2+\\ldots)\\geq 9a^2b^2c^2$), חורף 2025 ב' (19.3.25) ו-2026 ב' ($f(x)=(\\sum\\sqrt{k}x_k)^2/\\sum x_k^2\\leq 15$); הכלי: $|\\langle u,v\\rangle|\\leq\\|u\\|\\cdot\\|v\\|$",
   },
   {
     t: "$T$ אופרטור אורתוגונלי ⟺ $\\|Tv\\|=\\|v\\|$ לכל $v$",
-    n: 'קיץ 2024 כ-Q1 חובה (ממפה ו"י לו"י ⟹ אורתוגונלי); תשפ"ו ב\' (גרסת אי-זוגי + $\\det=1$); קיץ 2018, חורף 2020',
+    n: 'קיץ 2024 (3.9.24, q4: ממפה ו"י לו"י ⟹ אורתוגונלי); תשפ"ד מועד א\' (9.4.24, q1); תשפ"ה ב\' (19.3.25) ו-תשפ"ו ב\' (גרסת ממד אי-זוגי + $\\det=1$ ⟹ $\\exists v$: $Tv=v$); קיץ 2018, חורף 2020',
   },
   {
     t: "$T$ נורמלי ⟺ קיים בסיס אורתונורמלי שמלכסן את $T$ (מעל $\\mathbb{C}$)",
@@ -96,9 +96,9 @@ export const QUESTION_TYPES = {
   mixed:            { label: "מעורב",          kind: "mixed" },
 };
 
-// EXAM_FORMAT reflects the most recent published exam (תשפ"ו מועד ב', 19.3.26)
-// taught by פרופ' אלכס גורביץ'. Format: 10 questions, answer 7, ~14.3 pts each, 3 hours.
-// Sample exam (2026): 2 mandatory (20pts) + choose 5 from 7 optional (12pts each) = 100pts.
+// EXAM_FORMAT — the format panel shown for the latest exam.
+// latestSession/latestDate/lecturer are overridden at runtime in CourseApp from
+// the actual latest exam; only `chapters` and `badges` below are used as written.
 export const EXAM_FORMAT = {
   latestSession: "תשפ\"ו מועד ב'",
   latestDate: "19.03.26",
