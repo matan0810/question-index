@@ -49,10 +49,3 @@ export default function App() {
 // - Algebra exams audited 2006–2026. A few fuzzy-OCR reconstructions still want a
 //   second look vs a clean copy: 2021_א Q2ב bilinear form, 2021w_ב Q7 wording,
 //   2019_א Q1ב B(1,4) entry, 2018_ב Q5, 2014_ג Q5 matrix, 2013_ב Q12 claim.
-// - ExamHeader renders `מבנה {exam.chapter_structure}` but no exam has that field,
-//   so every card shows "מבנה undefined". Drop the field or populate it.
-//
-// Known limitations (current behavior, not bugs)
-// - useStats aggregates only the primary `topic`; subpart topics and the optional
-//   `topics: []` array are not counted.
-// - Exams spanning two semesters need deeper handling in both data and code.

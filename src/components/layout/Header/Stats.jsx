@@ -1,4 +1,5 @@
 import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
+import { questionTopics } from "../../../utils/exam";
 import ProgressWidget from "./ProgressWidget";
 
 export default function Stats({
@@ -21,7 +22,7 @@ export default function Stats({
   const stats = [
     [exams.length, "מבחנים"],
     [exams.reduce((s, e) => s + e.questions.length, 0), "שאלות"],
-    [new Set(exams.flatMap((e) => e.questions.map((q) => q.topic))).size, "נושאים"],
+    [new Set(exams.flatMap((e) => e.questions.flatMap(questionTopics))).size, "נושאים"],
     [yearRange, "שנים"],
   ];
 

@@ -1,6 +1,6 @@
 import Chip from "../../ui/Chip";
 import { COLORS_UI, FONTS } from "../../../styles";
-import { examLecturerLabel } from "../../../utils/exam";
+import { examLecturerLabel, examSemesterLabel } from "../../../utils/exam";
 
 export default function ExamHeader({ exam, isLatest, pri }) {
   return (
@@ -16,11 +16,13 @@ export default function ExamHeader({ exam, isLatest, pri }) {
           {exam.year}
         </div>
         <div style={{ fontWeight: 700, fontSize: 15 }}>מועד {exam.moed}</div>
+        <div style={{ fontSize: 12, color: COLORS_UI.muted }}>
+          {examSemesterLabel(exam)}
+        </div>
         {isLatest && <Chip kind="hot">המבחן שלך!</Chip>}
       </div>
       <div style={{ fontSize: 11, color: COLORS_UI.muted, marginTop: 3 }}>
-        מבנה {exam.chapter_structure} · {exam.questions.length} שאלות
-        {` · ${examLecturerLabel(exam)}`}
+        {exam.questions.length} שאלות · {examLecturerLabel(exam)}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import {
   buildLecturersList,
   sortExams,
   latestExamYear,
+  questionTopics,
 } from "../utils/exam";
 
 // isDone and hasLabel are stable refs (see useProgress/useLabels).
@@ -37,7 +38,9 @@ export function useSearchData(
       Object.entries(
         exams.reduce((acc, exam) => {
           exam.questions.forEach((q) => {
-            acc[q.topic] = (acc[q.topic] || 0) + 1;
+            questionTopics(q).forEach((t) => {
+              acc[t] = (acc[t] || 0) + 1;
+            });
           });
           return acc;
         }, {}),
@@ -69,12 +72,18 @@ export function useSearchData(
       (latestYear === null || exam.year !== latestYear);
 
     const questionMatches = (q, exam) => {
-      if (topic && q.topic !== topic) return false;
+      if (topic && !questionTopics(q).includes(topic)) return false;
       if (chapter && q.chapter !== chapter) return false;
       if (type && q.type !== type) return false;
       if (
         queryLower &&
-        !(q.summary + (topicHe[q.topic] ?? "") + exam.code)
+        !(
+          q.summary +
+          questionTopics(q)
+            .map((t) => topicHe[t] ?? "")
+            .join(" ") +
+          exam.code
+        )
           .toLowerCase()
           .includes(queryLower)
       )

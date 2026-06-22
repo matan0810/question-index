@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Bar, CardTitle, useTypeHelpers } from "../../components";
 import { COLORS_UI } from "../../styles";
+import { questionTopics } from "../../utils/exam";
 import { TOPICS_INITIAL } from "./constants";
 import ShowMoreControls from "./ShowMoreControls";
 import ExcludedSection from "./ExcludedSection";
@@ -37,8 +38,8 @@ export default function Overview({
       <div className="ui-card">
         <CardTitle emoji="📊" title="דירוג נושאים" sub="לחץ על נושא לחיפוש שאלות" />
         {active.slice(0, visibleCount).map(([topicKey, count], i) => {
-          const examCount = exams.filter(
-            (exam) => exam.questions.some((q) => q.topic === topicKey),
+          const examCount = exams.filter((exam) =>
+            exam.questions.some((q) => questionTopics(q).includes(topicKey)),
           ).length;
           return (
             <Bar

@@ -1,11 +1,13 @@
+import { questionTopics } from "../../utils/exam";
+
 export function computeYearTopics(exams, fromYear, isExcluded) {
   const byYear = {};
   for (const e of exams) {
     if (e.year < fromYear) continue;
     if (!byYear[e.year]) byYear[e.year] = {};
     for (const q of e.questions) {
-      if (!isExcluded(q.topic)) {
-        byYear[e.year][q.topic] = (byYear[e.year][q.topic] || 0) + 1;
+      for (const t of questionTopics(q)) {
+        if (!isExcluded(t)) byYear[e.year][t] = (byYear[e.year][t] || 0) + 1;
       }
     }
   }
@@ -17,7 +19,9 @@ export function getTopTopics(exams, fromYear, isExcluded, limit = 15) {
   exams.forEach((e) => {
     if (e.year < fromYear) return;
     e.questions.forEach((q) => {
-      if (!isExcluded(q.topic)) counts[q.topic] = (counts[q.topic] || 0) + 1;
+      questionTopics(q).forEach((t) => {
+        if (!isExcluded(t)) counts[t] = (counts[t] || 0) + 1;
+      });
     });
   });
   return Object.entries(counts)

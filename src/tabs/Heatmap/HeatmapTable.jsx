@@ -1,5 +1,6 @@
 import { COLORS_UI } from "../../styles";
 import { ExcludedTag, excludedRowStyle } from "../../components";
+import { examShortLabel, examSemesterLabel } from "../../utils/exam";
 
 export default function HeatmapTable({
   sortedTopics,
@@ -43,7 +44,7 @@ export default function HeatmapTable({
                   whiteSpace: "nowrap",
                 }}
               >
-                {exam.year}/{exam.moed}
+                {examShortLabel(exam)}
               </th>
             ))}
             <th
@@ -89,7 +90,7 @@ export default function HeatmapTable({
                     <td
                       key={exam.code}
                       onClick={() => { if (count > 0 && !excluded) setSearchTopic(topicKey); }}
-                      title={count ? `${topicHe[topicKey]} · ${exam.year} מועד ${exam.moed} · ${count} שאלות` : ""}
+                      title={count ? `${topicHe[topicKey]} · ${exam.year} ${examSemesterLabel(exam)} מועד ${exam.moed} · ${count} שאלות` : ""}
                       style={{
                         background: heatColor(count),
                         color: count > 2 ? "white" : count > 0 ? pri : "transparent",

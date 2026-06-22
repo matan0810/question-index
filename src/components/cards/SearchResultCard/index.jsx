@@ -8,6 +8,7 @@ import StudyControls from "../../question/StudyControls";
 import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
 import {
   examLecturerLabel,
+  examSemesterLabel,
   questionExamPartName,
   questionDisplayNumber,
 } from "../../../utils/exam";
@@ -52,7 +53,9 @@ function SearchResultCard({
     >
       <div className="result-card-meta" style={{ lineHeight: 1.5 }}>
         <div style={{ fontWeight: 700, fontSize: 14 }}>{exam.year}</div>
-        <div style={{ fontSize: 12, color: COLORS_UI.text }}>מועד {exam.moed}</div>
+        <div style={{ fontSize: 12, color: COLORS_UI.text }}>
+          מועד {exam.moed} · {examSemesterLabel(exam)}
+        </div>
         <div style={{ fontSize: 11, color: COLORS_UI.muted, marginTop: 2 }}>
           {examLecturerLabel(exam)}
         </div>

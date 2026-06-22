@@ -20,12 +20,38 @@ export const examMatchesLecturer = (exam, lecturer) =>
 export const examLecturerLabel = (exam) =>
   exam.lecturers?.join(", ") ?? UNKNOWN_LECTURER;
 
-// Chronological comparison of two exams: by year, then session order.
-// Exceptional sessions (e.g. a mislabeled "sample") rank last within their year.
-export const examDateCompare = (a, b) =>
-  a.year !== b.year
-    ? a.year - b.year
-    : (MOED_ORDER[a.moed] ?? 9) - (MOED_ORDER[b.moed] ?? 9);
+// A calendar year can hold both a winter-semester course (סמסטר א', exams in
+// Feb–Mar) and a summer one (סמסטר ב', exams in Jul–Sep), sometimes sharing a
+// מועד. The `semester` field is the source of truth; helpers below let sorting
+// and labels tell the two apart instead of relying on the year/moed alone.
+export const SEMESTER_HE = { winter: "חורף", summer: "קיץ" };
+export const examSemesterLabel = (exam) => SEMESTER_HE[exam.semester] ?? "";
+
+// Parse "dd.mm.yy" into { mon, day }, or null for unknown placeholders ("00.00.06").
+const parseExamDate = (date) => {
+  const m = /^(\d{2})\.(\d{2})\.\d{2}$/.exec(date ?? "");
+  if (!m) return null;
+  const day = +m[1];
+  const mon = +m[2];
+  return day && mon ? { mon, day } : null;
+};
+
+// Compact label for axes/columns. A winter exam shares its calendar year (and
+// sometimes מועד) with a summer one, so it's marked "ח" to disambiguate.
+export const examShortLabel = (exam) =>
+  `${exam.year}${exam.semester === "winter" ? "ח" : ""}/${exam.moed}`;
+
+// Chronological comparison: by calendar year, then by the real exam date within
+// the year — so a winter session (Feb/Mar) precedes a summer one (Jul/Aug) even
+// when they share a מועד — falling back to session order when a date is unknown.
+export const examDateCompare = (a, b) => {
+  if (a.year !== b.year) return a.year - b.year;
+  const da = parseExamDate(a.date);
+  const db = parseExamDate(b.date);
+  if (da && db && (da.mon !== db.mon || da.day !== db.day))
+    return da.mon - db.mon || da.day - db.day;
+  return (MOED_ORDER[a.moed] ?? 9) - (MOED_ORDER[b.moed] ?? 9);
+};
 
 // Return a sorted copy of `exams`. sortBy: "date" | "lecturer". sortDir:
 // "asc" | "desc". Lecturer sort falls back to date for a stable tiebreak.
@@ -73,6 +99,26 @@ export const questionExamPartName = (exam, questionId) => {
 // The number to display for a question: its true exam-sequence position, falling
 // back to the digits in its id for older data without an explicit number.
 export const questionDisplayNumber = (q) => q.number ?? q.id.replace(/^[^\d]+/, "");
+
+// Every distinct topic a question touches, primary first: its main `topic`, any
+// secondary `topics: []`, and the `topic` of each subpart (dual-topic questions).
+// Deduped, so a topic shared by the question and a subpart is counted once.
+// All topic aggregation (stats, trends, heatmap, search) goes through this so a
+// question surfaces under each topic it covers, not only its headline topic.
+export const questionTopics = (q) => {
+  const out = [];
+  const seen = new Set();
+  const add = (t) => {
+    if (t && !seen.has(t)) {
+      seen.add(t);
+      out.push(t);
+    }
+  };
+  add(q.topic);
+  (q.topics ?? []).forEach(add);
+  (q.subparts ?? []).forEach((sp) => add(sp.topic));
+  return out;
+};
 
 export const buildLecturersList = (exams) =>
   [

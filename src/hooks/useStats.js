@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { questionTopics } from "../utils/exam";
 
 export function useStats(exams) {
   return useMemo(() => {
@@ -12,11 +13,14 @@ export function useStats(exams) {
       examTopics[exam.code] = {};
       exam.questions.forEach((q) => {
         total++;
-        topicCounts[q.topic] = (topicCounts[q.topic] || 0) + 1;
+        // A question is counted under every topic it touches (primary +
+        // secondary + subparts), so topicCounts/examTopics may sum past `total`.
+        questionTopics(q).forEach((t) => {
+          topicCounts[t] = (topicCounts[t] || 0) + 1;
+          examTopics[exam.code][t] = (examTopics[exam.code][t] || 0) + 1;
+        });
         chapterCounts[q.chapter] = (chapterCounts[q.chapter] || 0) + 1;
         typeCounts[q.type] = (typeCounts[q.type] || 0) + 1;
-        examTopics[exam.code][q.topic] =
-          (examTopics[exam.code][q.topic] || 0) + 1;
       });
     });
 

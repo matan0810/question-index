@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { COLORS_UI, primaryColor } from "../../styles";
 import { CardTitle, Badge, MathText } from "../../components";
+import { questionTopics } from "../../utils/exam";
 import InsightRow from "./InsightRow";
 
 export default function Insights({
@@ -32,9 +33,10 @@ export default function Insights({
     const totalCount = {};
     exams.forEach((exam) => {
       exam.questions.forEach((q) => {
-        totalCount[q.topic] = (totalCount[q.topic] || 0) + 1;
-        if (!lastSeen[q.topic] || exam.year > lastSeen[q.topic])
-          lastSeen[q.topic] = exam.year;
+        questionTopics(q).forEach((t) => {
+          totalCount[t] = (totalCount[t] || 0) + 1;
+          if (!lastSeen[t] || exam.year > lastSeen[t]) lastSeen[t] = exam.year;
+        });
       });
     });
     return Object.entries(totalCount)
@@ -54,9 +56,11 @@ export default function Insights({
     let total = 0;
     exams.filter((e) => e.year >= trendFromYear).forEach((exam) =>
       exam.questions.forEach((q) => {
-        if (excludedTopics.has(q.topic)) return;
-        counts[q.topic] = (counts[q.topic] || 0) + 1;
-        total++;
+        questionTopics(q).forEach((t) => {
+          if (excludedTopics.has(t)) return;
+          counts[t] = (counts[t] || 0) + 1;
+          total++;
+        });
       }),
     );
     return {
