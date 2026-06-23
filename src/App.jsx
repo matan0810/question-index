@@ -36,14 +36,8 @@ export default function App() {
   );
 }
 
-// TODO
-//
-// Content
-// - Add missing Infi exams
+// TODO:
 // - Add Discrete Mathematics course
-//
-// Editing & quality
-// - Review and fix wording of Infi questions against the original exam
-// - Algebra exams audited 2006–2026. A few fuzzy-OCR reconstructions still want a
-//   second look vs a clean copy: 2021_א Q2ב bilinear form, 2021w_ב Q7 wording,
-//   2019_א Q1ב B(1,4) entry, 2018_ב Q5, 2014_ג Q5 matrix, 2013_ב Q12 claim.
+// - update infi to the new format, of algebra
+// - remove meorav question type do specipec or multiple types instead
+// - go over exams.js add make sure all questions have correct topics, chapter, type, according to exam part info

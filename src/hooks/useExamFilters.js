@@ -5,6 +5,7 @@ import { useUrlParam } from "./useUrlParam";
 export function useExamFilters(params, setParams) {
   const [yearFilter, setYearFilter] = useUrlParam(params, setParams, "examYear");
   const [moedFilter, setMoedFilter] = useUrlParam(params, setParams, "examMoed");
+  const [semesterFilter, setSemesterFilter] = useUrlParam(params, setParams, "examSemester");
   const [lecturerFilter, setLecturerFilter] = useUrlParam(
     params,
     setParams,
@@ -19,6 +20,8 @@ export function useExamFilters(params, setParams) {
     setYearFilter,
     moedFilter,
     setMoedFilter,
+    semesterFilter,
+    setSemesterFilter,
     lecturerFilter,
     setLecturerFilter,
     sortBy,

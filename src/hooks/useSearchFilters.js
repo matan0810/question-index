@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useUrlParam } from "./useUrlParam";
 
-// Every URL key the search tab owns — used by clearAll to wipe them in one go.
+// Keys cleared by "נקה סינון"; view toggles (hideLatest/showExcl) persist.
 const SEARCH_KEYS = [
   "q",
   "topic",
@@ -9,10 +9,9 @@ const SEARCH_KEYS = [
   "type",
   "year",
   "moed",
+  "semester",
   "lecturer",
   "progress",
-  "hideLatest",
-  "showExcl",
 ];
 
 // SearchTab's full filter set, keyed to the tab's prop names for spreading onto
@@ -25,6 +24,7 @@ export function useSearchFilters(params, setParams) {
   const [type, setType] = useUrlParam(params, setParams, "type");
   const [year, setYear] = useUrlParam(params, setParams, "year");
   const [moed, setMoed] = useUrlParam(params, setParams, "moed");
+  const [semester, setSemester] = useUrlParam(params, setParams, "semester");
   const [lecturer, setLecturer] = useUrlParam(params, setParams, "lecturer");
   const [progressFilter, setProgressFilter] = useUrlParam(
     params,
@@ -62,6 +62,8 @@ export function useSearchFilters(params, setParams) {
     setYear,
     moed,
     setMoed,
+    semester,
+    setSemester,
     lecturer,
     setLecturer,
     progressFilter,

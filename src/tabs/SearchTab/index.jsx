@@ -12,6 +12,7 @@ export default function SearchTab({
   type, setType,
   year, setYear,
   moed, setMoed,
+  semester, setSemester,
   lecturer, setLecturer,
   progressFilter, setProgressFilter,
   sortBy, setSortBy,
@@ -34,7 +35,7 @@ export default function SearchTab({
 }) {
   const effectiveSortBy = sortBy || "date";
   const effectiveSortDir = sortDir || "desc";
-  const filters = { query, topic, chapter, type, year, moed, lecturer, progressFilter };
+  const filters = { query, topic, chapter, type, year, moed, semester, lecturer, progressFilter };
   const { topicsByFrequency, years, lecturers, types, results } = useSearchData(
     exams,
     {
@@ -51,9 +52,9 @@ export default function SearchTab({
     hasLabel,
     labelsVersion,
   );
-  const hasActiveFilters = Object.values(filters).some(Boolean) || hideLatest || !hideExcluded;
+  const hasActiveFilters = Object.values(filters).some(Boolean);
 
-  const resetKey = `${query}|${topic}|${chapter}|${type}|${year}|${moed}|${lecturer}|${progressFilter}|${effectiveSortBy}|${effectiveSortDir}|${hideLatest}|${hideExcluded}`;
+  const resetKey = `${query}|${topic}|${chapter}|${type}|${year}|${moed}|${semester}|${lecturer}|${progressFilter}|${effectiveSortBy}|${effectiveSortDir}|${hideLatest}|${hideExcluded}`;
   const page = usePagination(results.length, { pageSize: PAGE_SIZE, resetKey });
 
   return (
@@ -65,6 +66,7 @@ export default function SearchTab({
         type={type} setType={setType}
         year={year} setYear={setYear}
         moed={moed} setMoed={setMoed}
+        semester={semester} setSemester={setSemester}
         lecturer={lecturer} setLecturer={setLecturer}
         progressFilter={progressFilter} setProgressFilter={setProgressFilter}
         sortBy={effectiveSortBy} setSortBy={setSortBy}

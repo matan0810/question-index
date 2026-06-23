@@ -21,6 +21,29 @@ export default function QuestionRow({
   hasLabel,
   toggleLabel,
 }) {
+  if (q.missing) {
+    return (
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "28px 1fr",
+          gap: 8,
+          padding: "6px 0",
+          borderBottom: `1px solid ${COLORS_UI.rowDivider}`,
+          alignItems: "center",
+          opacity: 0.6,
+        }}
+      >
+        <div style={{ fontFamily: FONTS.serif, fontWeight: 900, fontSize: 16, color: COLORS_UI.muted, textAlign: "center" }}>
+          {questionDisplayNumber(q)}
+        </div>
+        <div style={{ fontSize: 12, fontStyle: "italic", color: COLORS_UI.muted }}>
+          תוכן השאלה אבד ואינו זמין במקורות שלנו
+        </div>
+      </div>
+    );
+  }
+
   const excluded = isExcluded(q.topic);
   const examPart = questionExamPartName(exam, q.id);
   const questionKey = `${exam.code}__${q.id}`;

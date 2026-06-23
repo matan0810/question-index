@@ -27,6 +27,7 @@ export function useSearchData(
     type,
     year,
     moed,
+    semester,
     lecturer,
     progressFilter,
     sortBy,
@@ -71,10 +72,12 @@ export function useSearchData(
     const examMatches = (exam) =>
       (!year || String(exam.year) === year) &&
       (!moed || exam.moed === moed) &&
+      (!semester || exam.semester === semester) &&
       (!lecturer || examMatchesLecturer(exam, lecturer)) &&
       (latestYear === null || exam.year !== latestYear);
 
     const questionMatches = (q, exam) => {
+      if (q.missing) return false;
       if (hideExcluded && isExcluded && !questionInSyllabus(q, isExcluded))
         return false;
       if (topic && !questionTopics(q).includes(topic)) return false;
@@ -116,6 +119,7 @@ export function useSearchData(
     type,
     year,
     moed,
+    semester,
     lecturer,
     topicHe,
     progressFilter,

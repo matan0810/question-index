@@ -4,6 +4,7 @@ import { usePagination } from "../hooks";
 import { inp, COLORS_UI, clearBtn, countBadge, primaryColor } from "../styles";
 import {
   MOED_OPTIONS,
+  SEMESTER_OPTIONS,
   examMatchesLecturer,
   buildLecturersList,
   sortExams,
@@ -17,6 +18,8 @@ export default function ExamsTab({
   setYearFilter,
   moedFilter,
   setMoedFilter,
+  semesterFilter,
+  setSemesterFilter,
   lecturerFilter,
   setLecturerFilter,
   sortBy,
@@ -58,6 +61,7 @@ export default function ExamsTab({
       (exam) =>
         (!yearFilter || String(exam.year) === yearFilter) &&
         (!moedFilter || exam.moed === moedFilter) &&
+        (!semesterFilter || exam.semester === semesterFilter) &&
         (!lecturerFilter || examMatchesLecturer(exam, lecturerFilter)) &&
         (!hideLatest || exam.year !== latestYear),
     );
@@ -66,6 +70,7 @@ export default function ExamsTab({
     exams,
     yearFilter,
     moedFilter,
+    semesterFilter,
     lecturerFilter,
     hideLatest,
     latestYear,
@@ -73,10 +78,10 @@ export default function ExamsTab({
     effectiveSortDir,
   ]);
 
-  const hasActiveFilters = yearFilter || moedFilter || lecturerFilter || hideLatest;
+  const hasActiveFilters = yearFilter || moedFilter || semesterFilter || lecturerFilter;
 
   // Render exam cards a page at a time; reset when filters/sort change.
-  const resetKey = `${yearFilter}|${moedFilter}|${lecturerFilter}|${hideLatest}|${effectiveSortBy}|${effectiveSortDir}`;
+  const resetKey = `${yearFilter}|${moedFilter}|${semesterFilter}|${lecturerFilter}|${hideLatest}|${effectiveSortBy}|${effectiveSortDir}`;
   const page = usePagination(filteredExams.length, { pageSize: PAGE_SIZE, resetKey });
 
   return (
@@ -102,6 +107,18 @@ export default function ExamsTab({
         >
           <option value="">כל המועדים</option>
           {MOED_OPTIONS.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <select
+          value={semesterFilter}
+          onChange={(e) => setSemesterFilter(e.target.value)}
+          style={inp}
+        >
+          <option value="">כל הסמסטרים</option>
+          {SEMESTER_OPTIONS.map(({ value, label }) => (
             <option key={value} value={value}>
               {label}
             </option>
@@ -139,8 +156,8 @@ export default function ExamsTab({
             onClick={() => {
               setYearFilter("");
               setMoedFilter("");
+              setSemesterFilter("");
               setLecturerFilter("");
-              setHideLatest(false);
             }}
             style={clearBtn}
           >

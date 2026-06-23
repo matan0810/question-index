@@ -1,6 +1,6 @@
 import { useTypeHelpers, SortControls } from "../../components";
-import { inp, clearBtn, countBadge, COLORS_UI, primaryColor } from "../../styles";
-import { MOED_OPTIONS } from "../../utils/exam";
+import { inp, clearBtn, countBadge, primaryColor, toggleChip } from "../../styles";
+import { MOED_OPTIONS, SEMESTER_OPTIONS } from "../../utils/exam";
 
 const PROGRESS_OPTIONS = [
   { value: "done",   label: "✓ בוצע" },
@@ -16,6 +16,7 @@ export default function SearchFilterBar({
   type, setType,
   year, setYear,
   moed, setMoed,
+  semester, setSemester,
   lecturer, setLecturer,
   progressFilter, setProgressFilter,
   sortBy, setSortBy,
@@ -38,90 +39,100 @@ export default function SearchFilterBar({
   const accent = primaryColor(colorsUI);
 
   return (
-    <div className="ui-card filter-bar">
+    <div className="ui-card search-filters">
+      {/* Free-text search — its own full-width row */}
       <input
         type="text"
+        className="search-input"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="חפש שאלה, נוסחה, נושא..."
-        style={{ ...inp, minWidth: 220 }}
+        style={inp}
       />
-      <select value={topic} onChange={(e) => setTopic(e.target.value)} style={inp}>
-        <option value="">כל הנושאים</option>
-        {topicsByFrequency.map(([key]) => (
-          <option key={key} value={key}>{topicHe[key] || key}</option>
-        ))}
-      </select>
-      <select value={chapter} onChange={(e) => setChapter(e.target.value)} style={inp}>
-        <option value="">כל הפרקים</option>
-        {chapters.map(({ key, label }) => (
-          <option key={key} value={key}>{label}</option>
-        ))}
-      </select>
-      <select value={type} onChange={(e) => setType(e.target.value)} style={inp}>
-        <option value="">כל הסוגים</option>
-        {types.map((t) => (
-          <option key={t} value={t}>{typeToLabel(t)}</option>
-        ))}
-      </select>
-      <select value={year} onChange={(e) => setYear(e.target.value)} style={inp}>
-        <option value="">כל השנים</option>
-        {years.map((y) => (
-          <option key={y} value={y}>{y}</option>
-        ))}
-      </select>
-      <select value={moed} onChange={(e) => setMoed(e.target.value)} style={inp}>
-        <option value="">כל המועדים</option>
-        {MOED_OPTIONS.map(({ value, label }) => (
-          <option key={value} value={value}>{label}</option>
-        ))}
-      </select>
-      {lecturers.length > 1 && (
-        <select value={lecturer} onChange={(e) => setLecturer(e.target.value)} style={inp}>
-          <option value="">כל המרצים</option>
-          {lecturers.map((l) => (
-            <option key={l} value={l}>{l}</option>
+
+      {/* Dropdown filters */}
+      <div className="filter-group">
+        <select value={topic} onChange={(e) => setTopic(e.target.value)} style={inp}>
+          <option value="">כל הנושאים</option>
+          {topicsByFrequency.map(([key]) => (
+            <option key={key} value={key}>{topicHe[key] || key}</option>
           ))}
         </select>
-      )}
-      {studyMode && setProgressFilter && (
-        <select value={progressFilter || ""} onChange={(e) => setProgressFilter(e.target.value)} style={inp}>
-          <option value="">כל הסטטוסים</option>
-          {PROGRESS_OPTIONS.map(({ value, label }) => (
+        <select value={chapter} onChange={(e) => setChapter(e.target.value)} style={inp}>
+          <option value="">כל הפרקים</option>
+          {chapters.map(({ key, label }) => (
+            <option key={key} value={key}>{label}</option>
+          ))}
+        </select>
+        <select value={type} onChange={(e) => setType(e.target.value)} style={inp}>
+          <option value="">כל הסוגים</option>
+          {types.map((t) => (
+            <option key={t} value={t}>{typeToLabel(t)}</option>
+          ))}
+        </select>
+        <select value={year} onChange={(e) => setYear(e.target.value)} style={inp}>
+          <option value="">כל השנים</option>
+          {years.map((y) => (
+            <option key={y} value={y}>{y}</option>
+          ))}
+        </select>
+        <select value={moed} onChange={(e) => setMoed(e.target.value)} style={inp}>
+          <option value="">כל המועדים</option>
+          {MOED_OPTIONS.map(({ value, label }) => (
             <option key={value} value={value}>{label}</option>
           ))}
         </select>
-      )}
-      <SortControls
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        sortDir={sortDir}
-        setSortDir={setSortDir}
-        hideLatest={hideLatest}
-        setHideLatest={setHideLatest}
-        colorsUI={colorsUI}
-      />
-      <button
-        onClick={() => setHideExcluded(!hideExcluded)}
-        title="שאלות בנושאים שאינם בסילבוס הנוכחי מוסתרות כברירת מחדל"
-        style={{
-          height: 30,
-          padding: "0 12px",
-          border: `1px solid ${hideExcluded ? COLORS_UI.border : accent}`,
-          background: hideExcluded ? COLORS_UI.bg : `${accent}14`,
-          color: hideExcluded ? COLORS_UI.muted : accent,
-          fontWeight: hideExcluded ? 600 : 700,
-          fontSize: 12,
-          cursor: "pointer",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {hideExcluded ? "לא בחומר מוסתר" : "✓ מציג לא בחומר"}
-      </button>
-      <span style={countBadge}>{resultCount} תוצאות</span>
-      {hasActiveFilters && (
-        <button onClick={clearAll} style={clearBtn}>נקה סינון</button>
-      )}
+        <select value={semester} onChange={(e) => setSemester(e.target.value)} style={inp}>
+          <option value="">כל הסמסטרים</option>
+          {SEMESTER_OPTIONS.map(({ value, label }) => (
+            <option key={value} value={value}>{label}</option>
+          ))}
+        </select>
+        {lecturers.length > 1 && (
+          <select value={lecturer} onChange={(e) => setLecturer(e.target.value)} style={inp}>
+            <option value="">כל המרצים</option>
+            {lecturers.map((l) => (
+              <option key={l} value={l}>{l}</option>
+            ))}
+          </select>
+        )}
+        {studyMode && setProgressFilter && (
+          <select value={progressFilter || ""} onChange={(e) => setProgressFilter(e.target.value)} style={inp}>
+            <option value="">כל הסטטוסים</option>
+            {PROGRESS_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
+          </select>
+        )}
+      </div>
+
+      {/* Sort, toggles, result count and clear — separated by a divider */}
+      <div className="filter-controls">
+        <SortControls
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          sortDir={sortDir}
+          setSortDir={setSortDir}
+          hideLatest={hideLatest}
+          setHideLatest={setHideLatest}
+          colorsUI={colorsUI}
+        />
+        <button
+          type="button"
+          onClick={() => setHideExcluded(!hideExcluded)}
+          aria-pressed={!hideExcluded}
+          title="כלול שאלות בנושאים שאינם בסילבוס הנוכחי (מוסתרות כברירת מחדל)"
+          style={toggleChip(!hideExcluded, accent)}
+        >
+          <span style={{ fontSize: 15, lineHeight: 1 }}>{hideExcluded ? "☐" : "☑"}</span>
+          כולל לא בחומר
+        </button>
+        <span className="controls-spacer" />
+        <span style={countBadge}>{resultCount} תוצאות</span>
+        {hasActiveFilters && (
+          <button onClick={clearAll} style={clearBtn}>נקה סינון</button>
+        )}
+      </div>
     </div>
   );
 }

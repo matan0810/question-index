@@ -12,9 +12,10 @@ export function useStats(exams) {
     exams.forEach((exam) => {
       examTopics[exam.code] = {};
       exam.questions.forEach((q) => {
+        if (q.missing) return;
         total++;
-        // A question is counted under every topic it touches (primary +
-        // secondary + subparts), so topicCounts/examTopics may sum past `total`.
+        // Counted under every topic it touches (primary + secondary + subparts),
+        // so topicCounts/examTopics may sum past `total`.
         questionTopics(q).forEach((t) => {
           topicCounts[t] = (topicCounts[t] || 0) + 1;
           examTopics[exam.code][t] = (examTopics[exam.code][t] || 0) + 1;

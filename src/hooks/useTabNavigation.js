@@ -25,8 +25,10 @@ export function useTabNavigation(params, setParams) {
       (prev) => {
         const next = new URLSearchParams(prev);
         next.set("tab", "search");
+        ["q", "topic", "chapter", "type", "year", "moed", "semester", "lecturer", "progress", "hideLatest"]
+          .forEach((k) => next.delete(k));
+        next.set("showExcl", "1"); // a clicked topic may be out-of-syllabus
         if (filterValue) next.set(filterKey, filterValue);
-        else next.delete(filterKey);
         return next;
       },
       { replace: true },

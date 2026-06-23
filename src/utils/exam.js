@@ -20,11 +20,15 @@ export const examMatchesLecturer = (exam, lecturer) =>
 export const examLecturerLabel = (exam) =>
   exam.lecturers?.join(", ") ?? UNKNOWN_LECTURER;
 
-// A calendar year can hold both a winter-semester course (סמסטר א', exams in
-// Feb–Mar) and a summer one (סמסטר ב', exams in Jul–Sep), sometimes sharing a
-// מועד. The `semester` field is the source of truth; helpers below let sorting
-// and labels tell the two apart instead of relying on the year/moed alone.
-export const SEMESTER_HE = { winter: "חורף", summer: "קיץ" };
+// A calendar year can hold both a winter-semester course (סמסטר א', חורף; exams
+// in Feb–Mar) and a spring-semester one (סמסטר ב', אביב; exams held in Jul–Sep,
+// after a spring term), sometimes sharing a מועד. The `semester` field is the
+// source of truth; helpers below let sorting and labels tell the two apart.
+export const SEMESTER_HE = { winter: "חורף", spring: "אביב" };
+export const SEMESTER_OPTIONS = [
+  { value: "winter", label: "חורף" },
+  { value: "spring", label: "אביב" },
+];
 export const examSemesterLabel = (exam) => SEMESTER_HE[exam.semester] ?? "";
 
 // Parse "dd.mm.yy" into { mon, day }, or null for unknown placeholders ("00.00.06").
@@ -37,12 +41,12 @@ const parseExamDate = (date) => {
 };
 
 // Compact label for axes/columns. A winter exam shares its calendar year (and
-// sometimes מועד) with a summer one, so it's marked "ח" to disambiguate.
+// sometimes מועד) with a spring one, so it's marked "ח" to disambiguate.
 export const examShortLabel = (exam) =>
   `${exam.year}${exam.semester === "winter" ? "ח" : ""}/${exam.moed}`;
 
 // Chronological comparison: by calendar year, then by the real exam date within
-// the year — so a winter session (Feb/Mar) precedes a summer one (Jul/Aug) even
+// the year — so a winter session (Feb/Mar) precedes a spring one (Jul/Aug) even
 // when they share a מועד — falling back to session order when a date is unknown.
 export const examDateCompare = (a, b) => {
   if (a.year !== b.year) return a.year - b.year;

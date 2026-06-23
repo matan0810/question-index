@@ -65,3 +65,19 @@ export const countBadge = {
   padding: "4px 10px",
 };
 
+// Subtle checkbox-style filter toggle (hide-latest / show-excluded).
+export const toggleChip = (active, accent) => ({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 5,
+  height: 30,
+  padding: "0 6px",
+  border: "none",
+  background: "transparent",
+  fontSize: 12,
+  fontWeight: 600,
+  cursor: "pointer",
+  whiteSpace: "nowrap",
+  color: active ? accent : COLORS_UI.muted,
+});
+

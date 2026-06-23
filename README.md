@@ -121,7 +121,7 @@ export const EXAMS = [
     code:      "12345_2024_א",  // unique string
     year:      2024,            // calendar year
     moed:      "א",             // "א" | "ב" | "ג"
-    semester:  "summer",        // "winter" | "summer" — a calendar year can hold both
+    semester:  "spring",        // "winter" (סמסטר א') | "spring" (סמסטר ב') — a year can hold both
     date:      "15.01.24",      // "dd.mm.yy", optional; drives chronological sort
     lecturers: ["שם המרצה"],    // array, optional
     questions: [

@@ -1,4 +1,4 @@
-import { COLORS_UI, FONTS, primaryColor } from "../../styles";
+import { COLORS_UI, FONTS, primaryColor, toggleChip } from "../../styles";
 
 const SORT_OPTIONS = [
   { value: "date", label: "תאריך" },
@@ -68,24 +68,15 @@ export default function SortControls({
         </button>
       </div>
 
-      {/* Hide-latest-year toggle */}
       <button
+        type="button"
         onClick={() => setHideLatest(!hideLatest)}
+        aria-pressed={hideLatest}
         title="הסתר את מבחני השנה האחרונה כדי לשמור אותם לסוף"
-        style={{
-          ...group,
-          alignItems: "center",
-          padding: "0 12px",
-          cursor: "pointer",
-          background: hideLatest ? `${accent}14` : COLORS_UI.bg,
-          borderColor: hideLatest ? accent : COLORS_UI.border,
-          color: hideLatest ? accent : COLORS_UI.muted,
-          fontWeight: hideLatest ? 700 : 600,
-          fontSize: 12,
-          whiteSpace: "nowrap",
-        }}
+        style={toggleChip(hideLatest, accent)}
       >
-        {hideLatest ? "✓ שנה אחרונה מוסתרת" : "הסתר שנה אחרונה"}
+        <span style={{ fontSize: 15, lineHeight: 1 }}>{hideLatest ? "☑" : "☐"}</span>
+        הסתר שנה אחרונה
       </button>
     </div>
   );
