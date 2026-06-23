@@ -2,9 +2,9 @@ import { memo } from "react";
 import QuestionChips from "../../question/QuestionChips";
 import ExamPartLabel from "../../question/ExamPartLabel";
 import ActiveLabelChips from "../../question/ActiveLabelChips";
-import ExcludedTag from "../../question/ExcludedTag";
-import MathText from "../../question/MathText";
+import { ExcludedMark, strikeIfExcluded } from "../../question/ExcludedTag";
 import StudyControls from "../../question/StudyControls";
+import QuestionSummary from "../../question/QuestionSummary";
 import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
 import {
   examLecturerLabel,
@@ -19,6 +19,8 @@ function SearchResultCard({
   topicHe,
   isExcluded,
   setTopic,
+  setChapter,
+  setType,
   colorsUI,
   isDone,
   toggleDone,
@@ -43,7 +45,7 @@ function SearchResultCard({
         border: `1px solid ${done ? COLORS_UI.doneBorder : COLORS_UI.border}`,
         padding: 12,
         display: "grid",
-        gridTemplateColumns: studyMode ? "110px 80px 1fr auto" : "110px 80px 1fr",
+        gridTemplateColumns: studyMode ? "110px auto 1fr auto" : "110px auto 1fr",
         gap: 12,
         alignItems: "start",
         fontSize: 13,
@@ -77,7 +79,11 @@ function SearchResultCard({
       </div>
 
       <div className="result-card-chips">
-        <QuestionChips question={question} />
+        <QuestionChips
+          question={question}
+          onChapterClick={setChapter}
+          onTypeClick={setType}
+        />
       </div>
 
       <div className="result-card-topic">
@@ -96,11 +102,13 @@ function SearchResultCard({
             flexWrap: "wrap",
           }}
         >
-          {excluded && <ExcludedTag />}
-          {topicHe[question.topic] || question.topic}
+          {excluded && <ExcludedMark />}
+          <span style={strikeIfExcluded(excluded)}>
+            {topicHe[question.topic] || question.topic}
+          </span>
         </div>
         <div style={{ lineHeight: 1.5, fontSize: 13 }}>
-          <MathText>{question.summary}</MathText>
+          <QuestionSummary summary={question.summary} />
         </div>
         <ActiveLabelChips questionKey={questionKey} hasLabel={hasLabel} />
       </div>

@@ -7,6 +7,7 @@ import {
   questionTopics,
   questionTypes,
   questionInSyllabus,
+  makeTopicOrder,
 } from "../utils/exam";
 
 // isDone and hasLabel are stable refs (see useProgress/useLabels).
@@ -38,20 +39,17 @@ export function useSearchData(
     isExcluded,
   } = filters;
 
-  const topicsByFrequency = useMemo(
-    () =>
-      Object.entries(
-        exams.reduce((acc, exam) => {
-          exam.questions.forEach((q) => {
-            questionTopics(q).forEach((t) => {
-              acc[t] = (acc[t] || 0) + 1;
-            });
-          });
-          return acc;
-        }, {}),
-      ).sort((a, b) => b[1] - a[1]),
-    [exams],
-  );
+  // Topics present in the exams, ordered as they appear in the syllabus
+  // (TOPIC_HE order) so the filter dropdown reads top-to-bottom like the course.
+  const topicOptions = useMemo(() => {
+    const present = new Set();
+    exams.forEach((exam) =>
+      exam.questions.forEach((q) =>
+        questionTopics(q).forEach((t) => present.add(t)),
+      ),
+    );
+    return [...present].sort(makeTopicOrder(topicHe));
+  }, [exams, topicHe]);
 
   const years = useMemo(
     () => [...new Set(exams.map((e) => e.year))].sort(),
@@ -135,5 +133,5 @@ export function useSearchData(
     labelsVersion,
   ]);
 
-  return { topicsByFrequency, years, lecturers, types, results };
+  return { topicOptions, years, lecturers, types, results };
 }

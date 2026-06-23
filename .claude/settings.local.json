@@ -18,7 +18,9 @@
       "Bash(npx vitest *)",
       "Bash(node -e ' *)",
       "Bash(node -e 'import\\(\"./src/courses/algebra2/exams.js\"\\).then\\(m=>console.log\\(\"OK parse, exams:\",m.EXAMS.length\\)\\).catch\\(e=>{console.log\\(\"PARSE ERROR:\",e.message\\);process.exit\\(1\\)}\\)')",
-      "Bash(node -e 'import\\(\"./src/courses/algebra2/exams.js\"\\).then\\(m=>console.log\\(\"OK parse, exams:\",m.EXAMS.length\\)\\).catch\\(e=>{console.log\\(\"ERR:\",e.message\\);process.exit\\(1\\)}\\)')"
+      "Bash(node -e 'import\\(\"./src/courses/algebra2/exams.js\"\\).then\\(m=>console.log\\(\"OK parse, exams:\",m.EXAMS.length\\)\\).catch\\(e=>{console.log\\(\"ERR:\",e.message\\);process.exit\\(1\\)}\\)')",
+      "Bash(npm test *)",
+      "Bash(node --input-type=module -e ' *)"
     ]
   }
 }

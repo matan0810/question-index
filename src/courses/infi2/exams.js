@@ -31,7 +31,7 @@
       {
         id: "ב4",
         chapter: "ב",
-        type: "מעורב",
+        type: "חישוב+הוכחה",
         topic: "func_series",
         summary:
           "$\\sum \\frac{\\sin(2^n x)}{n!}$ — גזירות, חישוב ערכים, נקודות התכנסות טיילור",
@@ -129,7 +129,7 @@
       {
         id: "ב4",
         chapter: "ב",
-        type: "מעורב",
+        type: "הוכחה",
         topic: "func_sequences",
         summary:
           '$f_n(x)=\\int_0^x f_{n-1}(t)\\,dt$ — אי-שליליות, רציפות, מונוטוניות, התכנסות במ"ש',
@@ -225,7 +225,7 @@
       {
         id: "ב4",
         chapter: "ב",
-        type: "מעורב",
+        type: "הוכחה",
         topic: "func_series",
         summary:
           "א. $f(x)=\\sum \\frac{\\cos(2^n x)}{4^n}$ — גזירות ב-$\\mathbb{R}$ · ב. $\\sum a_n$ מתכנס $\\Leftrightarrow \\sum \\frac{a_n}{1+a_n}$ מתכנס",
@@ -331,7 +331,7 @@
       {
         id: "ב3",
         chapter: "ב",
-        type: "מעורב",
+        type: "חישוב+הוכחה",
         topic: "improper_int",
         summary:
           "א. $x_1<x_2 \\Rightarrow x_1/x_2 < \\sin x_1/\\sin x_2$ · ב. $\\int_1^2 \\frac{1}{x\\sqrt{x-1}}dx$",

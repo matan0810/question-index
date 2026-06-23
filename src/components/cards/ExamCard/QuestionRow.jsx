@@ -1,9 +1,9 @@
 import QuestionChips from "../../question/QuestionChips";
 import ExamPartLabel from "../../question/ExamPartLabel";
 import ActiveLabelChips from "../../question/ActiveLabelChips";
-import ExcludedTag from "../../question/ExcludedTag";
-import MathText from "../../question/MathText";
+import { ExcludedMark, strikeIfExcluded } from "../../question/ExcludedTag";
 import StudyControls from "../../question/StudyControls";
+import QuestionSummary from "../../question/QuestionSummary";
 import { COLORS_UI, FONTS } from "../../../styles";
 import { questionExamPartName, questionDisplayNumber } from "../../../utils/exam";
 
@@ -15,6 +15,8 @@ export default function QuestionRow({
   sec,
   studyMode,
   setSearchTopic,
+  setSearchChapter,
+  setSearchType,
   isExcluded,
   isDone,
   toggleDone,
@@ -86,7 +88,11 @@ export default function QuestionRow({
             marginBottom: 2,
           }}
         >
-          <QuestionChips question={q} />
+          <QuestionChips
+            question={q}
+            onChapterClick={setSearchChapter}
+            onTypeClick={setSearchType}
+          />
           <span
             onClick={() => setSearchTopic(q.topic)}
             style={{
@@ -101,12 +107,12 @@ export default function QuestionRow({
               gap: 3,
             }}
           >
-            {excluded && <ExcludedTag />}
-            {topicHe[q.topic] || q.topic}
+            {excluded && <ExcludedMark />}
+            <span style={strikeIfExcluded(excluded)}>{topicHe[q.topic] || q.topic}</span>
           </span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.4, color: COLORS_UI.text }}>
-          <MathText>{q.summary}</MathText>
+          <QuestionSummary summary={q.summary} />
         </div>
         <ActiveLabelChips questionKey={questionKey} hasLabel={hasLabel} />
       </div>

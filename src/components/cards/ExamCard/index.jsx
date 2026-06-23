@@ -12,6 +12,8 @@ function ExamCard({
   sec,
   studyMode,
   setSearchTopic,
+  setSearchChapter,
+  setSearchType,
   isDone,
   toggleDone,
   hasLabel,
@@ -48,6 +50,8 @@ function ExamCard({
           sec={sec}
           studyMode={studyMode}
           setSearchTopic={setSearchTopic}
+          setSearchChapter={setSearchChapter}
+          setSearchType={setSearchType}
           isExcluded={isExcluded}
           isDone={isDone}
           toggleDone={toggleDone}

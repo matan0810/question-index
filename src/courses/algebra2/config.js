@@ -85,9 +85,9 @@ export const TRAPS = [
 ];
 
 // Maps question type keys → { label: Hebrew display string, kind: style variant }
-// kind values: "proof" | "ts" | "calc" | "mixed"
+// kind values: "proof" | "theorem" | "ts" | "calc" | "mixed"
 export const QUESTION_TYPES = {
-  proof_theorem:    { label: "הוכחת משפט",   kind: "proof" },
+  proof_theorem:    { label: "הוכחת משפט",   kind: "theorem" },
   proof_short:      { label: "הוכחה",         kind: "proof" },
   compute:          { label: "חישוב",          kind: "calc"  },
   true_false:       { label: "אמת/שקר",       kind: "ts"    },

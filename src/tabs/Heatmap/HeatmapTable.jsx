@@ -89,7 +89,7 @@ export default function HeatmapTable({
                   return (
                     <td
                       key={exam.code}
-                      onClick={() => { if (count > 0 && !excluded) setSearchTopic(topicKey); }}
+                      onClick={() => { if (count > 0) setSearchTopic(topicKey); }}
                       title={count ? `${topicHe[topicKey]} · ${exam.year} ${examSemesterLabel(exam)} מועד ${exam.moed} · ${count} שאלות` : ""}
                       style={{
                         background: heatColor(count),
@@ -98,7 +98,7 @@ export default function HeatmapTable({
                         fontWeight: 800,
                         fontSize: 11,
                         padding: "3px 2px",
-                        cursor: count > 0 && !excluded ? "pointer" : "default",
+                        cursor: count > 0 ? "pointer" : "default",
                         border: exam.year === latestYear
                           ? `2px solid ${pri}`
                           : `1px solid ${COLORS_UI.bg}`,

@@ -24,7 +24,7 @@ export default function SearchFilterBar({
   hideLatest, setHideLatest,
   hideExcluded, setHideExcluded,
   clearAll,
-  topicsByFrequency,
+  topicOptions,
   topicHe,
   chapters,
   years,
@@ -54,7 +54,7 @@ export default function SearchFilterBar({
       <div className="filter-group">
         <select value={topic} onChange={(e) => setTopic(e.target.value)} style={inp}>
           <option value="">כל הנושאים</option>
-          {topicsByFrequency.map(([key]) => (
+          {topicOptions.map((key) => (
             <option key={key} value={key}>{topicHe[key] || key}</option>
           ))}
         </select>
@@ -120,12 +120,12 @@ export default function SearchFilterBar({
         <button
           type="button"
           onClick={() => setHideExcluded(!hideExcluded)}
-          aria-pressed={!hideExcluded}
-          title="כלול שאלות בנושאים שאינם בסילבוס הנוכחי (מוסתרות כברירת מחדל)"
-          style={toggleChip(!hideExcluded, accent)}
+          aria-pressed={hideExcluded}
+          title="הסתר שאלות בנושאים שאינם בסילבוס הנוכחי"
+          style={toggleChip(hideExcluded, accent)}
         >
-          <span style={{ fontSize: 15, lineHeight: 1 }}>{hideExcluded ? "☐" : "☑"}</span>
-          כולל לא בחומר
+          <span style={{ fontSize: 15, lineHeight: 1 }}>{hideExcluded ? "☑" : "☐"}</span>
+          הסתר לא בחומר
         </button>
         <span className="controls-spacer" />
         <span style={countBadge}>{resultCount} תוצאות</span>

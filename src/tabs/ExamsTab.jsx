@@ -30,6 +30,8 @@ export default function ExamsTab({
   setHideLatest,
   clearAll,
   setSearchTopic,
+  setSearchChapter,
+  setSearchType,
   exams,
   topicHe,
   isExcluded,
@@ -172,6 +174,8 @@ export default function ExamsTab({
             sec={sec}
             studyMode={studyMode}
             setSearchTopic={setSearchTopic}
+            setSearchChapter={setSearchChapter}
+            setSearchType={setSearchType}
             isDone={isDone}
             toggleDone={toggleDone}
             hasLabel={hasLabel}

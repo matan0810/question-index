@@ -1,7 +1,7 @@
 import { Bar, ExcludedTag, excludedRowStyle } from "../../components";
 import { COLORS_UI, FONTS } from "../../styles";
 
-export default function ExcludedSection({ excluded, showExcluded, setShowExcluded, maxTopicCount, stats, topicHe }) {
+export default function ExcludedSection({ excluded, showExcluded, setShowExcluded, maxTopicCount, stats, topicHe, setSearchTopic }) {
   return (
     <>
       <button
@@ -45,18 +45,21 @@ export default function ExcludedSection({ excluded, showExcluded, setShowExclude
       </button>
       {showExcluded &&
         excluded.map(([topicKey, count]) => (
-          <div key={topicKey} style={excludedRowStyle}>
+          // Dimmed like the rest of the excluded list, but still clickable — a
+          // click jumps to search and reveals the out-of-syllabus results.
+          <div key={topicKey} style={{ ...excludedRowStyle, pointerEvents: "auto" }}>
             <Bar
               label={
-                <span>
+                <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6 }}>
                   <ExcludedTag />
-                  {topicHe[topicKey] || topicKey}
+                  <bdi>{topicHe[topicKey] || topicKey}</bdi>
                 </span>
               }
               val={count}
               max={maxTopicCount}
               color={COLORS_UI.muted}
               pct={Math.round((count / stats.total) * 100)}
+              onClick={() => setSearchTopic(topicKey)}
             />
           </div>
         ))}

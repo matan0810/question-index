@@ -1,6 +1,5 @@
 export const UNKNOWN_LECTURER = "לא ידוע";
 
-// Exam session (מועד) options for the filter dropdowns.
 export const MOED_OPTIONS = [
   { value: "א", label: "מועד א" },
   { value: "ב", label: "מועד ב" },
@@ -10,7 +9,6 @@ export const MOED_OPTIONS = [
 // listed here (e.g. a mislabeled "sample") is treated as exceptional.
 export const MOED_ORDER = { א: 0, ב: 1, ג: 2 };
 
-// A session not in MOED_ORDER (e.g. "sample") — sorted to the end of the list.
 export const isExceptionalMoed = (moed) => !(moed in MOED_ORDER);
 
 export const examMatchesLecturer = (exam, lecturer) =>
@@ -31,7 +29,6 @@ export const SEMESTER_OPTIONS = [
 ];
 export const examSemesterLabel = (exam) => SEMESTER_HE[exam.semester] ?? "";
 
-// Parse "dd.mm.yy" into { mon, day }, or null for unknown placeholders ("00.00.06").
 const parseExamDate = (date) => {
   const m = /^(\d{2})\.(\d{2})\.\d{2}$/.exec(date ?? "");
   if (!m) return null;
@@ -57,8 +54,6 @@ export const examDateCompare = (a, b) => {
   return (MOED_ORDER[a.moed] ?? 9) - (MOED_ORDER[b.moed] ?? 9);
 };
 
-// Return a sorted copy of `exams`. sortBy: "date" | "lecturer". sortDir:
-// "asc" | "desc". Lecturer sort falls back to date for a stable tiebreak.
 export const sortExams = (exams, sortBy = "date", sortDir = "desc") => {
   const dir = sortDir === "asc" ? 1 : -1;
   const compare =
@@ -70,7 +65,6 @@ export const sortExams = (exams, sortBy = "date", sortDir = "desc") => {
   return [...exams].sort((a, b) => dir * compare(a, b));
 };
 
-// The most recent year present in the exam list, or null when empty.
 export const latestExamYear = (exams) =>
   exams.length ? Math.max(...exams.map((e) => e.year)) : null;
 
@@ -89,10 +83,6 @@ const normalizeExamPart = (raw) => {
   return token ? `חלק ${token}` : name;
 };
 
-// Name of the exam part (חלק) that contains the given question — normalized to a
-// uniform spelling — or null when the exam isn't divided into multiple parts
-// (e.g. "כל המבחן"). This reflects the real exam structure, as opposed to
-// question.chapter which is a topic tag.
 export const questionExamPartName = (exam, questionId) => {
   const parts = exam?.parts ?? [];
   if (parts.length <= 1) return null;
@@ -100,9 +90,70 @@ export const questionExamPartName = (exam, questionId) => {
   return raw ? normalizeExamPart(raw) : null;
 };
 
-// The number to display for a question: its true exam-sequence position, falling
-// back to the digits in its id for older data without an explicit number.
 export const questionDisplayNumber = (q) => q.number ?? q.id.replace(/^[^\d]+/, "");
+
+// Hebrew ordinals tried first; numeric fallback covers "(1)…(2)…" style.
+const PART_ORDINALS = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"];
+const PART_NUMBERS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+// Markers inside $…$ math spans are skipped so "(1)" in "$\det(A)=20$" isn't treated as a part.
+const mathSpans = (s) => {
+  const spans = [];
+  const re = /\$[^$]*\$/g;
+  let m;
+  while ((m = re.exec(s))) spans.push([m.index, m.index + m[0].length]);
+  return spans;
+};
+
+const findMarker = (summary, label, from, spans) => {
+  const re = new RegExp(`\\(?${label}[).]`, "g");
+  re.lastIndex = from;
+  let m;
+  while ((m = re.exec(summary))) {
+    if (!spans.some(([a, b]) => m.index >= a && m.index < b)) return m;
+  }
+  return null;
+};
+
+const collectMarkers = (summary, labels, spans) => {
+  const markers = [];
+  let from = 0;
+  for (const label of labels) {
+    const m = findMarker(summary, label, from, spans);
+    if (!m) break;
+    markers.push({ label, start: m.index, textStart: m.index + m[0].length });
+    from = m.index + m[0].length;
+  }
+  return markers.length >= 2 ? markers : null;
+};
+
+export const splitSummaryParts = (summary) => {
+  if (typeof summary !== "string" || !summary.trim()) return null;
+
+  const spans = mathSpans(summary);
+  const markers =
+    collectMarkers(summary, PART_ORDINALS, spans) ??
+    collectMarkers(summary, PART_NUMBERS, spans);
+  if (!markers) return null;
+
+  const stem = summary
+    .slice(0, markers[0].start)
+    .trim()
+    .replace(/[:：\-–—]\s*$/, "")
+    .trim();
+
+  const parts = markers.map((mk, i) => {
+    const end = i + 1 < markers.length ? markers[i + 1].start : summary.length;
+    const text = summary
+      .slice(mk.textStart, end)
+      .replace(/^[\s):]+/, "")
+      .replace(/[\s;·,]+$/, "")
+      .trim();
+    return { label: mk.label, text };
+  });
+
+  return { stem, parts };
+};
 
 // Every distinct topic a question touches, primary first: its main `topic`, any
 // secondary `topics: []`, and the `topic` of each subpart (dual-topic questions).

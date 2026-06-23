@@ -51,7 +51,7 @@ export default function CourseApp() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { activeTab, setActiveTab, goToTopic, goToChapter, goToType } =
-    useTabNavigation(searchParams, setSearchParams);
+    useTabNavigation(searchParams, setSearchParams, isExcluded);
 
   // Global lecturer mode
   const [activeLecturer, setActiveLecturer] = useUrlParam(
@@ -166,6 +166,8 @@ export default function CourseApp() {
         <ExamsTab
           {...examFilters}
           setSearchTopic={goToTopic}
+          setSearchChapter={goToChapter}
+          setSearchType={goToType}
           exams={displayExams}
           topicHe={TOPIC_HE}
           isExcluded={isExcluded}
@@ -179,6 +181,9 @@ export default function CourseApp() {
       {activeTab === "search" && (
         <SearchTab
           {...searchFilters}
+          goToTopic={goToTopic}
+          goToChapter={goToChapter}
+          goToType={goToType}
           exams={displayExams}
           topicHe={TOPIC_HE}
           isExcluded={isExcluded}

@@ -45,9 +45,12 @@ export default function Overview({
             <Bar
               key={topicKey}
               label={
-                <span>
-                  {topicHe[topicKey] || topicKey}
-                  <span style={{ fontSize: 11, color: COLORS_UI.muted, marginRight: 8 }}>
+                // bdi isolates the topic name so an English label ("lim sup /
+                // lim inf") doesn't merge with the count's digits under RTL; the
+                // flex gap spaces the two reliably in either direction.
+                <span style={{ display: "inline-flex", alignItems: "baseline", gap: 8 }}>
+                  <bdi>{topicHe[topicKey] || topicKey}</bdi>
+                  <span style={{ fontSize: 11, color: COLORS_UI.muted }}>
                     {examCount}/{exams.length} מבחנים
                   </span>
                 </span>
@@ -75,6 +78,7 @@ export default function Overview({
             maxTopicCount={maxTopicCount}
             stats={stats}
             topicHe={topicHe}
+            setSearchTopic={setSearchTopic}
           />
         )}
       </div>

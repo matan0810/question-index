@@ -7,6 +7,7 @@ const STATIC_TYPE_COLORS = {
     color: COLORS_UI.bg,
     border: `1px solid ${COLORS_UI.dark}`,
   },
+  theorem: { background: "#0f6b63", color: "white", border: "1px solid #0f6b63" },
   ts: {
     background: "#d4a017",
     color: COLORS_UI.dark,
@@ -15,7 +16,6 @@ const STATIC_TYPE_COLORS = {
   calc: { background: "#7a5aab", color: "white", border: "1px solid #7a5aab" },
 };
 
-// Returns { typeToLabel, typeToKind } functions bound to the current course's type config.
 export function useTypeHelpers() {
   const { QUESTION_TYPES } = useCourse();
   return {
@@ -24,7 +24,7 @@ export function useTypeHelpers() {
   };
 }
 
-export default function Chip({ children, kind }) {
+export default function Chip({ children, kind, onClick, title }) {
   const { CHAPTERS, colorsUI } = useCourse();
 
   const chapterStyles = Object.fromEntries(
@@ -55,8 +55,24 @@ export default function Chip({ children, kind }) {
     border: `1px solid ${COLORS_UI.border}`,
   };
 
+  const clickable = typeof onClick === "function";
+
   return (
     <span
+      onClick={onClick}
+      title={title}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      onKeyDown={
+        clickable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick();
+              }
+            }
+          : undefined
+      }
       style={{
         ...(styles[kind] ?? defaultStyle),
         padding: "3px 8px",
@@ -64,6 +80,9 @@ export default function Chip({ children, kind }) {
         fontWeight: 700,
         display: "inline-block",
         marginLeft: 4,
+        whiteSpace: "nowrap",
+        cursor: clickable ? "pointer" : "default",
+        userSelect: "none",
       }}
     >
       {children}

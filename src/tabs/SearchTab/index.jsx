@@ -20,6 +20,9 @@ export default function SearchTab({
   hideLatest, setHideLatest,
   hideExcluded, setHideExcluded,
   clearAll,
+  goToTopic,
+  goToChapter,
+  goToType,
   exams,
   topicHe,
   isExcluded,
@@ -36,7 +39,7 @@ export default function SearchTab({
   const effectiveSortBy = sortBy || "date";
   const effectiveSortDir = sortDir || "desc";
   const filters = { query, topic, chapter, type, year, moed, semester, lecturer, progressFilter };
-  const { topicsByFrequency, years, lecturers, types, results } = useSearchData(
+  const { topicOptions, years, lecturers, types, results } = useSearchData(
     exams,
     {
       ...filters,
@@ -74,7 +77,7 @@ export default function SearchTab({
         hideLatest={hideLatest} setHideLatest={setHideLatest}
         hideExcluded={hideExcluded} setHideExcluded={setHideExcluded}
         clearAll={clearAll}
-        topicsByFrequency={topicsByFrequency}
+        topicOptions={topicOptions}
         topicHe={topicHe}
         chapters={chapters}
         years={years}
@@ -98,7 +101,9 @@ export default function SearchTab({
             question={question}
             topicHe={topicHe}
             isExcluded={isExcluded}
-            setTopic={setTopic}
+            setTopic={goToTopic}
+            setChapter={goToChapter}
+            setType={goToType}
             colorsUI={colorsUI}
             studyMode={studyMode}
             isDone={isDone}

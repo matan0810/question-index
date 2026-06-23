@@ -9,6 +9,11 @@ import {
   examDateCompare,
   sortExams,
   latestExamYear,
+  questionTopics,
+  questionTypes,
+  questionInSyllabus,
+  makeTopicOrder,
+  splitSummaryParts,
 } from "./exam";
 
 describe("examMatchesLecturer", () => {
@@ -244,5 +249,152 @@ describe("latestExamYear", () => {
 
   it("returns null for an empty list", () => {
     expect(latestExamYear([])).toBeNull();
+  });
+});
+
+describe("questionTopics", () => {
+  it("returns the primary topic first", () => {
+    expect(questionTopics({ topic: "a" })).toEqual(["a"]);
+  });
+
+  it("includes secondary topics and subpart topics, primary first", () => {
+    const q = {
+      topic: "a",
+      topics: ["b", "c"],
+      subparts: [{ topic: "d" }, { topic: "e" }],
+    };
+    expect(questionTopics(q)).toEqual(["a", "b", "c", "d", "e"]);
+  });
+
+  it("de-duplicates a topic shared by the question and a subpart", () => {
+    const q = { topic: "a", topics: ["b"], subparts: [{ topic: "a" }, { topic: "b" }] };
+    expect(questionTopics(q)).toEqual(["a", "b"]);
+  });
+
+  it("ignores missing/empty topic fields", () => {
+    expect(questionTopics({ topic: "a", subparts: [{}, { topic: null }] })).toEqual(["a"]);
+  });
+});
+
+describe("questionTypes", () => {
+  it("returns the headline type first", () => {
+    expect(questionTypes({ type: "compute" })).toEqual(["compute"]);
+  });
+
+  it("adds each subpart type, deduped and ordered", () => {
+    const q = {
+      type: "proof_theorem",
+      subparts: [{ type: "compute" }, { type: "proof_theorem" }, { type: "proof_short" }],
+    };
+    expect(questionTypes(q)).toEqual(["proof_theorem", "compute", "proof_short"]);
+  });
+
+  it("skips subparts with no type", () => {
+    expect(questionTypes({ type: "compute", subparts: [{}, { type: "" }] })).toEqual([
+      "compute",
+    ]);
+  });
+});
+
+describe("questionInSyllabus", () => {
+  const isExcluded = (t) => t === "old";
+
+  it("is true when at least one topic is still in the syllabus", () => {
+    expect(questionInSyllabus({ topic: "old", topics: ["current"] }, isExcluded)).toBe(true);
+  });
+
+  it("is false only when every topic is excluded", () => {
+    const q = { topic: "old", subparts: [{ topic: "old" }] };
+    expect(questionInSyllabus(q, isExcluded)).toBe(false);
+  });
+
+  it("is true for a question whose single topic is in the syllabus", () => {
+    expect(questionInSyllabus({ topic: "current" }, isExcluded)).toBe(true);
+  });
+});
+
+describe("splitSummaryParts", () => {
+  it("returns null for a single-part summary", () => {
+    expect(splitSummaryParts("מצאו את הפולינום האופייני")).toBeNull();
+    expect(splitSummaryParts("")).toBeNull();
+    expect(splitSummaryParts(undefined)).toBeNull();
+  });
+
+  it('splits "א) … ב) …" markers and keeps the full text of each part', () => {
+    const r = splitSummaryParts('א) משפט גרם-שמידט; ב) קיים בסיס אורתונורמלי');
+    expect(r.stem).toBe("");
+    expect(r.parts).toEqual([
+      { label: "א", text: "משפט גרם-שמידט" },
+      { label: "ב", text: "קיים בסיס אורתונורמלי" },
+    ]);
+  });
+
+  it("splits parenthesised markers and extracts the shared stem", () => {
+    const r = splitSummaryParts("$T$ צמוד לעצמו: (א) ע\"ע ממשיים; (ב) $T^2=I$");
+    expect(r.stem).toBe("$T$ צמוד לעצמו");
+    expect(r.parts).toEqual([
+      { label: "א", text: 'ע"ע ממשיים' },
+      { label: "ב", text: "$T^2=I$" },
+    ]);
+  });
+
+  it('splits the "א. … · ב. …" (middot) style', () => {
+    const r = splitSummaryParts("א. $\\int_0^9 e^{\\sqrt{x}}dx$ · ב. $\\int_0^1 dx$");
+    expect(r.parts).toEqual([
+      { label: "א", text: "$\\int_0^9 e^{\\sqrt{x}}dx$" },
+      { label: "ב", text: "$\\int_0^1 dx$" },
+    ]);
+  });
+
+  it("handles three parts in order", () => {
+    const r = splitSummaryParts("רקע: א) ראשון; ב) שני; ג) שלישי");
+    expect(r.stem).toBe("רקע");
+    expect(r.parts.map((p) => p.label)).toEqual(["א", "ב", "ג"]);
+    expect(r.parts.map((p) => p.text)).toEqual(["ראשון", "שני", "שלישי"]);
+  });
+
+  it("does not treat a lone marker as a split", () => {
+    expect(splitSummaryParts("הוכיחו א) בלבד")).toBeNull();
+  });
+
+  it('splits numbered "(1) … (2) …" markers', () => {
+    const r = splitSummaryParts(
+      "(1) הוכיחו $A$ לכסינה; (2) יהי $B$ בסיס אורתונורמלי",
+    );
+    expect(r.stem).toBe("");
+    expect(r.parts).toEqual([
+      { label: "1", text: "הוכיחו $A$ לכסינה" },
+      { label: "2", text: "יהי $B$ בסיס אורתונורמלי" },
+    ]);
+  });
+
+  it("ignores digit-parens inside maths when splitting numbered parts", () => {
+    // $\det(A)=20$ and $\mathrm{rank}(2I-A)$ must not be read as markers.
+    const r = splitSummaryParts(
+      "(1) $A\\in M_5(\\mathbb{R})$ עם $\\det(A)=20$. הוכיחו לכסינה; (2) $T:V\\to V$ אופרטור",
+    );
+    expect(r.parts.map((p) => p.label)).toEqual(["1", "2"]);
+    expect(r.parts[0].text).toBe(
+      "$A\\in M_5(\\mathbb{R})$ עם $\\det(A)=20$. הוכיחו לכסינה",
+    );
+    expect(r.parts[1].text).toBe("$T:V\\to V$ אופרטור");
+  });
+
+  it("does not split a single-formula summary that merely contains parens", () => {
+    expect(splitSummaryParts("$f(1)$ ו-$g(2)$ שווים")).toBeNull();
+  });
+});
+
+describe("makeTopicOrder", () => {
+  const topicHe = { first: "ראשון", second: "שני", third: "שלישי" };
+
+  it("orders keys by their position in the topic map", () => {
+    const cmp = makeTopicOrder(topicHe);
+    expect(["third", "first", "second"].sort(cmp)).toEqual(["first", "second", "third"]);
+  });
+
+  it("sorts unknown keys to the end", () => {
+    const cmp = makeTopicOrder(topicHe);
+    expect(["mystery", "second"].sort(cmp)).toEqual(["second", "mystery"]);
   });
 });
