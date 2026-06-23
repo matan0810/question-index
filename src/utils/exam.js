@@ -124,6 +124,25 @@ export const questionTopics = (q) => {
   return out;
 };
 
+// Every distinct question type a question covers, primary first: its headline
+// `type` plus the `type` of each subpart. Deduped, preserving order. Mirrors
+// questionTopics so a multi-part question (e.g. a computation followed by a
+// proof) surfaces under each of its types in the chips, type filter and stats —
+// replacing the old catch-all "mixed" type.
+export const questionTypes = (q) => {
+  const out = [];
+  const seen = new Set();
+  const add = (t) => {
+    if (t && !seen.has(t)) {
+      seen.add(t);
+      out.push(t);
+    }
+  };
+  add(q.type);
+  (q.subparts ?? []).forEach((sp) => add(sp.type));
+  return out;
+};
+
 // True when a question still belongs to the syllabus — i.e. at least one of the
 // topics it touches is not excluded. A question is "לא בחומר" only when every
 // topic it covers has been dropped from the course.

@@ -5,6 +5,7 @@ import {
   sortExams,
   latestExamYear,
   questionTopics,
+  questionTypes,
   questionInSyllabus,
 } from "../utils/exam";
 
@@ -61,7 +62,9 @@ export function useSearchData(
 
   const types = useMemo(
     () =>
-      [...new Set(exams.flatMap((e) => e.questions.map((q) => q.type)))].sort(),
+      [
+        ...new Set(exams.flatMap((e) => e.questions.flatMap(questionTypes))),
+      ].sort(),
     [exams],
   );
 
@@ -82,7 +85,7 @@ export function useSearchData(
         return false;
       if (topic && !questionTopics(q).includes(topic)) return false;
       if (chapter && q.chapter !== chapter) return false;
-      if (type && q.type !== type) return false;
+      if (type && !questionTypes(q).includes(type)) return false;
       if (
         queryLower &&
         !(

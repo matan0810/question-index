@@ -39,5 +39,8 @@ export default function App() {
 // TODO:
 // - Add Discrete Mathematics course
 // - update infi to the new format, of algebra
-// - remove meorav question type do specipec or multiple types instead
-// - go over exams.js add make sure all questions have correct topics, chapter, type, according to exam part info
+// - make chapter and type chips clickable to filter by them
+// - when click on a type or other chip or link dont clean the last year on not it the material filters. (the V filters basically)
+// - Dont write "Excluded" in the question text, instead think of a better way to show that the question is not in the syllabus
+// - Show questions subparts in better way
+// - add unitests

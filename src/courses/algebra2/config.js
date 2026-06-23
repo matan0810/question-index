@@ -93,7 +93,6 @@ export const QUESTION_TYPES = {
   true_false:       { label: "אמת/שקר",       kind: "ts"    },
   counterexample:   { label: "הוכח/הפרך",     kind: "ts"    },
   definition_apply: { label: "הגדרה ויישום",  kind: "calc"  },
-  mixed:            { label: "מעורב",          kind: "mixed" },
 };
 
 // EXAM_FORMAT — the format panel shown for the latest exam.

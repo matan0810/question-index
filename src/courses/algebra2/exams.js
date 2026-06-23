@@ -26,19 +26,21 @@
 //          id: "א1",                      // "<chapter><number>" or "Q<number>"
 //          number: 1,                     // sequential number on the exam
 //          chapter: "א" | "ב" | "ג",      // primary chapter
-//          chapters: ["א","ג"],           // optional: if mixed
-//          type: "proof_theorem"          // see types below
-//                | "proof_short"
-//                | "compute"
-//                | "true_false"
-//                | "mixed"
+//          chapters: ["א","ג"],           // optional: if it spans chapters
+//          type: "proof_theorem"          // see types below — one specific type;
+//                | "proof_short"          // a multi-part question carries its
+//                | "compute"              // extra types on its subparts, not a
+//                | "true_false"           // catch-all "mixed".
 //                | "counterexample"       // הוכיחו או הפריכו
 //                | "definition_apply",    // הגדירו ויישום
 //          topic: "topic_key",            // primary topic from TOPIC_HE
 //          topics: ["k1","k2"],           // optional: secondary topics
 //          points: 25,                    // points for this question
 //          summary: "Short description with $LaTeX$.",
-//          subparts: [                    // optional; for multi-part questions
+//          subparts: [                    // optional; for multi-part questions.
+//            // Each subpart has its own type/topic; the question then surfaces
+//            // under every type it covers (see questionTypes) — computation here,
+//            // proof there — instead of a single "mixed" label.
 //            { id: "א", points: 10, type: "compute", topic: "...", summary: "…" },
 //            { id: "ב", points: 15, type: "proof_short", topic: "...", summary: "…" },
 //          ]
@@ -52,7 +54,6 @@
 //    compute            — pure computation (find $D$, find $J$, $\dim W$, …)
 //    true_false         — "true or false with justification" (older exams)
 //    counterexample     — "prove or disprove" / "הוכיחו או הפריכו"
-//    mixed              — combines compute + proof
 //    definition_apply   — "define X, then apply"
 // ─────────────────────────────────────────────────────────────────────
 
@@ -529,7 +530,7 @@ export const EXAMS = [
         number: 9,
         chapter: "א",
         type: "proof_short",
-        topic: "generalized_eigenspace",
+        topic: "primary_decomposition",
         points: 16,
         summary:
           '$\\lambda_1\\neq\\lambda_2$ ע"ע שונים של $T$ ⟹ $V_{\\lambda_1}+V_{\\lambda_2}=V_{\\lambda_1}\\oplus V_{\\lambda_2}$ (מרחבים מוכללים)',
@@ -639,7 +640,7 @@ export const EXAMS = [
         id: "ג3",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "spectral_theorem_real",
         points: 15,
         summary:
@@ -1653,7 +1654,7 @@ export const EXAMS = [
         id: "א1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "eigenvectors_independent",
         points: 30,
         summary:
@@ -1690,7 +1691,7 @@ export const EXAMS = [
         id: "ג1",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_operator",
         points: 20,
         summary:
@@ -1723,7 +1724,7 @@ export const EXAMS = [
         id: "ג2",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "inner_product_axioms",
         points: 20,
         summary:
@@ -1749,7 +1750,7 @@ export const EXAMS = [
         id: "ב2",
         number: 5,
         chapter: "ב",
-        type: "mixed",
+        type: "compute",
         topic: "generalized_eigenspace",
         points: 20,
         summary:
@@ -2328,7 +2329,7 @@ export const EXAMS = [
       {
         id: "ג4",
         number: 5,
-        chapter: "ג",
+        chapter: "א",
         type: "compute",
         topic: "diagonalization_compute",
         points: 20,
@@ -2640,7 +2641,7 @@ export const EXAMS = [
         id: "ג4",
         number: 6,
         chapter: "ב",
-        type: "mixed",
+        type: "compute",
         topic: "bilinear_form",
         points: 21,
         summary:
@@ -2899,7 +2900,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "cyclic_subspace",
         points: 25,
         summary:
@@ -2939,7 +2940,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "diagonalization_compute",
         points: 25,
         summary:
@@ -2979,7 +2980,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ב",
-        type: "mixed",
+        type: "compute",
         topic: "jordan_form",
         points: 25,
         summary:
@@ -3019,7 +3020,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -3052,7 +3053,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "cyclic_subspace",
         points: 25,
         summary:
@@ -3112,8 +3113,9 @@ export const EXAMS = [
       {
         id: "Q1",
         number: 1,
-        chapter: "א",
-        type: "mixed",
+        chapter: "ב",
+        chapters: ["ב", "ג"],
+        type: "compute",
         topic: "jordan_form",
         points: 25,
         summary:
@@ -3160,7 +3162,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "gram_schmidt",
         points: 25,
         summary:
@@ -3193,7 +3195,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -3219,7 +3221,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "spectral_theorem_real",
         points: 25,
         summary:
@@ -3259,7 +3261,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "unitary_operator",
         points: 25,
         summary:
@@ -3324,7 +3326,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "true_false",
         topic: "eigenvalue_definition",
         points: 25,
         summary:
@@ -3364,7 +3366,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_operator",
         points: 25,
         summary:
@@ -3404,7 +3406,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -3444,7 +3446,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint_invariant",
         points: 25,
         summary:
@@ -3484,7 +3486,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "counterexample",
         topic: "spectral_theorem_real",
         points: 25,
         summary:
@@ -3545,7 +3547,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_theorem",
         topic: "gram_schmidt",
         points: 25,
         summary:
@@ -3571,7 +3573,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -3604,7 +3606,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -3630,7 +3632,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_operator",
         points: 25,
         summary:
@@ -3670,7 +3672,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "counterexample",
         topic: "cauchy_schwarz",
         points: 25,
         summary:
@@ -3728,7 +3730,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_theorem",
         topic: "adjoint_operator",
         points: 25,
         summary:
@@ -3754,7 +3756,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "nilpotent_basic",
         points: 25,
         summary:
@@ -3787,7 +3789,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -3820,7 +3822,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -3853,7 +3855,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "cauchy_schwarz",
         points: 25,
         summary:
@@ -3915,7 +3917,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_theorem",
         topic: "riesz_representation",
         points: 25,
         summary:
@@ -3948,7 +3950,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -3995,7 +3997,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_operator",
         points: 25,
         summary:
@@ -4035,7 +4037,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "cyclic_subspace",
         points: 25,
         summary:
@@ -4107,7 +4109,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "spectral_theorem_real",
         points: 25,
         summary:
@@ -4140,7 +4142,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "definition_apply",
         topic: "diagonalization",
         points: 25,
         summary:
@@ -4180,7 +4182,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "minimal_polynomial_vec",
         points: 25,
         summary:
@@ -4206,7 +4208,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -4239,7 +4241,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "definition_apply",
         topic: "orthogonal_operator",
         points: 25,
         summary:
@@ -4307,7 +4309,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "minimal_polynomial",
         points: 25,
         summary:
@@ -4340,8 +4342,10 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ב",
-        type: "mixed",
-        topic: "primary_decomposition",
+        chapters: ["ב", "ג"],
+        type: "compute",
+        topic: "jordan_form",
+        topics: ["orthogonal_projection"],
         points: 25,
         summary:
           "א) $V$ ממ\"ס, $f:V\\to V$. (i) הגדירו $f$ הטלה; (ii) $f^2=f$ ⟺ $f$ הטלה; ב) $A=\\begin{pmatrix}1&0&0\\\\0&4&-1\\\\0&1&2\\end{pmatrix}$. (i) $J$ ז'ורדן; (ii) $P$ הפיכה: $J=P^{-1}AP$",
@@ -4380,7 +4384,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -4413,7 +4417,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "eigenvectors_independent",
         points: 25,
         summary:
@@ -4439,7 +4443,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -4512,7 +4516,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_theorem",
         topic: "cauchy_schwarz",
         points: 25,
         summary:
@@ -4538,7 +4542,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -4578,7 +4582,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -4611,7 +4615,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "definition_apply",
         topic: "minimal_polynomial",
         points: 25,
         summary:
@@ -4651,7 +4655,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "eigenvectors_independent",
         points: 25,
         summary:
@@ -4699,7 +4703,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_theorem",
         topic: "triangle_inequality",
         points: 25,
         summary:
@@ -4725,7 +4729,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -4758,7 +4762,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "char_polynomial",
         points: 25,
         summary:
@@ -4784,7 +4788,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "definition_apply",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -4824,7 +4828,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "א",
-        type: "mixed",
+        type: "definition_apply",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -4882,7 +4886,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "char_polynomial",
         points: 25,
         summary:
@@ -4915,7 +4919,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "eigenvalue_definition",
         points: 25,
         summary:
@@ -4941,7 +4945,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "normal_operator",
         points: 25,
         summary:
@@ -4967,7 +4971,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "normal_operator",
         points: 25,
         summary:
@@ -5014,7 +5018,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -5099,7 +5103,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "inner_product_axioms",
         points: 17,
         summary:
@@ -5125,11 +5129,27 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "definition_apply",
         topic: "diagonalization",
         points: 17,
         summary:
           '$V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$, $\\lambda_1,\\ldots,\\lambda_k$ כל הע"ע השונים. (א) הגדירו אופרטור לכסין, סכום וסכום ישר של תתי-מרחבים; (ב) הוכיחו $f$ לכסין אמ"מ $V=\\bigoplus_{i=1}^k V_{\\lambda_i}$',
+        subparts: [
+          {
+            id: "א",
+            points: 5,
+            type: "definition_apply",
+            topic: "diagonalization",
+            summary: "הגדירו אופרטור לכסין, סכום וסכום ישר של תתי-מרחבים",
+          },
+          {
+            id: "ב",
+            points: 12,
+            type: "proof_short",
+            topic: "diagonalization",
+            summary: "$f$ לכסין אמ\"מ $V=\\bigoplus_{i=1}^k V_{\\lambda_i}$",
+          },
+        ],
       },
       {
         id: "Q5",
@@ -5202,7 +5222,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "nilpotent_basic",
         points: 25,
         summary:
@@ -5228,7 +5248,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "cyclic_subspace",
         points: 25,
         summary:
@@ -5254,7 +5274,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -5280,7 +5300,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -5306,7 +5326,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -5353,7 +5373,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "diagonalization",
         points: 25,
         summary:
@@ -5387,7 +5407,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ב",
-        type: "mixed",
+        type: "compute",
         topic: "nilpotent_basic",
         points: 25,
         summary:
@@ -5413,7 +5433,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -5439,7 +5459,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -5472,7 +5492,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "spectral_theorem_real",
         points: 25,
         summary:
@@ -5539,7 +5559,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "minimal_polynomial_vec",
         points: 16,
         summary:
@@ -5682,7 +5702,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "minimal_polynomial_vec",
         points: 16,
         summary:
@@ -5820,7 +5840,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -5847,7 +5867,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "counterexample",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -5880,7 +5900,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "char_polynomial",
         points: 25,
         summary:
@@ -5906,7 +5926,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -5932,8 +5952,9 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ב",
-        type: "mixed",
-        topic: "primary_decomposition",
+        type: "compute",
+        topic: "jordan_form",
+        topics: ["invariant_subspace"],
         points: 25,
         summary:
           'א) $V$ ממ"ס מעל $\\mathbb{F}$, $f:V\\to V$. יהיו $u,w$ ו"ע של $f$ לערכים $\\lambda\\neq\\mu$ בהתאמה, ו-$W\\subseteq V$ ת"מ $f$-אינווריאנטי כך ש-$u+w\\in W$. הוכיחו $u,w\\in W$; ב) $A\\in M_7(\\mathbb{C})$ עם פ"מ $(X-1)^2(X-4)^2$ ו-$\\mathrm{rk}(A-4I_7)=4$. רשמו את כל מטריצות הז\'ורדן עבור $A$',
@@ -5980,7 +6001,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -6007,7 +6028,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "jordan_form",
         points: 25,
         summary:
@@ -6033,7 +6054,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "self_adjoint",
         points: 25,
         summary:
@@ -6059,7 +6080,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_projection",
         points: 25,
         summary:
@@ -6085,7 +6106,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "nilpotent_basic",
         points: 25,
         summary:
@@ -6152,7 +6173,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "minimal_polynomial_vec",
         points: 16,
         summary:
@@ -6185,7 +6206,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "unitary_diagonalization",
         points: 14,
         summary:
@@ -6228,7 +6249,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ב",
-        type: "mixed",
+        type: "proof_short",
         topic: "jordan_form",
         points: 14,
         summary:
@@ -6265,7 +6286,7 @@ export const EXAMS = [
         number: 6,
         chapter: "ב",
         type: "proof_short",
-        topic: "minimal_polynomial_vec",
+        topic: "jordan_chain",
         points: 14,
         summary:
           '$V$ מ"מ ממ"ס מעל שדה $\\mathbb{F}$, $f:V\\to V$ אופ\'. יהי $0\\neq v\\in V$ עבורו מתקיים $f^2v\\neq0$, $f^3v=0$. הוכיחו $(v,fv,f^2v)$ בלתי תלויה לינארית ב-$V$',
@@ -6357,7 +6378,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "ב",
-        type: "mixed",
+        type: "compute",
         topic: "jordan_form",
         points: 16,
         summary:
@@ -6389,8 +6410,8 @@ export const EXAMS = [
       {
         id: "Q2",
         number: 2,
-        chapter: "א",
-        type: "mixed",
+        chapter: "ג",
+        type: "compute",
         topic: "spectral_theorem_real",
         points: 14,
         summary:
@@ -6433,7 +6454,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ב",
-        type: "mixed",
+        type: "compute",
         topic: "jordan_form",
         points: 14,
         summary:
@@ -6468,7 +6489,7 @@ export const EXAMS = [
       {
         id: "Q6",
         number: 6,
-        chapter: "ב",
+        chapter: "א",
         type: "proof_short",
         topic: "primary_decomposition",
         points: 14,
@@ -6550,7 +6571,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "diagonalization",
         points: 25,
         summary:
@@ -6577,7 +6598,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -6604,7 +6625,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "diagonalization_compute",
         points: 25,
         summary:
@@ -6630,7 +6651,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "minimal_polynomial",
         points: 25,
         summary:
@@ -6656,7 +6677,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "diagonalization_compute",
         points: 25,
         summary:
@@ -6708,7 +6729,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "diagonalization",
         points: 25,
         summary:
@@ -6717,7 +6738,7 @@ export const EXAMS = [
           {
             id: "i",
             points: 12,
-            type: "mixed",
+            type: "proof_short",
             topic: "diagonalization",
             summary: "$A\\in M_5$ עם דרגות נתונות ו-$\\det=20$ ⟹ לכסינה",
           },
@@ -6734,7 +6755,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "primary_decomposition",
         points: 25,
         summary:
@@ -6760,7 +6781,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -6786,7 +6807,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "orthogonal_operator",
         points: 25,
         summary:
@@ -6812,7 +6833,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "diagonalization_compute",
         points: 25,
         summary:
@@ -6938,7 +6959,7 @@ export const EXAMS = [
         id: "Q9",
         number: 9,
         chapter: "ג",
-        type: "mixed",
+        type: "compute",
         topic: "spectral_theorem_real",
         summary:
           "$A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}\\in M_2(\\mathbb{R})$; מצאו $O$ אורתוגונלית כך ש-$O^{-1}AO$ אלכסונית; קבעו האם קיים $x\\in\\mathbb{R}^2$: $(Ax)^tx<0$",
@@ -6973,7 +6994,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "diagonalization",
         points: 25,
         summary:
@@ -6999,7 +7020,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "cyclic_subspace",
         points: 25,
         summary:
@@ -7025,7 +7046,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -7051,7 +7072,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "ב",
-        type: "mixed",
+        type: "compute",
         topic: "jordan_form",
         points: 25,
         summary:
@@ -7077,7 +7098,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "ג",
-        type: "mixed",
+        type: "proof_short",
         topic: "matrix_similarity",
         points: 25,
         summary:
@@ -7130,7 +7151,7 @@ export const EXAMS = [
         id: "Q1",
         number: 1,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "char_polynomial",
         points: 25,
         summary:
@@ -7156,7 +7177,7 @@ export const EXAMS = [
         id: "Q2",
         number: 2,
         chapter: "א",
-        type: "mixed",
+        type: "compute",
         topic: "diagonalization_compute",
         points: 25,
         summary:
@@ -7181,7 +7202,7 @@ export const EXAMS = [
         id: "Q3",
         number: 3,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "cayley_hamilton",
         points: 25,
         summary:
@@ -7206,7 +7227,7 @@ export const EXAMS = [
         id: "Q4",
         number: 4,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "cyclic_subspace",
         points: 25,
         summary:
@@ -7231,7 +7252,7 @@ export const EXAMS = [
         id: "Q5",
         number: 5,
         chapter: "א",
-        type: "mixed",
+        type: "proof_short",
         topic: "diagonalization",
         points: 25,
         summary:

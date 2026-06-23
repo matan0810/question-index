@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { questionTopics } from "../utils/exam";
+import { questionTopics, questionTypes } from "../utils/exam";
 
 export function useStats(exams) {
   return useMemo(() => {
@@ -21,7 +21,10 @@ export function useStats(exams) {
           examTopics[exam.code][t] = (examTopics[exam.code][t] || 0) + 1;
         });
         chapterCounts[q.chapter] = (chapterCounts[q.chapter] || 0) + 1;
-        typeCounts[q.type] = (typeCounts[q.type] || 0) + 1;
+        // Counted under every type it covers (headline + subparts), like topics.
+        questionTypes(q).forEach((t) => {
+          typeCounts[t] = (typeCounts[t] || 0) + 1;
+        });
       });
     });
 
