@@ -28,6 +28,7 @@ export default function ExamsTab({
   setSortDir,
   hideLatest,
   setHideLatest,
+  clearAll,
   setSearchTopic,
   exams,
   topicHe,
@@ -152,15 +153,7 @@ export default function ExamsTab({
           {filteredExams.reduce((s, e) => s + e.questions.length, 0)} שאלות
         </span>
         {hasActiveFilters && (
-          <button
-            onClick={() => {
-              setYearFilter("");
-              setMoedFilter("");
-              setSemesterFilter("");
-              setLecturerFilter("");
-            }}
-            style={clearBtn}
-          >
+          <button onClick={clearAll} style={clearBtn}>
             נקה סינון
           </button>
         )}
