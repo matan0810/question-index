@@ -29,6 +29,8 @@ export default function Overview({
     };
   }, [stats, isExcluded]);
 
+  if (!exams.length) return <div className="empty-state">אין נתונים</div>;
+
   const maxTopicCount = active[0]?.[1] || 1;
   const maxChapterCount = Math.max(1, ...Object.values(stats.chapterCounts));
   const maxTypeCount = Math.max(1, ...Object.values(stats.typeCounts));

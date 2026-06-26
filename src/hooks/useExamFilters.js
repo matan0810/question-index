@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useUrlParam } from "./useUrlParam";
 
 // Keys cleared by "נקה סינון"; sort/view toggles persist.
-const EXAM_FILTER_KEYS = ["examYear", "examMoed", "examSemester", "examLecturer"];
+const EXAM_FILTER_KEYS = ["examYear", "examMoed", "examSemester", "examLecturer", "examQuery"];
 
 // ExamsTab's filters + sort state, bundled and keyed to the tab's prop names so
 // the result can be spread straight onto <ExamsTab {...examFilters} />.
@@ -15,6 +15,7 @@ export function useExamFilters(params, setParams) {
     setParams,
     "examLecturer",
   );
+  const [queryFilter, setQueryFilter] = useUrlParam(params, setParams, "examQuery");
   const [sortBy, setSortBy] = useUrlParam(params, setParams, "examSort");
   const [sortDir, setSortDir] = useUrlParam(params, setParams, "examDir");
   const [hideLatest, setHideLatest] = useUrlParam(params, setParams, "examHideLatest");
@@ -41,6 +42,8 @@ export function useExamFilters(params, setParams) {
     setSemesterFilter,
     lecturerFilter,
     setLecturerFilter,
+    queryFilter,
+    setQueryFilter,
     sortBy,
     setSortBy,
     sortDir,

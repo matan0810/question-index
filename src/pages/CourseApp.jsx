@@ -53,26 +53,25 @@ export default function CourseApp() {
   const { activeTab, setActiveTab, goToTopic, goToChapter, goToType } =
     useTabNavigation(searchParams, setSearchParams, isExcluded);
 
-  // Global lecturer mode
-  const [activeLecturer, setActiveLecturer] = useUrlParam(
-    searchParams,
-    setSearchParams,
-    "activeLecturer",
-  );
+  // Global filters (header) — narrow every tab and the format banner at once.
+  const [activeLecturer, setActiveLecturer] = useUrlParam(searchParams, setSearchParams, "activeLecturer");
+  const [activeYearFrom, setActiveYearFrom] = useUrlParam(searchParams, setSearchParams, "activeYearFrom");
+  const [activeYearTo, setActiveYearTo] = useUrlParam(searchParams, setSearchParams, "activeYearTo");
 
   const examFilters = useExamFilters(searchParams, setSearchParams);
   const searchFilters = useSearchFilters(searchParams, setSearchParams);
 
-  // When activeLecturer is set, all tabs see only that lecturer's exams
-  const displayExams = useMemo(
-    () =>
-      activeLecturer
-        ? EXAMS.filter((e) => examMatchesLecturer(e, activeLecturer))
-        : EXAMS,
-    [EXAMS, activeLecturer],
-  );
+  // All tabs see only the globally-filtered exams (lecturer ∩ year-range).
+  const displayExams = useMemo(() => {
+    let list = EXAMS;
+    if (activeLecturer) list = list.filter((e) => examMatchesLecturer(e, activeLecturer));
+    if (activeYearFrom) list = list.filter((e) => e.year >= parseInt(activeYearFrom));
+    if (activeYearTo) list = list.filter((e) => e.year <= parseInt(activeYearTo));
+    return list;
+  }, [EXAMS, activeLecturer, activeYearFrom, activeYearTo]);
 
   const lecturers = useMemo(() => buildLecturersList(EXAMS), [EXAMS]);
+  const years = useMemo(() => [...new Set(EXAMS.map((e) => e.year))].sort((a, b) => a - b), [EXAMS]);
 
   // Totals for the header/footer — single pass over the (memoized) exam list.
   const { totalQuestions, minYear, maxYear } = useMemo(() => {
@@ -94,13 +93,14 @@ export default function CourseApp() {
 
   const stats = useStats(displayExams);
 
-  // Derive format banner info from the actual latest exam (not hardcoded config)
+  // Format banner reflects the latest exam in the *filtered* set, so a global
+  // year/moed/lecturer filter updates the shown structure too.
   const latestExam = useMemo(() => {
-    if (!EXAMS.length) return null;
-    return [...EXAMS].sort((a, b) =>
+    if (!displayExams.length) return null;
+    return [...displayExams].sort((a, b) =>
       b.year !== a.year ? b.year - a.year : b.moed > a.moed ? 1 : -1,
     )[0];
-  }, [EXAMS]);
+  }, [displayExams]);
 
   const derivedExamFormat = useMemo(() => {
     if (!EXAM_FORMAT || !latestExam) return EXAM_FORMAT;
@@ -108,7 +108,8 @@ export default function CourseApp() {
       ...EXAM_FORMAT,
       latestSession: `${latestExam.year} מועד ${latestExam.moed}`,
       latestDate: latestExam.date ?? "",
-      lecturer: latestExam.lecturers?.[0] ?? "",
+      // Many lecturers rotate through this course — show all on the relevant exam.
+      lecturer: latestExam.lecturers?.join(" · ") ?? "",
     };
   }, [EXAM_FORMAT, latestExam]);
 
@@ -133,6 +134,11 @@ export default function CourseApp() {
         activeLecturer={activeLecturer}
         setActiveLecturer={setActiveLecturer}
         lecturers={lecturers}
+        activeYearFrom={activeYearFrom}
+        setActiveYearFrom={setActiveYearFrom}
+        activeYearTo={activeYearTo}
+        setActiveYearTo={setActiveYearTo}
+        years={years}
       />
       <FormatBanner chapters={CHAPTERS} examFormat={derivedExamFormat} colorsUI={colorsUI} />
       <TabBar tab={activeTab} setTab={setActiveTab} />

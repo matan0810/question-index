@@ -48,6 +48,8 @@ export default function Heatmap({ stats, setSearchTopic, exams, topicHe, isExclu
     [exams],
   );
 
+  if (!exams.length) return <div className="empty-state">אין נתונים</div>;
+
   return (
     <>
       <div className="ui-card">

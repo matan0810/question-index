@@ -16,6 +16,11 @@ export default function Header({
   activeLecturer,
   setActiveLecturer,
   lecturers,
+  activeYearFrom,
+  setActiveYearFrom,
+  activeYearTo,
+  setActiveYearTo,
+  years,
 }) {
   return (
     <div
@@ -45,6 +50,11 @@ export default function Header({
         activeLecturer={activeLecturer}
         setActiveLecturer={setActiveLecturer}
         lecturers={lecturers}
+        activeYearFrom={activeYearFrom}
+        setActiveYearFrom={setActiveYearFrom}
+        activeYearTo={activeYearTo}
+        setActiveYearTo={setActiveYearTo}
+        years={years}
         studyMode={studyMode}
         doneCount={doneCount}
         labelCount={labelCount}

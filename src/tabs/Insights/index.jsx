@@ -15,7 +15,10 @@ export default function Insights({
   colorsUI,
 }) {
   const pri = primaryColor(colorsUI);
-  const maxYear = useMemo(() => Math.max(...exams.map((e) => e.year)), [exams]);
+  const maxYear = useMemo(
+    () => (exams.length ? Math.max(...exams.map((e) => e.year)) : 0),
+    [exams],
+  );
 
   const nav = (key) => setSearchTopic(key);
   const [openTrap, setOpenTrap] = useState(null);
@@ -71,11 +74,13 @@ export default function Insights({
     };
   }, [exams, trendFromYear, excludedTopics]);
 
+  if (!exams.length) return <div className="empty-state">אין נתונים</div>;
+
   return (
     <div className="auto-grid">
       <div className="ui-card">
         <CardTitle emoji="🔥" title="חובה ללמוד" sub="לחץ על נושא לחיפוש שאלות" />
-        {sortedTopics.slice(0, 5).map(([key, count]) => {
+        {sortedTopics.slice(0, 6).map(([key, count]) => {
           const examCount = exams.filter(
             (exam) => stats.examTopics[exam.code][key],
           ).length;
@@ -176,6 +181,7 @@ export default function Insights({
         <CardTitle emoji="❄️" title="פחות שכיח" sub="לחץ על נושא לחיפוש שאלות" />
         {sortedTopics
           .filter(([, count]) => count <= 3)
+          .slice(0, 6)
           .map(([key, count]) => {
             const examCount = exams.filter(
               (exam) => stats.examTopics[exam.code][key],

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { SortControls, ShowMore } from "../components";
 import { usePagination } from "../hooks";
-import { inp, COLORS_UI, clearBtn, countBadge, primaryColor } from "../styles";
+import { inp, COLORS_UI, clearBtn, countBadge, primaryColor, FONTS } from "../styles";
 import {
   MOED_OPTIONS,
   SEMESTER_OPTIONS,
@@ -22,6 +22,8 @@ export default function ExamsTab({
   setSemesterFilter,
   lecturerFilter,
   setLecturerFilter,
+  queryFilter,
+  setQueryFilter,
   sortBy,
   setSortBy,
   sortDir,
@@ -59,15 +61,30 @@ export default function ExamsTab({
   const effectiveSortBy = sortBy || "date";
   const effectiveSortDir = sortDir || "desc";
 
+  const normalizedQuery = queryFilter?.trim().toLowerCase() ?? "";
+
   const filteredExams = useMemo(() => {
-    const pool = exams.filter(
-      (exam) =>
-        (!yearFilter || String(exam.year) === yearFilter) &&
-        (!moedFilter || exam.moed === moedFilter) &&
-        (!semesterFilter || exam.semester === semesterFilter) &&
-        (!lecturerFilter || examMatchesLecturer(exam, lecturerFilter)) &&
-        (!hideLatest || exam.year !== latestYear),
-    );
+    const pool = exams.filter((exam) => {
+      if (yearFilter && String(exam.year) !== yearFilter) return false;
+      if (moedFilter && exam.moed !== moedFilter) return false;
+      if (semesterFilter && exam.semester !== semesterFilter) return false;
+      if (lecturerFilter && !examMatchesLecturer(exam, lecturerFilter)) return false;
+      if (hideLatest && exam.year === latestYear) return false;
+      if (normalizedQuery) {
+        const hay = [
+          exam.code,
+          String(exam.year),
+          exam.moed,
+          ...(exam.lecturers ?? []),
+          ...exam.questions.map((q) => q.summary ?? ""),
+          ...exam.questions.flatMap((q) => q.topics ?? []),
+        ]
+          .join(" ")
+          .toLowerCase();
+        if (!hay.includes(normalizedQuery)) return false;
+      }
+      return true;
+    });
     return sortExams(pool, effectiveSortBy, effectiveSortDir);
   }, [
     exams,
@@ -75,22 +92,30 @@ export default function ExamsTab({
     moedFilter,
     semesterFilter,
     lecturerFilter,
+    normalizedQuery,
     hideLatest,
     latestYear,
     effectiveSortBy,
     effectiveSortDir,
   ]);
 
-  const hasActiveFilters = yearFilter || moedFilter || semesterFilter || lecturerFilter;
+  const hasActiveFilters = yearFilter || moedFilter || semesterFilter || lecturerFilter || queryFilter;
 
   // Render exam cards a page at a time; reset when filters/sort change.
-  const resetKey = `${yearFilter}|${moedFilter}|${semesterFilter}|${lecturerFilter}|${hideLatest}|${effectiveSortBy}|${effectiveSortDir}`;
+  const resetKey = `${yearFilter}|${moedFilter}|${semesterFilter}|${lecturerFilter}|${queryFilter}|${hideLatest}|${effectiveSortBy}|${effectiveSortDir}`;
   const page = usePagination(filteredExams.length, { pageSize: PAGE_SIZE, resetKey });
 
   return (
     <div>
       {/* Filter bar */}
       <div className="ui-card filter-bar">
+        <input
+          type="text"
+          value={queryFilter || ""}
+          onChange={(e) => setQueryFilter(e.target.value)}
+          placeholder="חיפוש חופשי..."
+          style={{ ...inp, fontFamily: FONTS.sans, minWidth: 140 }}
+        />
         <select
           value={yearFilter}
           onChange={(e) => setYearFilter(e.target.value)}
@@ -150,16 +175,22 @@ export default function ExamsTab({
           setHideLatest={setHideLatest}
           colorsUI={colorsUI}
         />
-        <span style={countBadge}>
-          {filteredExams.length} מבחנים ·{" "}
-          {filteredExams.reduce((s, e) => s + e.questions.length, 0)} שאלות
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 8, marginRight: "auto" }}>
+          <span style={countBadge}>
+            {filteredExams.length} מבחנים ·{" "}
+            {filteredExams.reduce((s, e) => s + e.questions.length, 0)} שאלות
+          </span>
+          {hasActiveFilters && (
+            <button onClick={clearAll} style={clearBtn}>
+              נקה סינון
+            </button>
+          )}
         </span>
-        {hasActiveFilters && (
-          <button onClick={clearAll} style={clearBtn}>
-            נקה סינון
-          </button>
-        )}
       </div>
+
+      {filteredExams.length === 0 && (
+        <div className="empty-state">אין נתונים</div>
+      )}
 
       {/* Exam cards */}
       <div className="auto-grid">
