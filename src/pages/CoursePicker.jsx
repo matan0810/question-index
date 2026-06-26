@@ -92,7 +92,9 @@ export default function CoursePicker() {
                   "שאלות",
                 ],
                 [
-                  `${Math.min(...course.EXAMS.map((e) => e.year))}–${Math.max(...course.EXAMS.map((e) => e.year))}`,
+                  course.EXAMS.length
+                    ? `${Math.min(...course.EXAMS.map((e) => e.year))}–${Math.max(...course.EXAMS.map((e) => e.year))}`
+                    : "—",
                   "שנים",
                 ],
               ].map(([value, label]) => (

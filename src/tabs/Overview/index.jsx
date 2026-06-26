@@ -30,8 +30,8 @@ export default function Overview({
   }, [stats, isExcluded]);
 
   const maxTopicCount = active[0]?.[1] || 1;
-  const maxChapterCount = Math.max(...Object.values(stats.chapterCounts));
-  const maxTypeCount = Object.values(stats.typeCounts).sort((a, b) => b - a)[0];
+  const maxChapterCount = Math.max(1, ...Object.values(stats.chapterCounts));
+  const maxTypeCount = Math.max(1, ...Object.values(stats.typeCounts));
 
   return (
     <div className="auto-grid">
@@ -93,7 +93,7 @@ export default function Overview({
               val={stats.chapterCounts[key] || 0}
               max={maxChapterCount}
               color={color}
-              pct={Math.round(((stats.chapterCounts[key] || 0) / stats.total) * 100)}
+              pct={Math.round(((stats.chapterCounts[key] || 0) / (stats.total || 1)) * 100)}
               onClick={() => setSearchChapter(key)}
             />
           ))}
@@ -110,7 +110,7 @@ export default function Overview({
                 val={count}
                 max={maxTypeCount}
                 color={colors[i % colors.length]}
-                pct={Math.round((count / stats.total) * 100)}
+                pct={Math.round((count / (stats.total || 1)) * 100)}
                 onClick={() => setSearchType(type)}
               />
             ))}

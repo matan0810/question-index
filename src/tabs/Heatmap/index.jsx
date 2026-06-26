@@ -43,7 +43,10 @@ export default function Heatmap({ stats, setSearchTopic, exams, topicHe, isExclu
     ];
   }, [stats, isExcluded, topicHe]);
 
-  const latestYear = useMemo(() => Math.max(...exams.map((e) => e.year)), [exams]);
+  const latestYear = useMemo(
+    () => (exams.length ? Math.max(...exams.map((e) => e.year)) : null),
+    [exams],
+  );
 
   return (
     <>
@@ -51,7 +54,7 @@ export default function Heatmap({ stats, setSearchTopic, exams, topicHe, isExclu
         <CardTitle
           emoji="🗺️"
           title="מפת חום — נושאים × מבחנים"
-          sub={`כהה יותר = יותר שאלות · לחץ על תא לחיפוש · עמודת ${latestYear} מסומנת`}
+          sub={`כהה יותר = יותר שאלות · לחץ על תא לחיפוש${latestYear ? ` · עמודת ${latestYear} מסומנת` : ""}`}
         />
         <HeatmapTable
           sortedTopics={sortedTopics}

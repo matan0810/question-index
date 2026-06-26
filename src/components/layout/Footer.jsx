@@ -19,7 +19,9 @@ export default function Footer({ stats, stickToBottom = false }) {
       <span style={{ flex: 1 }}>
         סיווג ידני
         {stats &&
-          ` · ${stats.exams} מבחנים · ${stats.questions} שאלות · ${stats.minYear}–${stats.maxYear}`}
+          ` · ${stats.exams} מבחנים · ${stats.questions} שאלות${
+            stats.exams ? ` · ${stats.minYear}–${stats.maxYear}` : ""
+          }`}
       </span>
       <span style={{ flex: 2, textAlign: "center" }}>
         האפליקציה מיועדת לשימוש אישי בלבד לצורכי לימוד.
