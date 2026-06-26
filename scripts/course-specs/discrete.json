@@ -1,0 +1,107 @@
+{
+  "id": "discrete",
+  "course": {
+    "teacher": "ד\"ר יובל פלד (תשפ\"ה), פרופ' רות לורנס-נאימרק ופרופ' מיכה פרלס (מוקדמים)",
+    "name": "מתמטיקה דיסקרטית",
+    "shortName": "דיסקרטית",
+    "number": "80181",
+    "university": "האוניברסיטה העברית בירושלים"
+  },
+  "chapters": [
+    {
+      "key": "א",
+      "label": "פרק א — לוגיקה, קבוצות, יחסים, פונקציות ועוצמות",
+      "color": "#2f7d4f",
+      "chipColor": "#3a9d63",
+      "chipBg": "#2f7d4f18"
+    },
+    {
+      "key": "ב",
+      "label": "פרק ב — קומבינטוריקה, מנייה ונסיגות",
+      "color": "#c1440e",
+      "chipColor": "#c1440e",
+      "chipBg": "#c1440e18"
+    },
+    {
+      "key": "ג",
+      "label": "פרק ג — תורת הגרפים",
+      "color": "#2b4162",
+      "chipColor": "#4a7aab",
+      "chipBg": "#2b416218"
+    }
+  ],
+  "excludedTopics": ["divisibility", "divisors_count", "euler_phi", "modular_arithmetic", "generating_functions", "ramsey", "graph_coloring", "stable_matching"],
+  "trendFromYear": 2016,
+  "traps": [
+    {
+      "t": "זהויות קבוצות, למשל $(A\\setminus B)\\cup(B\\setminus A)=(A\\cup B)\\setminus(A\\cap B)$",
+      "n": "הופיעה כשאלת חובה בפרק הראשון; מוכיחים דו-כיוונית או דרך פונקציה מציינת"
+    },
+    {
+      "t": "זהות פסקל $\\binom{n}{k-1}+\\binom{n}{k}=\\binom{n+1}{k}$",
+      "n": "שאלת הוכחה חוזרת — לדעת גם הוכחה קומבינטורית וגם אלגברית"
+    },
+    {
+      "t": "גרף עם מעגל אוילר ובלי מסילת המילטון (ולהפך)",
+      "n": "שאלת ציור/דוגמה נגדית חוזרת בפרק הגרפים"
+    }
+  ],
+  "questionTypes": {
+    "proof_theorem": { "label": "הוכחת משפט", "kind": "theorem" },
+    "proof_short": { "label": "הוכחה", "kind": "proof" },
+    "compute": { "label": "חישוב", "kind": "calc" },
+    "counterexample": { "label": "הוכח/הפרך", "kind": "ts" },
+    "true_false": { "label": "אמת/שקר", "kind": "ts" },
+    "multiple_choice": { "label": "רב-ברירה", "kind": "ts" }
+  },
+  "topics": {
+    "propositional_logic": "לוגיקה פסוקית",
+    "sets": "קבוצות ופעולות",
+    "set_identities": "זהויות קבוצות",
+    "power_set": "קבוצת החזקה",
+    "relations": "יחסים",
+    "equivalence_relation": "יחס שקילות",
+    "partial_order": "יחס סדר חלקי",
+    "functions": "פונקציות",
+    "injection_surjection": "חח\"ע ועל",
+    "function_composition": "הרכבת פונקציות",
+    "cardinality": "עוצמות",
+
+    "induction": "אינדוקציה",
+    "counting_basic": "ספירה בסיסית",
+    "permutations_combinations": "תמורות וצירופים",
+    "binomial": "מקדם בינומי וזהויות",
+    "pigeonhole": "עקרון שובך היונים",
+    "inclusion_exclusion": "הכלה והפרדה",
+    "recurrence": "נוסחאות נסיגה",
+    "generating_functions": "פונקציות יוצרות",
+    "catalan": "מספרי קטלן",
+    "divisibility": "חלוקה ומחלק משותף",
+    "modular_arithmetic": "חשבון מודולרי",
+
+    "graph_basic": "גרפים: יסודות",
+    "degree_sequence": "סדרת דרגות",
+    "trees": "עצים",
+    "euler_path": "מסלולי ומעגלי אוילר",
+    "hamilton_path": "מסילות המילטון",
+    "planar_graph": "גרפים מישוריים",
+    "graph_coloring": "צביעת גרפים",
+    "bipartite": "גרפים דו-צדדיים",
+    "connectivity": "קשירות"
+  },
+  "examFormat": {
+    "latestSession": "תשפ\"ה מועד ב'",
+    "latestDate": "20.08.25",
+    "chapters": [
+      { "key": "א", "points": 40, "description": "קבוצות, יחסים, פונקציות, עוצמות" },
+      { "key": "ב", "points": 47, "description": "קומבינטוריקה, ספירה, בינום, נסיגות, מספרים שלמים" },
+      { "key": "ג", "points": 13, "description": "תורת הגרפים" }
+    ],
+    "badges": [
+      { "label": "9 שאלות, ענו על 8", "variant": "accent" },
+      { "label": "13 נק' לשאלה · מקס' 100", "variant": "accent" },
+      { "label": "מחשבון בלבד", "variant": "neutral" },
+      { "label": "3 שעות", "variant": "neutral" }
+    ]
+  }
+}

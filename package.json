@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "scaffold:course": "node scripts/scaffold-course.mjs",
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
