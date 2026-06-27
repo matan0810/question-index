@@ -2,39 +2,75 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useUrlParam } from "./useUrlParam";
 import { examMatchesLecturer, buildLecturersList, examYears } from "../utils";
 
-// URL value for activeYearFrom meaning "all years". Written (instead of deleting
-// the param) when the user clears the year filter, so the per-course default
-// year is NOT re-applied on later loads. Fully private to this hook: it never
-// crosses the module boundary — consumers see "" for "no from-year".
+// URL sentinel for activeYearFrom meaning "user explicitly chose all years".
+// Written instead of deleting the param so the default is not re-applied on reload.
 const ALL_YEARS = "0";
+const DEFAULT_LOOKBACK = 10;
 
-// Global header filters — lecturer + year range — that narrow every tab and the
-// format banner at once. Owns the URL state, the first-load default year, and
-// the resulting exam list. The returned bundle is shaped for <Header /> props.
-export function useGlobalFilters(params, setParams, exams, defaultYearFrom) {
+const storageKeys = (courseId) => ({
+  from: `yearFrom:${courseId}`,
+  to: `yearTo:${courseId}`,
+});
+
+const readStorage = (key) => localStorage.getItem(key);
+const writeStorage = (key, val) =>
+  val != null ? localStorage.setItem(key, val) : localStorage.removeItem(key);
+
+// Per-course header filters — lecturer + year range — that narrow every tab at once.
+// Both year bounds are persisted per course so switching courses restores each course's own filter.
+export function useGlobalFilters(params, setParams, exams, courseId) {
   const [activeLecturer, setActiveLecturer] = useUrlParam(params, setParams, "activeLecturer");
   const [yearFromParam, setYearFromParam] = useUrlParam(params, setParams, "activeYearFrom");
-  const [activeYearTo, setActiveYearTo] = useUrlParam(params, setParams, "activeYearTo");
+  const [yearToParam, setYearToParam] = useUrlParam(params, setParams, "activeYearTo");
 
-  // Apply the per-course default year on first load only — never overrides an
-  // explicit choice already in the URL (including the ALL_YEARS sentinel).
+  const keys = storageKeys(courseId);
+
+  // On mount, restore from localStorage when URL params are absent (e.g. after a course switch).
+  // Both params are written in a single setParams call — two sequential calls would each receive
+  // the same captured searchParams from react-router's closure and the second navigate would
+  // overwrite the first.
   useEffect(() => {
-    if (!params.has("activeYearFrom") && defaultYearFrom) {
-      setYearFromParam(String(defaultYearFrom));
-    }
+    const needFrom = !params.has("activeYearFrom");
+    const storedTo = readStorage(keys.to);
+    const needTo = !params.has("activeYearTo") && storedTo;
+    if (!needFrom && !needTo) return;
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (needFrom) {
+          next.set(
+            "activeYearFrom",
+            readStorage(keys.from) ?? String(new Date().getFullYear() - DEFAULT_LOOKBACK),
+          );
+        }
+        if (needTo) next.set("activeYearTo", storedTo);
+        return next;
+      },
+      { replace: true },
+    );
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Hide the sentinel from consumers: expose "" for "no from-year", and persist
-  // a cleared from-year as the sentinel (not a deleted param) so the default
-  // isn't re-applied next load.
+  // Hide the sentinel from consumers: "" means no lower bound.
   const activeYearFrom = yearFromParam === ALL_YEARS ? "" : yearFromParam;
   const setActiveYearFrom = useCallback(
-    (year) => setYearFromParam(year || ALL_YEARS),
-    [setYearFromParam],
+    (year) => {
+      const v = year || ALL_YEARS;
+      setYearFromParam(v);
+      writeStorage(keys.from, v);
+    },
+    [setYearFromParam, keys.from],
   );
 
-  // Clear the whole range: keep the from-year sentinel and drop activeYearTo,
-  // which has no default.
+  const activeYearTo = yearToParam;
+  const setActiveYearTo = useCallback(
+    (year) => {
+      setYearToParam(year);
+      writeStorage(keys.to, year || null);
+    },
+    [setYearToParam, keys.to],
+  );
+
+  // Clear the whole range: sentinel for FROM (so default isn't re-applied), remove TO entirely.
   const clearYearFilter = useCallback(() => {
     setParams(
       (prev) => {
@@ -45,12 +81,13 @@ export function useGlobalFilters(params, setParams, exams, defaultYearFrom) {
       },
       { replace: true },
     );
-  }, [setParams]);
+    writeStorage(keys.from, ALL_YEARS);
+    writeStorage(keys.to, null);
+  }, [setParams, keys.from, keys.to]);
 
   const yearFrom = activeYearFrom ? parseInt(activeYearFrom) : null;
   const yearTo = activeYearTo ? parseInt(activeYearTo) : null;
 
-  // Every tab sees only the globally-filtered exams (lecturer ∩ year range).
   const displayExams = useMemo(
     () =>
       exams.filter((e) => {

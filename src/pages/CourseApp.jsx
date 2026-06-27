@@ -67,7 +67,7 @@ export default function CourseApp() {
     displayExams,
     lecturers,
     years,
-  } = useGlobalFilters(searchParams, setSearchParams, EXAMS);
+  } = useGlobalFilters(searchParams, setSearchParams, EXAMS, courseId);
 
   // Per-tab filter/sort state, spread straight onto each tab.
   const examFilters = useExamFilters(searchParams, setSearchParams);
