@@ -1,8 +1,17 @@
-import { useMemo, useState } from "react";
-import { COLORS_UI, primaryColor } from "../../styles";
-import { CardTitle, Badge, MathText } from "../../components";
+import { useMemo } from "react";
+import { primaryColor } from "../../styles";
 import { questionTopics } from "../../utils/exam";
-import InsightRow from "./InsightRow";
+import {
+  CARD_TOP_N,
+  RARE_MAX_COUNT,
+  OVERDUE_MIN_APPEARANCES,
+  OVERDUE_MIN_GAP_YEARS,
+} from "./constants";
+import TopTopicsCard from "./TopTopicsCard";
+import TrapsCard from "./TrapsCard";
+import TrendCard from "./TrendCard";
+import OverdueTopicsCard from "./OverdueTopicsCard";
+import RareTopicsCard from "./RareTopicsCard";
 
 export default function Insights({
   stats,
@@ -14,14 +23,12 @@ export default function Insights({
   trendFromYear,
   colorsUI,
 }) {
-  const pri = primaryColor(colorsUI);
+  const accent = primaryColor(colorsUI);
+
   const maxYear = useMemo(
     () => (exams.length ? Math.max(...exams.map((e) => e.year)) : 0),
     [exams],
   );
-
-  const nav = (key) => setSearchTopic(key);
-  const [openTrap, setOpenTrap] = useState(null);
 
   const sortedTopics = useMemo(
     () =>
@@ -46,159 +53,99 @@ export default function Insights({
       .filter(
         ([key, count]) =>
           !excludedTopics.has(key) &&
-          count >= 3 &&
-          maxYear - (lastSeen[key] || 0) >= 3,
+          count >= OVERDUE_MIN_APPEARANCES &&
+          maxYear - (lastSeen[key] || 0) >= OVERDUE_MIN_GAP_YEARS,
       )
       .sort((a, b) => lastSeen[a[0]] - lastSeen[b[0]])
-      .slice(0, 6)
+      .slice(0, CARD_TOP_N)
       .map(([key, count]) => ({ topic: key, count, last: lastSeen[key] }));
   }, [exams, excludedTopics, maxYear]);
 
   const recentTrend = useMemo(() => {
     const counts = {};
     let total = 0;
-    exams.filter((e) => e.year >= trendFromYear).forEach((exam) =>
-      exam.questions.forEach((q) => {
-        questionTopics(q).forEach((t) => {
-          if (excludedTopics.has(t)) return;
-          counts[t] = (counts[t] || 0) + 1;
-          total++;
-        });
-      }),
-    );
+    exams
+      .filter((e) => e.year >= trendFromYear)
+      .forEach((exam) =>
+        exam.questions.forEach((q) => {
+          questionTopics(q).forEach((t) => {
+            if (excludedTopics.has(t)) return;
+            counts[t] = (counts[t] || 0) + 1;
+            total++;
+          });
+        }),
+      );
     return {
       entries: Object.entries(counts)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 6),
+        .slice(0, CARD_TOP_N),
       total,
     };
   }, [exams, trendFromYear, excludedTopics]);
 
+  const rareTopics = useMemo(
+    () =>
+      sortedTopics
+        .filter(([, count]) => count <= RARE_MAX_COUNT)
+        .slice(0, CARD_TOP_N),
+    [sortedTopics],
+  );
+
+  const hasTrend = maxYear >= trendFromYear && recentTrend.total > 0;
+
   if (!exams.length) return <div className="empty-state">אין נתונים</div>;
+
+  const hasAnyContent =
+    sortedTopics.length > 0 ||
+    traps.length > 0 ||
+    hasTrend ||
+    overdueTopics.length > 0 ||
+    rareTopics.length > 0;
+
+  if (!hasAnyContent) return <div className="empty-state">אין נתונים</div>;
 
   return (
     <div className="auto-grid">
-      <div className="ui-card">
-        <CardTitle emoji="🔥" title="חובה ללמוד" sub="לחץ על נושא לחיפוש שאלות" />
-        {sortedTopics.slice(0, 6).map(([key, count]) => {
-          const examCount = exams.filter(
-            (exam) => stats.examTopics[exam.code][key],
-          ).length;
-          return (
-            <InsightRow key={key} onClick={() => nav(key)} hoverBg={`${pri}12`}>
-              <div className="insight-item">
-                <Badge>{count}</Badge>
-                <div>
-                  <div className="topic-title" style={{ color: pri }}>
-                    {topicHe[key]}
-                  </div>
-                  <div className="topic-sub">
-                    {examCount}/{exams.length} מבחנים ·{" "}
-                    {Math.round((examCount / exams.length) * 100)}%
-                  </div>
-                </div>
-              </div>
-            </InsightRow>
-          );
-        })}
-      </div>
-
-      <div className="ui-card">
-        <CardTitle
-          emoji="⚠️"
-          title="מלכודות חוזרות"
-          sub="שאלות כמעט זהות שחזרו מספר פעמים"
+      {sortedTopics.length > 0 && (
+        <TopTopicsCard
+          sortedTopics={sortedTopics}
+          exams={exams}
+          stats={stats}
+          topicHe={topicHe}
+          accent={accent}
+          onTopicClick={setSearchTopic}
         />
-        {traps.map((trap, i) => (
-          <InsightRow
-            key={i}
-            onClick={() => setOpenTrap(openTrap === i ? null : i)}
-            hoverBg={`${pri}0d`}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-              <div className="topic-title" style={{ color: pri, flex: 1 }}>
-                <MathText>{trap.t}</MathText>
-              </div>
-              <span style={{ color: COLORS_UI.muted, fontSize: 12, flexShrink: 0, marginTop: 2 }}>
-                {openTrap === i ? "▲" : "▼"}
-              </span>
-            </div>
-            {openTrap === i && (
-              <div
-                className="topic-sub"
-                style={{ marginTop: 8, paddingTop: 8, borderTop: `1px solid ${COLORS_UI.rowDivider}` }}
-              >
-                <MathText>{trap.n}</MathText>
-              </div>
-            )}
-          </InsightRow>
-        ))}
-      </div>
-
-      <div className="ui-card">
-        <CardTitle
-          emoji="📈"
-          title={`טרנד ${trendFromYear}–${maxYear}`}
-          sub="לחץ על נושא לחיפוש שאלות"
+      )}
+      {traps.length > 0 && <TrapsCard traps={traps} accent={accent} />}
+      {hasTrend && (
+        <TrendCard
+          recentTrend={recentTrend}
+          trendFromYear={trendFromYear}
+          maxYear={maxYear}
+          topicHe={topicHe}
+          accent={accent}
+          onTopicClick={setSearchTopic}
         />
-        {recentTrend.entries.map(([key, count]) => (
-          <InsightRow key={key} onClick={() => nav(key)} hoverBg={`${pri}12`}>
-            <div className="insight-item">
-              <Badge>{count}</Badge>
-              <div>
-                <div className="topic-title">{topicHe[key]}</div>
-                <div className="topic-sub">
-                  {Math.round((count / recentTrend.total) * 100)}% מהשאלות
-                </div>
-              </div>
-            </div>
-          </InsightRow>
-        ))}
-      </div>
-
-      <div className="ui-card">
-        <CardTitle emoji="🎯" title="צפוי לבוא" sub="לחץ על נושא לחיפוש שאלות" />
-        {overdueTopics.length === 0 ? (
-          <div className="topic-sub" style={{ fontStyle: "italic" }}>אין נושאים כאלה</div>
-        ) : (
-          overdueTopics.map(({ topic, count, last }) => (
-            <InsightRow key={topic} onClick={() => nav(topic)} hoverBg={`${pri}12`}>
-              <div className="insight-item">
-                <Badge bg={pri}>{count}×</Badge>
-                <div>
-                  <div className="topic-title">{topicHe[topic] || topic}</div>
-                  <div className="topic-sub">
-                    נראה לאחרונה {last} · {maxYear - last} שנים ללא הופעה
-                  </div>
-                </div>
-              </div>
-            </InsightRow>
-          ))
-        )}
-      </div>
-
-      <div className="ui-card">
-        <CardTitle emoji="❄️" title="פחות שכיח" sub="לחץ על נושא לחיפוש שאלות" />
-        {sortedTopics
-          .filter(([, count]) => count <= 3)
-          .slice(0, 6)
-          .map(([key, count]) => {
-            const examCount = exams.filter(
-              (exam) => stats.examTopics[exam.code][key],
-            ).length;
-            return (
-              <InsightRow key={key} onClick={() => nav(key)} hoverBg={`${pri}12`}>
-                <div className="insight-item">
-                  <Badge bg={COLORS_UI.barBg} color={COLORS_UI.text}>{count}</Badge>
-                  <div>
-                    <div className="topic-title">{topicHe[key]}</div>
-                    <div className="topic-sub">ב-{examCount} מבחנים בלבד</div>
-                  </div>
-                </div>
-              </InsightRow>
-            );
-          })}
-      </div>
+      )}
+      {overdueTopics.length > 0 && (
+        <OverdueTopicsCard
+          overdueTopics={overdueTopics}
+          maxYear={maxYear}
+          topicHe={topicHe}
+          accent={accent}
+          onTopicClick={setSearchTopic}
+        />
+      )}
+      {rareTopics.length > 0 && (
+        <RareTopicsCard
+          rareTopics={rareTopics}
+          exams={exams}
+          stats={stats}
+          topicHe={topicHe}
+          accent={accent}
+          onTopicClick={setSearchTopic}
+        />
+      )}
     </div>
   );
 }
