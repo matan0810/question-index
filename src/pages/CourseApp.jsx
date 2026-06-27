@@ -13,7 +13,7 @@ import {
 import { Header, FormatBanner, TabBar, Footer, ScrollProgress } from "../components";
 import { Overview, Heatmap, ExamsTab, SearchTab, Insights } from "../tabs";
 import { useCourse } from "../context/CourseContext";
-import { examTotals } from "../utils/exam";
+import { examTotals } from "../utils";
 
 export default function CourseApp() {
   const {

@@ -3,13 +3,13 @@ import {
   examMatchesLecturer,
   buildLecturersList,
   examYears,
-  sortExams,
   latestExamYear,
+  sortExams,
   questionTopics,
   questionTypes,
   questionInSyllabus,
   makeTopicOrder,
-} from "../utils/exam";
+} from "../utils";
 
 // isDone and hasLabel are stable refs (see useProgress/useLabels).
 // doneVersion / labelsVersion are integer counters that increment on every

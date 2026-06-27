@@ -1,5 +1,5 @@
 import Chip, { useTypeHelpers } from "../ui/Chip";
-import { questionTypes } from "../../utils/exam";
+import { questionTypes } from "../../utils";
 
 // The classifier chips shown for every question: the course-topic chapter
 // (colored, "פרק X") and one chip per question type. A multi-part question

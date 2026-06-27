@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { COLORS_UI, primaryColor } from "../../styles";
 import { CardTitle } from "../../components";
-import { computeYearTopics, getTopTopics } from "./chartUtils";
+import { computeYearTopics, getTopTopics } from "../../utils";
 import TopicButtons from "./TopicButtons";
 import TrendsChart from "./TrendsChart";
 import TrendsLegend from "./TrendsLegend";

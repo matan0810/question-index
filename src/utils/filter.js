@@ -1,4 +1,5 @@
-import { examMatchesLecturer, sortExams } from "../../utils/exam";
+import { examMatchesLecturer } from "./lecturers";
+import { sortExams } from "./sorting";
 
 // The lowercased text blob a free-text query is matched against: code, year,
 // moed, lecturers and every question's summary + topics.
@@ -42,9 +43,4 @@ export function filterAndSortExams(exams, filters) {
   });
 
   return sortExams(pool, sortBy, sortDir);
-}
-
-// Total questions across a list of exams — used for the result-count badge.
-export function countQuestions(exams) {
-  return exams.reduce((sum, exam) => sum + exam.questions.length, 0);
 }

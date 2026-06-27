@@ -1,6 +1,6 @@
 import Chip from "../../ui/Chip";
 import { COLORS_UI, FONTS } from "../../../styles";
-import { examLecturerLabel, examSemesterLabel } from "../../../utils/exam";
+import { examLecturerLabel, examSemesterLabel } from "../../../utils";
 
 export default function ExamHeader({ exam, isLatest, pri }) {
   return (

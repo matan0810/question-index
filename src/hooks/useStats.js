@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { questionTopics, questionTypes } from "../utils/exam";
+import { questionTopics, questionTypes } from "../utils";
 
 export function useStats(exams) {
   return useMemo(() => {

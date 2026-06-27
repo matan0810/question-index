@@ -1,6 +1,6 @@
 import { useTypeHelpers, SortControls } from "../../components";
 import { inp, clearBtn, countBadge, primaryColor, toggleChip } from "../../styles";
-import { MOED_OPTIONS, SEMESTER_OPTIONS } from "../../utils/exam";
+import { MOED_OPTIONS, SEMESTER_OPTIONS } from "../../utils";
 
 const PROGRESS_OPTIONS = [
   { value: "done",   label: "✓ בוצע" },

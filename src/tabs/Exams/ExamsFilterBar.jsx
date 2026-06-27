@@ -1,6 +1,6 @@
 import { SortControls } from "../../components";
 import { inp, clearBtn, countBadge, FONTS } from "../../styles";
-import { MOED_OPTIONS, SEMESTER_OPTIONS } from "../../utils/exam";
+import { MOED_OPTIONS, SEMESTER_OPTIONS } from "../../utils";
 
 export default function ExamsFilterBar({
   queryFilter,

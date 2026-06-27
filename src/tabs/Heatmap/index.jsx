@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { COLORS_UI, blendHex, darkenHex, primaryColor } from "../../styles";
 import { CardTitle } from "../../components";
 import { useTheme } from "../../context/ThemeContext";
-import { makeTopicOrder } from "../../utils/exam";
+import { makeTopicOrder } from "../../utils";
 import Trends from "../Trends";
 import HeatmapTable from "./HeatmapTable";
 import HeatmapLegend from "./HeatmapLegend";

@@ -1,5 +1,5 @@
 import { primaryColor } from "../../../styles";
-import { questionTopics } from "../../../utils/exam";
+import { questionTopics } from "../../../utils";
 import ProgressWidget from "./ProgressWidget";
 import GlobalFilters from "./GlobalFilters";
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useUrlParam } from "./useUrlParam";
-import { examMatchesLecturer, buildLecturersList, examYears } from "../utils/exam";
+import { examMatchesLecturer, buildLecturersList, examYears } from "../utils";
 
 // URL value for activeYearFrom meaning "all years". Written (instead of deleting
 // the param) when the user clears the year filter, so the per-course default

@@ -1,6 +1,6 @@
 import MathText from "./MathText";
 import { COLORS_UI } from "../../styles";
-import { splitSummaryParts } from "../../utils/exam";
+import { splitSummaryParts } from "../../utils";
 
 export default function QuestionSummary({ summary }) {
   const parsed = splitSummaryParts(summary);

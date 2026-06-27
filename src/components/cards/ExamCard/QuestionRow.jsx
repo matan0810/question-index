@@ -5,7 +5,7 @@ import { ExcludedMark, strikeIfExcluded } from "../../question/ExcludedTag";
 import StudyControls from "../../question/StudyControls";
 import QuestionSummary from "../../question/QuestionSummary";
 import { COLORS_UI, FONTS } from "../../../styles";
-import { questionExamPartName, questionDisplayNumber } from "../../../utils/exam";
+import { questionExamPartName, questionDisplayNumber } from "../../../utils";
 
 export default function QuestionRow({
   q,

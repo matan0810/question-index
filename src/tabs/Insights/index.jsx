@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { primaryColor } from "../../styles";
-import { questionTopics } from "../../utils/exam";
+import { questionTopics } from "../../utils";
 import {
   CARD_TOP_N,
   RARE_MAX_COUNT,

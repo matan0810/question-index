@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { normalizeLecturer, latestExamYear } from "../utils/exam";
+import { latestExamYear } from "../utils";
 
 // Presentation data tied to the globally-latest exam, independent of any active
 // filter — so the format banner and "המבחן שלך!" badge always reflect the
@@ -22,7 +22,7 @@ export function useExamFormat(exams, examFormat) {
       ...examFormat,
       latestSession: `${latestExam.year} מועד ${latestExam.moed}`,
       latestDate: latestExam.date ?? "",
-      lecturer: latestExam.lecturers?.map(normalizeLecturer).join(" · ") ?? "",
+      lecturer: latestExam.lecturers?.join(" · ") ?? "",
     };
   }, [examFormat, latestExam]);
 

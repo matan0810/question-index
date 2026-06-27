@@ -2,9 +2,14 @@ import { useMemo } from "react";
 import { ShowMore, ExamCard } from "../../components";
 import { usePagination } from "../../hooks";
 import { COLORS_UI, primaryColor } from "../../styles";
-import { buildLecturersList, examYears, latestExamYear } from "../../utils/exam";
+import {
+  buildLecturersList,
+  examYears,
+  latestExamYear,
+  countQuestions,
+  filterAndSortExams,
+} from "../../utils";
 import { PAGE_SIZE, DEFAULT_SORT_BY, DEFAULT_SORT_DIR } from "./constants";
-import { filterAndSortExams, countQuestions } from "./filtering";
 import ExamsFilterBar from "./ExamsFilterBar";
 
 export default function ExamsTab({

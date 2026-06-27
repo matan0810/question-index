@@ -1,6 +1,6 @@
 import { COLORS_UI } from "../../styles";
 import { ExcludedTag, excludedRowStyle } from "../../components";
-import { examShortLabel, examSemesterLabel } from "../../utils/exam";
+import { examShortLabel, examSemesterLabel } from "../../utils";
 
 export default function HeatmapTable({
   sortedTopics,

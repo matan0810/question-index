@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { hexToRgb, rgbToHex, blendHex, darkenHex } from "./colorUtils";
+import { hexToRgb, rgbToHex, blendHex, darkenHex } from "../colorUtils";
 
 describe("hexToRgb", () => {
   it("parses a hex color into RGB components", () => {

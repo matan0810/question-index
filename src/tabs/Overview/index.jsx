@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Bar, CardTitle, useTypeHelpers } from "../../components";
 import { COLORS_UI } from "../../styles";
-import { questionTopics } from "../../utils/exam";
+import { questionTopics } from "../../utils";
 import { TOPICS_INITIAL } from "./constants";
 import ShowMoreControls from "./ShowMoreControls";
 import ExcludedSection from "./ExcludedSection";

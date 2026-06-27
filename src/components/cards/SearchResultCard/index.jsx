@@ -11,7 +11,7 @@ import {
   examSemesterLabel,
   questionExamPartName,
   questionDisplayNumber,
-} from "../../../utils/exam";
+} from "../../../utils";
 
 function SearchResultCard({
   exam,
