@@ -7,3 +7,5 @@ export { usePagination } from "./usePagination";
 export { useTabNavigation } from "./useTabNavigation";
 export { useExamFilters } from "./useExamFilters";
 export { useSearchFilters } from "./useSearchFilters";
+export { useGlobalFilters } from "./useGlobalFilters";
+export { useExamFormat } from "./useExamFormat";

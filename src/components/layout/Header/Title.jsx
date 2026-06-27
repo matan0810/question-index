@@ -1,13 +1,11 @@
 import { FONTS, primaryColor } from "../../../styles";
-import { ALL_YEARS } from "./constants";
 import FilterChip from "./FilterChip";
 
 // Human-readable label for the active year range, or null when no year filter
-// is set. "from" is ignored when it holds the ALL_YEARS sentinel.
+// is set. activeYearFrom is already "" when there is no from-year.
 function yearRangeLabel(activeYearFrom, activeYearTo) {
-  const hasFrom = activeYearFrom && activeYearFrom !== ALL_YEARS;
-  if (hasFrom && activeYearTo) return `${activeYearFrom}–${activeYearTo}`;
-  if (hasFrom) return `משנה ${activeYearFrom}`;
+  if (activeYearFrom && activeYearTo) return `${activeYearFrom}–${activeYearTo}`;
+  if (activeYearFrom) return `משנה ${activeYearFrom}`;
   if (activeYearTo) return `עד ${activeYearTo}`;
   return null;
 }

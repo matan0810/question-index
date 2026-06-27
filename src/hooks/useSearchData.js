@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import {
   examMatchesLecturer,
   buildLecturersList,
+  examYears,
   sortExams,
   latestExamYear,
   questionTopics,
@@ -51,10 +52,7 @@ export function useSearchData(
     return [...present].sort(makeTopicOrder(topicHe));
   }, [exams, topicHe]);
 
-  const years = useMemo(
-    () => [...new Set(exams.map((e) => e.year))].sort(),
-    [exams],
-  );
+  const years = useMemo(() => examYears(exams), [exams]);
 
   const lecturers = useMemo(() => buildLecturersList(exams), [exams]);
 

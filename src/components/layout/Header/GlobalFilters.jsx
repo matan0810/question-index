@@ -1,5 +1,4 @@
 import FilterSelect from "./FilterSelect";
-import { ALL_YEARS } from "./constants";
 
 // The global filter row: year-from, year-to and lecturer dropdowns. Each one
 // only renders when there is more than one value to choose from. The year
@@ -34,8 +33,8 @@ export default function GlobalFilters({
       {hasYears && (
         <FilterSelect
           label="משנה"
-          value={activeYearFrom === ALL_YEARS ? "" : activeYearFrom}
-          onChange={(v) => setActiveYearFrom(v || ALL_YEARS)}
+          value={activeYearFrom}
+          onChange={setActiveYearFrom}
           options={yearOptions((y) => !activeYearTo || y <= parseInt(activeYearTo))}
           allLabel="תחילה"
           accent={accent}

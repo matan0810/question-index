@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { ShowMore, ExamCard } from "../../components";
 import { usePagination } from "../../hooks";
 import { COLORS_UI, primaryColor } from "../../styles";
-import { buildLecturersList } from "../../utils/exam";
+import { buildLecturersList, examYears, latestExamYear } from "../../utils/exam";
 import { PAGE_SIZE, DEFAULT_SORT_BY, DEFAULT_SORT_DIR } from "./constants";
 import { filterAndSortExams, countQuestions } from "./filtering";
 import ExamsFilterBar from "./ExamsFilterBar";
@@ -44,19 +44,12 @@ export default function ExamsTab({
   const accent = primaryColor(colorsUI);
   const secondary = colorsUI?.secondary ?? COLORS_UI.secondary;
 
-  const years = useMemo(
-    () => [...new Set(exams.map((e) => e.year))].sort(),
-    [exams],
-  );
+  const years = useMemo(() => examYears(exams), [exams]);
   const lecturers = useMemo(() => buildLecturersList(exams), [exams]);
 
   // Prefer the globally-computed latest year so "hide latest" and "המבחן שלך!"
   // stay consistent regardless of which years are currently filtered.
-  const filteredLatestYear = useMemo(
-    () => (exams.length ? Math.max(...exams.map((e) => e.year)) : null),
-    [exams],
-  );
-  const latestYear = globalLatestYear ?? filteredLatestYear;
+  const latestYear = globalLatestYear ?? latestExamYear(exams);
 
   const effectiveSortBy = sortBy || DEFAULT_SORT_BY;
   const effectiveSortDir = sortDir || DEFAULT_SORT_DIR;
