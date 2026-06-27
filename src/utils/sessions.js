@@ -4,11 +4,15 @@
 export const MOED_OPTIONS = [
   { value: "א", label: "מועד א" },
   { value: "ב", label: "מועד ב" },
+  { value: "ג", label: "מועד ג" },
+  { value: "מיוחד", label: "מועד מיוחד" },
 ];
 
-// Chronological order of the real exam sessions within a year. Any session not
+// Chronological order derived from MOED_OPTIONS position. Any session not
 // listed here (e.g. a mislabeled "sample") is treated as exceptional.
-export const MOED_ORDER = { א: 0, ב: 1, ג: 2 };
+export const MOED_ORDER = Object.fromEntries(
+  MOED_OPTIONS.map((o, i) => [o.value, i]),
+);
 
 export const isExceptionalMoed = (moed) => !(moed in MOED_ORDER);
 
@@ -17,12 +21,15 @@ export const isExceptionalMoed = (moed) => !(moed in MOED_ORDER);
 // after a spring term), sometimes sharing a מועד. The `semester` field is the
 // source of truth; helpers here and in sorting.js let labels and sorting
 // tell the two apart.
-export const SEMESTER_HE = { winter: "חורף", spring: "אביב", summer: "קיץ" };
 export const SEMESTER_OPTIONS = [
   { value: "winter", label: "חורף" },
   { value: "spring", label: "אביב" },
   { value: "summer", label: "קיץ" },
+  { value: "annual", label: "שנתי" },
 ];
+export const SEMESTER_HE = Object.fromEntries(
+  SEMESTER_OPTIONS.map((o) => [o.value, o.label]),
+);
 export const examSemesterLabel = (exam) => SEMESTER_HE[exam.semester] ?? "";
 
 // Compact label for axes/columns. Winter is marked "ח".

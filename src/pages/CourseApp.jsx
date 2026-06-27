@@ -21,7 +21,6 @@ export default function CourseApp() {
     CHAPTERS,
     EXCLUDED_TOPICS,
     TREND_FROM_YEAR,
-    DEFAULT_YEAR_FROM,
     TRAPS,
     EXAM_FORMAT,
     TOPIC_HE,
@@ -68,7 +67,7 @@ export default function CourseApp() {
     displayExams,
     lecturers,
     years,
-  } = useGlobalFilters(searchParams, setSearchParams, EXAMS, DEFAULT_YEAR_FROM);
+  } = useGlobalFilters(searchParams, setSearchParams, EXAMS);
 
   // Per-tab filter/sort state, spread straight onto each tab.
   const examFilters = useExamFilters(searchParams, setSearchParams);

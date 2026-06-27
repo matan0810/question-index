@@ -37,6 +37,6 @@ export default function App() {
 }
 
 // TODO:
-// - Finish Discrete Mathematics course, verify it much better.
+// - Finish Discrete Mathematics course, verify it much better. ולוודא סילבוס ומלכוודות
 // - update infi to the new format, of algebra
 // - add unitests

@@ -64,6 +64,7 @@ export const TOPIC_HE = {
   degree_sequence: 'דרגות וסדרת דרגות',
   connectivity: 'רכיבי קשירות',
   trees: 'עצים',
+  prufer_sequence: 'רצף פרופר ומנייה עצים',
   bipartite: 'גרפים דו-צדדיים',
   planar_graph: 'גרפים מישוריים',
   euler_formula: 'נוסחת אוילר ופאונים',
@@ -71,7 +72,8 @@ export const TOPIC_HE = {
   hamilton_path: 'מעגלי המילטון',
   matching: 'זיווגים בגרפים',
   halls_theorem: 'משפט הול',
-  doubly_stochastic: 'מטריצות דו-סטוכסטיות',
+  ramsey: 'תורת רמזי',
+  graph_coloring: 'צביעת גרפים',
 
   // ── נושאים שאינם בסילבוס הנוכחי (EXCLUDED) ─────────────────
   divisibility: 'חלוקה ומחלק משותף',
@@ -79,8 +81,6 @@ export const TOPIC_HE = {
   euler_phi: 'פונקציית אוילר φ ומספרים זרים',
   modular_arithmetic: 'חשבון מודולרי',
   generating_functions: 'פונקציות יוצרות',
-  ramsey: 'תורת רמזי',
-  graph_coloring: 'צביעת גרפים',
   stable_matching: 'שידוכים יציבים',
 };
 
