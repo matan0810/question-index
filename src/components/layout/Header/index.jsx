@@ -3,6 +3,14 @@ import TopRow from "./TopRow";
 import Title from "./Title";
 import Stats from "./Stats";
 
+const wrapperStyle = {
+  borderTop: `4px solid ${COLORS_UI.dark}`,
+  borderBottom: `1px solid ${COLORS_UI.dark}`,
+  paddingTop: 6,
+  paddingBottom: 20,
+  marginBottom: 20,
+};
+
 export default function Header({
   course,
   exams,
@@ -20,18 +28,11 @@ export default function Header({
   setActiveYearFrom,
   activeYearTo,
   setActiveYearTo,
+  clearYearFilter,
   years,
 }) {
   return (
-    <div
-      style={{
-        borderTop: `4px solid ${COLORS_UI.dark}`,
-        borderBottom: `1px solid ${COLORS_UI.dark}`,
-        paddingTop: 6,
-        paddingBottom: 20,
-        marginBottom: 20,
-      }}
-    >
+    <div style={wrapperStyle}>
       <TopRow
         course={course}
         colorsUI={colorsUI}
@@ -43,6 +44,9 @@ export default function Header({
         colorsUI={colorsUI}
         activeLecturer={activeLecturer}
         setActiveLecturer={setActiveLecturer}
+        activeYearFrom={activeYearFrom}
+        activeYearTo={activeYearTo}
+        clearYearFilter={clearYearFilter}
       />
       <Stats
         exams={exams}

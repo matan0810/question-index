@@ -1,7 +1,30 @@
-import { COLORS_UI, FONTS, primaryColor } from "../../../styles";
+import { FONTS, primaryColor } from "../../../styles";
+import { ALL_YEARS } from "./constants";
+import FilterChip from "./FilterChip";
 
-export default function Title({ course, colorsUI, activeLecturer, setActiveLecturer }) {
-  const pri = primaryColor(colorsUI);
+// Human-readable label for the active year range, or null when no year filter
+// is set. "from" is ignored when it holds the ALL_YEARS sentinel.
+function yearRangeLabel(activeYearFrom, activeYearTo) {
+  const hasFrom = activeYearFrom && activeYearFrom !== ALL_YEARS;
+  if (hasFrom && activeYearTo) return `${activeYearFrom}–${activeYearTo}`;
+  if (hasFrom) return `משנה ${activeYearFrom}`;
+  if (activeYearTo) return `עד ${activeYearTo}`;
+  return null;
+}
+
+export default function Title({
+  course,
+  colorsUI,
+  activeLecturer,
+  setActiveLecturer,
+  activeYearFrom,
+  setActiveYearFrom,
+  activeYearTo,
+  setActiveYearTo,
+  clearYearFilter,
+}) {
+  const accent = primaryColor(colorsUI);
+  const yearLabel = yearRangeLabel(activeYearFrom, activeYearTo);
 
   return (
     <>
@@ -14,41 +37,25 @@ export default function Title({ course, colorsUI, activeLecturer, setActiveLectu
           letterSpacing: "-0.03em",
         }}
       >
-        מדד שאלות{" "}
-        <span style={{ color: pri }}>{course.shortName}</span>
+        מדד שאלות <span style={{ color: accent }}>{course.shortName}</span>
       </div>
 
+      {yearLabel && (
+        <FilterChip
+          label={`שנים: ${yearLabel}`}
+          onClear={clearYearFilter}
+          clearTitle="הסר סינון שנים"
+          accent={accent}
+        />
+      )}
+
       {activeLecturer && (
-        <div
-          style={{
-            marginTop: 8,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            background: `${pri}12`,
-            border: `1px solid ${pri}44`,
-            padding: "4px 12px",
-            fontSize: 12,
-            color: COLORS_UI.text,
-          }}
-        >
-          <span style={{ fontWeight: 600 }}>מרצה: {activeLecturer}</span>
-          <button
-            onClick={() => setActiveLecturer("")}
-            title="הסר סינון מרצה"
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              color: COLORS_UI.muted,
-              fontSize: 15,
-              lineHeight: 1,
-              padding: "0 2px",
-            }}
-          >
-            ×
-          </button>
-        </div>
+        <FilterChip
+          label={`מרצה: ${activeLecturer}`}
+          onClear={() => setActiveLecturer("")}
+          clearTitle="הסר סינון מרצה"
+          accent={accent}
+        />
       )}
     </>
   );
