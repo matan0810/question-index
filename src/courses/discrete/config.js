@@ -9,6 +9,7 @@ export const COURSE = {
   shortName:  'דיסקרטית',
   number:     '80181',
   university: 'האוניברסיטה העברית בירושלים',
+  hidden:     true,
 };
 
 // Course identity color = CHAPTERS[0].color (green here) — distinct from

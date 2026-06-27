@@ -104,4 +104,4 @@ export const COURSE_REGISTRY = {
 };
 
 // Order on the home page follows insertion order in COURSE_REGISTRY above.
-export const COURSE_LIST = Object.values(COURSE_REGISTRY);
+export const COURSE_LIST = Object.values(COURSE_REGISTRY).filter((c) => !c.COURSE.hidden);
